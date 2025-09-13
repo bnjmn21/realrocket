@@ -3,11 +3,14 @@ package bnjmn21.realrocket.api.units;
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.api.units.quantities.Time;
 import bnjmn21.realrocket.util.HolderCodec;
+import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.core.Holder;
+
+import java.util.function.Function;
 
 abstract public class BaseUnit<Base extends BaseUnit<Base>> implements Unit<Base> {
     /**
@@ -44,7 +47,7 @@ abstract public class BaseUnit<Base extends BaseUnit<Base>> implements Unit<Base
 
         @Override
         public <T> DataResult<Pair<E, T>> decode(DynamicOps<T> ops, T input) {
-            return UnitValue.CODEC.codec().decode(ops, input).flatMap(unitValueResult -> {
+            return UnitValue.CODEC.decode(ops, input).flatMap(unitValueResult -> {
                 UnitValue unitValue = unitValueResult.getFirst();
                 return unitValue.type.get().tryConstruct(unitValue.value, this.unit)
                         .map(res -> DataResult.success(
@@ -58,15 +61,24 @@ abstract public class BaseUnit<Base extends BaseUnit<Base>> implements Unit<Base
 
         @Override
         public <T> DataResult<T> encode(E input, DynamicOps<T> ops, T prefix) {
-            return UnitValue.CODEC.codec().encode(new UnitValue(input.toBase().value, this.baseUnit), ops, prefix);
+            return UnitValue.CODEC.encode(new UnitValue(input.toBase().value, this.baseUnit), ops, prefix);
         }
     }
 
     record UnitValue(double value, Holder.Reference<BaseUnitType> type) {
-        static final MapCodec<UnitValue> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+        static final MapCodec<UnitValue> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) ->
                 instance.group(
                         Codec.DOUBLE.fieldOf("value").orElse(1.0).forGetter(UnitValue::value),
                         HolderCodec.create(RRRegistries.UNITS).fieldOf("type").forGetter(UnitValue::type)
                 ).apply(instance, UnitValue::new));
+
+        static final Codec<UnitValue> CODEC = Codec.either(HolderCodec.create(RRRegistries.UNITS), MAP_CODEC.codec())
+                .xmap(
+                        either -> either.map(
+                                v -> new UnitValue(1.0, v),
+                                Function.identity()
+                        ),
+                        Either::right
+                );
     }
 }

@@ -1,25 +1,25 @@
 package bnjmn21.realrocket.api.units;
 
-import bnjmn21.realrocket.api.RRRegistries;
-import bnjmn21.realrocket.util.HolderCodec;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import java.util.function.BiFunction;
 
 public abstract class DivUnit<A extends Unit<?>, B extends Unit<?>, Self extends DivUnit<A, B, Self>> implements Unit<Self> {
+
+    public static <A extends Unit<?>, B extends Unit<?>, Self extends DivUnit<A, B, Self>>
+            Codec<Self> createCodec(BiFunction<A, B, Self> constructor, Codec<A> a, Codec<B> b) {
+        return Codec.pair(a, b.fieldOf("per").codec()).xmap(
+                pair -> constructor.apply(pair.getFirst(), pair.getSecond()),
+                div -> Pair.of(div.a, div.b)
+        );
+    }
+
     public A a;
     public B b;
 
     public DivUnit(A a, B b) {
         this.a = a;
         this.b = b;
-    }
-
-    record DivValue(double value, Unit<?> a, Unit<?> b) {
-//        static final MapCodec<DivValue<A, B>> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-//                instance.group(
-//                        Codec.DOUBLE.fieldOf("value").forGetter(DivValue::value),
-//                        HolderCodec.create(RRRegistries.UNITS).fieldOf("type").forGetter(DivValue::type)
-//                ).apply(instance, DivValue::new));
     }
 }
