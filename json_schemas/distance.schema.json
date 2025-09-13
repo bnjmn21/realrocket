@@ -3,13 +3,22 @@
   "$id": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/distance.schema.json",
   "title": "Distance",
   "description": "A distance value",
-  "type": "object",
-  "properties": {
-    "value": {
-      "description": "The value",
-      "type": "number",
-      "default": 1
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The value",
+          "type": "number",
+          "default": 1
+        },
+        "type": { "$ref": "#/$defs/type" }
+      },
+      "required": ["type"]
     },
+    { "$ref": "#/$defs/type" }
+  ],
+  "$defs": {
     "type": {
       "enum": [
         "realrocket:meter",
@@ -19,6 +28,5 @@
         "realrocket:parsec"
       ]
     }
-  },
-  "required": ["type"]
+  }
 }

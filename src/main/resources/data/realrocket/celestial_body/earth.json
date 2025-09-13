@@ -1,3 +1,39 @@
 {
-  "$schema": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/celestial_body.schema.json"
+  "$schema": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/celestial_body.schema.json",
+  "body": {
+    "type": "realrocket:planet",
+    "min_temperature": { "type": "realrocket:celsius", "value": 15 },
+    "max_temperature": { "type": "realrocket:celsius", "value": 25 },
+    "atmosphere": "breathable",
+    "day": { "type": "realrocket:day", "value": 1 },
+    "level": "minecraft:overworld",
+    "radius": { "type": "realrocket:kilometer", "value": 6360 },
+    "marker": "gtceu:overworld_marker",
+    "shieldable_radiation_on_surface": {
+      "type": "realrocket:millisievert",
+      "value": 0.4,
+      "per": "realrocket:year"
+    },
+    "unshieldable_radiation_on_surface": {
+      "type": "realrocket:millisievert",
+      "value": 2,
+      "per": "realrocket:year"
+    },
+    "shieldable_radiation_in_orbit": {
+      "type": "realrocket:millisievert",
+      "value": 2,
+      "per": "realrocket:day"
+    },
+    "unshieldable_radiation_in_orbit": {
+      "type": "realrocket:millisievert",
+      "value": 0.25,
+      "per": "realrocket:hour"
+    }
+  },
+  "orbit": {
+    "parent": "realrocket:sun",
+    "min_radius": { "type": "realrocket:au", "value": 1},
+    "max_radius": { "type": "realrocket:au", "value": 1},
+    "year": { "type": "realrocket:year", "value": 1}
+  }
 }

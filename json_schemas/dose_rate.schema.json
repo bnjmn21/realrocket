@@ -3,10 +3,14 @@
   "$id": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/temperature.schema.json",
   "title": "Dose Rate",
   "description": "A dose rate value",
-  "type": "object",
-  "properties": {
-    "a": { "$ref": "dose.schema.json" },
-    "b": { "$ref": "time.schema.json" }
-  },
-  "required": ["type"]
+  "allOf": [
+    { "$ref": "dose.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "per": { "$ref": "time.schema.json" }
+      },
+      "required": ["per"]
+    }
+  ]
 }

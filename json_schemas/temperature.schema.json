@@ -3,13 +3,22 @@
   "$id": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/temperature.schema.json",
   "title": "Temperature",
   "description": "A temperature value",
-  "type": "object",
-  "properties": {
-    "value": {
-      "description": "The value",
-      "type": "number",
-      "default": 1
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The value",
+          "type": "number",
+          "default": 1
+        },
+        "type": { "$ref": "#/$defs/type" }
+      },
+      "required": ["type"]
     },
+    { "$ref": "#/$defs/type" }
+  ],
+  "$defs": {
     "type": {
       "enum": [
         "realrocket:kelvin",
@@ -17,6 +26,5 @@
         "realrocket:fahrenheit"
       ]
     }
-  },
-  "required": ["type"]
+  }
 }
