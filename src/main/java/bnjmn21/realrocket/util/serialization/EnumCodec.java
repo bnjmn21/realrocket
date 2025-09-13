@@ -1,4 +1,4 @@
-package bnjmn21.realrocket.util;
+package bnjmn21.realrocket.util.serialization;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -6,7 +6,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.Lifecycle;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

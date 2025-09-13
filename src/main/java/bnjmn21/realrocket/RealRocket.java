@@ -28,7 +28,6 @@ public class RealRocket {
     public static void init() {
         RRCreativeModeTabs.init();
         RRItems.init();
-        RRPlanets.init();
         Moon.init();
 
         RRRegistries.REGISTRATE.registerRegistrate();

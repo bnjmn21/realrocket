@@ -1,4 +1,4 @@
-package bnjmn21.realrocket.util;
+package bnjmn21.realrocket.util.serialization;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;

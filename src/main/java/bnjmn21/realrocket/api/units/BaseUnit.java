@@ -2,7 +2,7 @@ package bnjmn21.realrocket.api.units;
 
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.api.units.quantities.Time;
-import bnjmn21.realrocket.util.HolderCodec;
+import bnjmn21.realrocket.util.serialization.HolderCodec;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;

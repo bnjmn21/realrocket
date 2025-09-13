@@ -1,8 +1,7 @@
 package bnjmn21.realrocket.api;
 
 import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.planet.Planet;
-import bnjmn21.realrocket.api.planet.PlanetBuilder;
+import bnjmn21.realrocket.api.celestial_body.CelestialBodyType;
 import bnjmn21.realrocket.api.units.BaseUnitBuilder;
 import bnjmn21.realrocket.api.units.BaseUnitType;
 import bnjmn21.realrocket.util.Lazy;
@@ -12,13 +11,11 @@ import com.gregtechceu.gtceu.api.data.worldgen.IWorldGenLayer;
 import com.gregtechceu.gtceu.api.data.worldgen.SimpleWorldGenLayer;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.common.data.GTOres;
+import com.mojang.serialization.Codec;
 import com.tterrag.registrate.Registrate;
-import com.tterrag.registrate.providers.ProviderType;
-import com.tterrag.registrate.providers.RegistrateTagsProvider;
-import net.minecraft.core.registries.Registries;
+import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
@@ -35,19 +32,6 @@ import java.util.function.Supplier;
  * This requires some extra code to work with {@link IGTAddon}s, which is handled here.
  */
 public class RRRegistrate extends GTRegistrate {
-    public static final ProviderType<RegistrateTagsProvider.IntrinsicImpl<Block>> BIOME_TAGS = ProviderType.register(
-            "tags/biome",
-            type -> (p, e) ->
-                    new RegistrateTagsProvider.IntrinsicImpl<Block>(p, type,
-                            "biomes",
-                            e.getGenerator().getPackOutput(),
-                            Registries.BLOCK,
-                            e.getLookupProvider(),
-                            biome -> biome.builtInRegistryHolder().key(),
-                            e.getExistingFileHelper()
-                    )
-    );
-
     ArrayList<Consumer<Consumer<FinishedRecipe>>> recipeAdders = new ArrayList<>();
     ArrayList<Runnable> tagPrefixRegistrars = new ArrayList<>();
     ArrayList<Lazy<IWorldGenLayer>> worldGenLayers = new ArrayList<>();
@@ -61,16 +45,14 @@ public class RRRegistrate extends GTRegistrate {
         return new RRRegistrate(modId);
     }
 
-    public PlanetBuilder<Registrate> planet(String name) {
-        return entry(name, callback ->
-            new PlanetBuilder<>(this, this, name, callback, Planet::new)
-        );
-    }
-
     public BaseUnitBuilder<Registrate> baseUnit(String name, BaseUnitType unit) {
         return entry(name, callback ->
                 new BaseUnitBuilder<>(this, this, name, callback, unit)
         );
+    }
+
+    public RegistryEntry<Codec<? extends CelestialBodyType>> celestialBodyType(String name, Codec<? extends CelestialBodyType> unit) {
+        return simple(name, RRRegistries.CELESTIAL_BODY_TYPES, () -> unit);
     }
 
     public void addRecipes(Consumer<Consumer<FinishedRecipe>> recipeAdder) {
@@ -121,8 +103,6 @@ public class RRRegistrate extends GTRegistrate {
     }
 
     public void registerOreVeins() {
-        this.oreVeins.forEach(pair -> {
-            GTOres.create(pair.getA(), pair.getB());
-        });
+        this.oreVeins.forEach(pair -> GTOres.create(pair.getA(), pair.getB()));
     }
 }

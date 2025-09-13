@@ -1,8 +1,12 @@
 package bnjmn21.realrocket.api.units.quantities;
 
 import bnjmn21.realrocket.api.units.BaseUnit;
+import bnjmn21.realrocket.api.units.Units;
+import com.mojang.serialization.Codec;
 
 public abstract class Temperature extends BaseUnit<Temperature.Kelvin> {
+    public static final Codec<Temperature> CODEC = BaseUnit.createCodec(Temperature.class, Units.KELVIN);
+
     public Temperature(double value) {
         super(value);
     }
