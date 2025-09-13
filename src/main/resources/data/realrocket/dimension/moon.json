@@ -1,0 +1,11 @@
+{
+  "type": "realrocket:moon",
+  "generator": {
+    "type": "noise",
+    "settings": "realrocket:moon",
+    "biome_source": {
+      "type": "fixed",
+      "biome": "realrocket:the_moon"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "realrocket:random_craters",
+      "min_radius": 4.0,
+      "max_radius": 8.0,
+      "distance": 40,
+      "depth_factor": 3,
+      "noise": "realrocket:craters"
+    },
+    "argument2": {
+      "type": "realrocket:random_craters",
+      "min_radius": 8.0,
+      "max_radius": 30.0,
+      "distance": 80,
+      "depth_factor": 2,
+      "noise": "realrocket:craters"
+    }
+  },
+  "argument2": {
+    "type": "realrocket:random_craters",
+    "min_radius": 100.0,
+    "max_radius": 200.0,
+    "distance": 600,
+    "depth_factor": 2,
+    "noise": "realrocket:craters"
+  }
+}

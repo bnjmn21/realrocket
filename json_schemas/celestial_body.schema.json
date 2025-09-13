@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/celestial_body.schema.json",
+  "title": "Celestial Body",
+  "description": "A celestial body that can be a planet, sun, black hole, etc.",
+  "type": "object",
+  "properties": {
+    "body": {
+      "description": "the celestial body",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "realrocket:planet"
+            },
+            "level": {
+              "description": "the dimension (a resource location)",
+              "type": "string"
+            },
+            "atmosphere": {
+              "description": "how breathable the atmosphere is, unset means there is no atmosphere.",
+              "enum": ["unbreathable", "filterable", "breathable"]
+            },
+            "min_temperature": {
+              "description": "temperature at midnight",
+              "$ref": "temperature.schema.json"
+            },
+            "max_temperature": {
+              "description": "temperature at daytime",
+              "$ref": "temperature.schema.json"
+            },
+            "shieldable_radiation_on_surface": {
+              "description": "nullified when the player isn't in direct sunlight",
+              "$ref": "dose_rate.schema.json"
+            },
+            "unshieldable_radiation_on_surface": {
+              "description": "always applies",
+              "$ref": "dose_rate.schema.json"
+            },
+            "shieldable_radiation_in_orbit": {
+              "description": "nullified when the player isn't in direct sunlight",
+              "$ref": "dose_rate.schema.json"
+            },
+            "unshieldable_radiation_in_orbit": {
+              "description": "always applies",
+              "$ref": "dose_rate.schema.json"
+            },
+            "day": {
+              "description": "how long one rotation around its axis takes",
+              "$ref": "time.schema.json"
+            },
+            "radius": {
+              "description": "determines how large it looks from other planets",
+              "$ref": "distance.schema.json"
+            },
+            "marker": {
+              "description": "icon for use in GUIs (a resource location)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type", "min_temperature", "max_temperature", "shieldable_radiation_on_surface", "day", "radius", "marker",
+            "unshieldable_radiation_on_surface", "shieldable_radiation_in_orbit", "unshieldable_radiation_in_orbit"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "realrocket:star"
+            },
+            "color": {
+              "description": "an RGB hex color as an integer",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 16777215
+            },
+            "radius": {
+              "description": "determines how large it looks from other planets",
+              "$ref": "distance.schema.json"
+            }
+          },
+          "required": ["type", "color", "radius"]
+        }
+      ]
+    },
+    "orbit": {
+      "description": "its orbit around its parent, when unset means it has no parent",
+      "type": "object",
+      "properties": {
+        "parent": {
+          "description": "the body's parent body (a resource location). E.g. the moon's parent would be \"realrocket:earth\"",
+          "type": "string"
+        },
+        "min_radius": {
+          "description": "also known as periapsis, the closest distance between this body and it's parent. For perfectly circular orbits, this is the same as \"max_radius\"",
+          "$ref": "distance.schema.json"
+        },
+        "max_radius": {
+          "description": "also known as apoapsis, the furthest distance between this body and it's parent. For perfectly circular orbits, this is the same as \"min_radius\"",
+          "$ref": "distance.schema.json"
+        },
+        "year": {
+          "description": "how long one orbit takes",
+          "$ref": "time.schema.json"
+        },
+        "angle": {
+          "description": "in radians, for map view, determines the angle of ellipse that describes the orbit. Can be unset / 0 for most orbits",
+          "type": "number",
+          "default": 0
+        }
+      },
+      "required": ["parent", "min_radius", "max_radius", "year"]
+    }
+  },
+  "required": ["body"]
+}

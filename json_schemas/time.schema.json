@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/time.schema.json",
+  "title": "Time",
+  "description": "A time value",
+  "type": "object",
+  "properties": {
+    "value": {
+      "description": "The value",
+      "type": "number",
+      "default": 1
+    },
+    "type": {
+      "enum": [
+        "realrocket:second",
+        "realrocket:minute",
+        "realrocket:hour",
+        "realrocket:day",
+        "realrocket:month",
+        "realrocket:year"
+      ]
+    }
+  },
+  "required": ["type"]
+}

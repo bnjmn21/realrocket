@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/dose.schema.json",
+  "title": "Dose",
+  "description": "A dose value",
+  "type": "object",
+  "properties": {
+    "value": {
+      "description": "The value",
+      "type": "number",
+      "default": 1
+    },
+    "type": {
+      "enum": [
+        "realrocket:sievert",
+        "realrocket:millisievert",
+        "realrocket:microsievert"
+      ]
+    }
+  },
+  "required": ["type"]
+}

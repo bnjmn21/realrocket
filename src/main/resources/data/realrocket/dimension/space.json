@@ -1,0 +1,11 @@
+{
+  "type": "realrocket:space",
+  "generator": {
+    "type": "flat",
+    "settings": {
+      "layers": [],
+      "biome": "realrocket:space",
+      "structure_overrides": []
+    }
+  }
+}

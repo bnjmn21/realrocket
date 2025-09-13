@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:interpolated",
+    "argument": {
+      "type": "minecraft:flat_cache",
+      "argument": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": 4,
+          "argument2": {
+            "type": "minecraft:noise",
+            "noise": "realrocket:smooth",
+            "xz_scale": 1,
+            "y_scale": 0
+          }
+        },
+        "argument2": "realrocket:moon/layered_craters"
+      }
+    }
+  },
+  "argument2": {
+    "type": "y_clamped_gradient",
+    "from_value": 60,
+    "to_value": -60,
+    "from_y": 20,
+    "to_y": 140
+  }
+}

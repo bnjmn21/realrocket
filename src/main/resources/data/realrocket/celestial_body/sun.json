@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/celestial_body.schema.json",
+  "body": {
+    "type": "realrocket:star",
+    "color": 16635959,
+    "radius": {
+      "value": 696340,
+      "type": "realrocket:kilometer"
+    }
+  }
+}
