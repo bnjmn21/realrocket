@@ -1,0 +1,60 @@
+{
+  "multipart": [
+    {
+      "when": { "nose": "true" },
+      "apply": {
+        "model": "realrocket:block/booster_tank_nose",
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "when": { "AND": [{ "aft": "true" }, { "nose": "false" }] },
+      "apply": {
+        "model": "realrocket:block/booster_tank_aft",
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "when": { "AND": [{ "aft": "false" }, { "nose": "false" }] },
+      "apply": {
+        "model": "realrocket:block/booster_tank",
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "when": { "connect_north": "true" },
+      "apply": {
+        "model": "realrocket:block/booster_tank_separator",
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "when": { "connect_east": "true" },
+      "apply": {
+        "model": "realrocket:block/booster_tank_separator",
+        "x": 0,
+        "y": 90
+      }
+    },
+    {
+      "when": { "connect_south": "true" },
+      "apply": {
+        "model": "realrocket:block/booster_tank_separator",
+        "x": 0,
+        "y": 180
+      }
+    },
+    {
+      "when": { "connect_west": "true" },
+      "apply": {
+        "model": "realrocket:block/booster_tank_separator",
+        "x": 0,
+        "y": 270
+      }
+    }
+  ]
+}

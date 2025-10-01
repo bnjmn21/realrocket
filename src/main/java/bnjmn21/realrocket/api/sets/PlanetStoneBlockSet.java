@@ -4,10 +4,8 @@ import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.RRRegistrate;
 import bnjmn21.realrocket.common.content.LootTables;
 import bnjmn21.realrocket.common.content.Models;
-import bnjmn21.realrocket.util.Lazy;
 import bnjmn21.realrocket.util.StonecuttingRecipeHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
-import com.gregtechceu.gtceu.api.data.worldgen.IWorldGenLayer;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.StoneTypeEntry;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
@@ -25,10 +23,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.material.MapColor;
 
-import java.util.Set;
 import java.util.function.Consumer;
 
 import static bnjmn21.realrocket.RealRocket.id;
@@ -148,6 +144,8 @@ public class PlanetStoneBlockSet {
                                 .strength(3.0F, 3.0F),
                         RealRocket.id("block/" + name + "_stone")
                 ));
+
+        registrate.addRawLang("tagprefix." + name, name_en_us + " %s Ore");
     }
 
     private NonNullBiConsumer<DataGenContext<Block, SlabBlock>, RegistrateBlockstateProvider> slabBlockstate(
@@ -194,7 +192,7 @@ public class PlanetStoneBlockSet {
     }
 
     private NonNullBiConsumer<DataGenContext<Item, BlockItem>, RegistrateItemModelProvider> buttonItemModel(
-            BlockEntry<Block> base
+            BlockEntry<Block> ignoredBase
     ) {
         return (ctx, prov) -> prov.buttonInventory(
                 ctx.getName(), this.normal.getId().withPrefix("block/")
@@ -211,7 +209,7 @@ public class PlanetStoneBlockSet {
     }
 
     private NonNullBiConsumer<DataGenContext<Item, BlockItem>, RegistrateItemModelProvider> wallItemModel(
-            BlockEntry<Block> base
+            BlockEntry<Block> ignoredBase
     ) {
         return (ctx, prov) -> prov.wallInventory(
                 ctx.getName(), this.normal.getId().withPrefix("block/")

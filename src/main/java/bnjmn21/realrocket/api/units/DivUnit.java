@@ -5,9 +5,9 @@ import com.mojang.serialization.Codec;
 
 import java.util.function.BiFunction;
 
-public abstract class DivUnit<A extends Unit<?>, B extends Unit<?>, Self extends DivUnit<A, B, Self>> implements Unit<Self> {
+public abstract class DivUnit<A extends Unit<A, ?>, B extends Unit<B, ?>, Self extends DivUnit<A, B, Self>> implements Unit<Self, Self> {
 
-    public static <A extends Unit<?>, B extends Unit<?>, Self extends DivUnit<A, B, Self>>
+    public static <A extends Unit<A, ?>, B extends Unit<B, ?>, Self extends DivUnit<A, B, Self>>
             Codec<Self> createCodec(BiFunction<A, B, Self> constructor, Codec<A> a, Codec<B> b) {
         return Codec.pair(a, b.fieldOf("per").codec()).xmap(
                 pair -> constructor.apply(pair.getFirst(), pair.getSecond()),

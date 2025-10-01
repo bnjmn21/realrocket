@@ -1,14 +1,17 @@
-package bnjmn21.realrocket.common.regs;
+package bnjmn21.realrocket.common.data;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
+import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 
 import static bnjmn21.realrocket.RealRocket.id;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 import static bnjmn21.realrocket.common.RRValues.BASE_MATERIAL_HARVEST_LEVEL;
+import static com.gregtechceu.gtceu.api.GTValues.*;
 
 public class RRMaterials {
     public static void init() {}
@@ -70,6 +73,48 @@ public class RRMaterials {
         REGISTRATE.addLang("material", RRMaterials.BasalticMoonDust.getResourceLocation(), "Basaltic Moon");
         REGISTRATE.addLang("material", RRMaterials.ElementalMoonDust.getResourceLocation(), "Elemental Moon");
         REGISTRATE.addLang("material", RRMaterials.Anorthite.getResourceLocation(), "Anorthite");
+    }
+    //#endregion
+
+    //#region rocket fuels
+    public static final Material Kerosene = new Material.Builder(id("kerosene"))
+            .liquid(new FluidBuilder().customStill()).flags(MaterialFlags.FLAMMABLE, MaterialFlags.EXPLOSIVE)
+            .buildAndRegister();
+
+    public static final Material RP1 = new Material.Builder(id("rp1"))
+            .liquid(new FluidBuilder().customStill()).flags(MaterialFlags.FLAMMABLE, MaterialFlags.EXPLOSIVE)
+            .buildAndRegister();
+
+    static {
+        REGISTRATE.addLang("material", RRMaterials.Kerosene.getResourceLocation(), "Kerosene");
+        REGISTRATE.addLang("material", RRMaterials.RP1.getResourceLocation(), "RP-1");
+        REGISTRATE.addRecipes(prov -> {
+            GTRecipeTypes.COMBUSTION_GENERATOR_FUELS.recipeBuilder(id("kerosene"))
+                    .inputFluids(Kerosene.getFluid(1))
+                    .duration(15)
+                    .EUt(-V[LV])
+                    .save(prov);
+            GTRecipeTypes.COMBUSTION_GENERATOR_FUELS.recipeBuilder(id("rp1"))
+                    .inputFluids(RP1.getFluid(1))
+                    .duration(20)
+                    .EUt(-V[LV])
+                    .save(prov);
+            GTRecipeTypes.DISTILLERY_RECIPES.recipeBuilder(id("kerosene"))
+                    .inputFluids(GTMaterials.Diesel.getFluid(1000))
+                    .outputFluids(Kerosene.getFluid(1000))
+                    .circuitMeta(1)
+                    .duration(200)
+                    .EUt(V[MV])
+                    .save(prov);
+            GTRecipeTypes.LARGE_CHEMICAL_RECIPES.recipeBuilder(id("rp1"))
+                    .inputFluids(Kerosene.getFluid(2000))
+                    .inputFluids(GTMaterials.Hydrogen.getFluid(100))
+                    .outputFluids(RP1.getFluid(2000))
+                    .outputFluids(GTMaterials.HydrogenSulfide.getFluid(50))
+                    .duration(160)
+                    .EUt(V[HV])
+                    .save(prov);
+        });
     }
     //#endregion
 }

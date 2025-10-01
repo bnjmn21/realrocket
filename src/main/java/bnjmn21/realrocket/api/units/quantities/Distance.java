@@ -4,7 +4,7 @@ import bnjmn21.realrocket.api.units.BaseUnit;
 import bnjmn21.realrocket.api.units.Units;
 import com.mojang.serialization.Codec;
 
-abstract public class Distance extends BaseUnit<Distance.Meter> {
+abstract public class Distance extends BaseUnit<Distance, Distance.Meter> {
     public static final Codec<Distance> CODEC = BaseUnit.createCodec(Distance.class, Units.METER);
 
     public Distance(double value) {

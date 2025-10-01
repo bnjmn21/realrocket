@@ -3,8 +3,8 @@ package bnjmn21.realrocket.common.content;
 import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.sets.DustLayerBlockSet;
 import bnjmn21.realrocket.api.sets.PlanetStoneBlockSet;
-import bnjmn21.realrocket.common.regs.RRCreativeModeTabs;
-import bnjmn21.realrocket.common.regs.RRMaterials;
+import bnjmn21.realrocket.common.data.RRCreativeModeTabs;
+import bnjmn21.realrocket.common.data.RRMaterials;
 import bnjmn21.realrocket.util.Lazy;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.data.worldgen.GTLayerPattern;
@@ -24,12 +24,11 @@ import java.util.Set;
 
 import static bnjmn21.realrocket.RealRocket.id;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
-import static bnjmn21.realrocket.common.RRValues.*;
 import static com.gregtechceu.gtceu.api.GTValues.*;
 
 public class Moon {
     static {
-        REGISTRATE.creativeModeTab(() -> RRCreativeModeTabs.RR);
+        REGISTRATE.creativeModeTab(() -> RRCreativeModeTabs.PLANETS);
     }
 
     public static final PlanetStoneBlockSet MOON_STONE = new PlanetStoneBlockSet(
@@ -80,6 +79,7 @@ public class Moon {
                                 .build())
                 )
         );
+        REGISTRATE.addRawLang("gtceu.jei.ore_vein.ilmenite_vein_moon", "Moon Ilmenite Vein");
         REGISTRATE.addOreVein("anorthite_vein_moon", vein -> vein
                 .clusterSize(30).density(0.3f).weight(40)
                 .layer(MOON_ORE_LAYER.get())
@@ -92,6 +92,7 @@ public class Moon {
                                 .build())
                 )
         );
+        REGISTRATE.addRawLang("gtceu.jei.ore_vein.anorthite_vein_moon", "Moon Anorthite Vein");
         REGISTRATE.addOreVein("monazite_vein_moon", vein -> vein
                 .clusterSize(20).density(0.3f).weight(30)
                 .layer(MOON_ORE_LAYER.get())
@@ -104,6 +105,7 @@ public class Moon {
                                 .build())
                 )
         );
+        REGISTRATE.addRawLang("gtceu.jei.ore_vein.monazite_vein_moon", "Moon Monazite Vein");
         REGISTRATE.addOreVein("uraninite_vein_moon", vein -> vein
                 .clusterSize(30).density(0.2f).weight(20)
                 .layer(MOON_ORE_LAYER.get())
@@ -116,9 +118,8 @@ public class Moon {
                                 .build())
                 )
         );
-    }
+        REGISTRATE.addRawLang("gtceu.jei.ore_vein.uraninite_vein_moon", "Moon Uraninite Vein");
 
-    static {
         REGISTRATE.addRecipes(cons -> {
             GTRecipeTypes.MACERATOR_RECIPES.recipeBuilder(id("moon_dust_block_maceration"))
                     .inputItems(Moon.MOON_DUST.block.asItem())
@@ -132,7 +133,7 @@ public class Moon {
                     .chancedOutput(TagPrefix.dust, GTMaterials.PotassiumFeldspar, 3000, 0)
                     .chancedOutput(TagPrefix.dust, RRMaterials.Pyroxene, 3000, 0)
                     .chancedOutput(TagPrefix.dust, GTMaterials.Stone, 2500, 0)
-                    .EUt(VA[V1])
+                    .EUt(VA[HV])
                     .duration(20*20)
                     .save(cons);
             GTRecipeTypes.MACERATOR_RECIPES.recipeBuilder(id("basaltic_moon_dust_block_maceration"))
@@ -148,7 +149,7 @@ public class Moon {
                     .chancedOutput(TagPrefix.dust, GTMaterials.PotassiumFeldspar, 3000, 0)
                     .chancedOutput(TagPrefix.dust, RRMaterials.Pyroxene, 3000, 0)
                     .chancedOutput(TagPrefix.dust, GTMaterials.Stone, 2500, 0)
-                    .EUt(VA[V1])
+                    .EUt(VA[HV])
                     .duration(20*20)
                     .save(cons);
         }); // TODO incorrect prob

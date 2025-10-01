@@ -4,7 +4,7 @@ import bnjmn21.realrocket.api.units.BaseUnit;
 import bnjmn21.realrocket.api.units.Units;
 import com.mojang.serialization.Codec;
 
-abstract public class Dose extends BaseUnit<Dose.Sievert> {
+abstract public class Dose extends BaseUnit<Dose, Dose.Sievert> {
     public static final Codec<Dose> CODEC = BaseUnit.createCodec(Dose.class, Units.SIEVERT);
 
     public Dose(double value) {

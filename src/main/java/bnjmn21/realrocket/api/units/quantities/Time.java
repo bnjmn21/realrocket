@@ -4,7 +4,7 @@ import bnjmn21.realrocket.api.units.BaseUnit;
 import bnjmn21.realrocket.api.units.Units;
 import com.mojang.serialization.Codec;
 
-public abstract class Time extends BaseUnit<Time.Second> {
+public abstract class Time extends BaseUnit<Time, Time.Second> {
     public static final Codec<Time> CODEC = BaseUnit.createCodec(Time.class, Units.SECOND);
 
     public Time(double value) {

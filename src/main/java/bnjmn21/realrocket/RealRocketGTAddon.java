@@ -1,12 +1,12 @@
 package bnjmn21.realrocket;
 
 import bnjmn21.realrocket.api.RRRegistries;
+import bnjmn21.realrocket.api.rocket.ThrustRecipeCapability;
 import com.gregtechceu.gtceu.api.addon.GTAddon;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
-import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.api.registry.GTRegistries;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.tags.BlockTags;
 
 import java.util.function.Consumer;
 
@@ -44,5 +44,10 @@ public class RealRocketGTAddon implements IGTAddon {
     @Override
     public void addRecipes(Consumer<FinishedRecipe> consumer) {
         RRRegistries.REGISTRATE.registerRecipes(consumer);
+    }
+
+    @Override
+    public void registerRecipeCapabilities() {
+        GTRegistries.RECIPE_CAPABILITIES.register("thrust", ThrustRecipeCapability.CAP);
     }
 }

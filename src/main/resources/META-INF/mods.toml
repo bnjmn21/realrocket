@@ -9,8 +9,8 @@ issueTrackerURL="https://github.com/argent-matter/gcyr/issues"
    #updateJSONURL="http://myurl.me/" #optional
    displayURL="https://modrinth.com/mod/gcyr"
    logoFile="icon.png" #optional
-   credits="Based on gregicality rocketry, thanks to advanced rocketry for the idea." #optional
-   authors="bnjmn21, (gregicality rocketry: screret,NemEzanevem,voltaic,...)" #optional
+   credits="Based on gregicality rocketry (screret et al.), thanks to advanced rocketry for the idea." #optional
+   authors="bnjmn21" #optional
    # Display Test controls the display for your mod in the server connection screen
    # MATCH_VERSION means that your mod will cause a red X if the versions on client and server differ. This is the default behaviour and should be what you choose if you have server and client elements to your mod.
    # IGNORE_SERVER_VERSION means that your mod will not cause a red X if it's present on the server but not on the client. This is what you should use if you're a server only mod.
@@ -43,5 +43,12 @@ issueTrackerURL="https://github.com/argent-matter/gcyr/issues"
       modId="gtceu"
       mandatory=true
       versionRange="[${gtceu_version},)"
+      ordering="AFTER"
+      side="BOTH"
+
+   [[dependencies.${mod_id}]]
+      modId="emi"
+      mandatory=false
+      versionRange="[${emi_version},)"
       ordering="AFTER"
       side="BOTH"

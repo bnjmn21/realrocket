@@ -4,6 +4,7 @@ import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyType;
 import bnjmn21.realrocket.api.units.BaseUnitBuilder;
 import bnjmn21.realrocket.api.units.BaseUnitType;
+import bnjmn21.realrocket.integration.xei.XeiRegistry;
 import bnjmn21.realrocket.util.Lazy;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
 import com.gregtechceu.gtceu.api.data.worldgen.GTOreDefinition;
@@ -12,16 +13,24 @@ import com.gregtechceu.gtceu.api.data.worldgen.SimpleWorldGenLayer;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.common.data.GTOres;
 import com.mojang.serialization.Codec;
-import com.tterrag.registrate.Registrate;
+import com.tterrag.registrate.providers.ProviderType;
+import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import com.tterrag.registrate.util.entry.RegistryEntry;
+import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -36,6 +45,8 @@ public class RRRegistrate extends GTRegistrate {
     ArrayList<Runnable> tagPrefixRegistrars = new ArrayList<>();
     ArrayList<Lazy<IWorldGenLayer>> worldGenLayers = new ArrayList<>();
     ArrayList<Pair<ResourceLocation, Consumer<GTOreDefinition>>> oreVeins = new ArrayList<>();
+    String currentLangPrefix = "";
+    ArrayList<Consumer<XeiRegistry>> xeiRegistrars = new ArrayList<>();
 
     protected RRRegistrate(String modId) {
         super(modId);
@@ -45,7 +56,7 @@ public class RRRegistrate extends GTRegistrate {
         return new RRRegistrate(modId);
     }
 
-    public BaseUnitBuilder<Registrate> baseUnit(String name, BaseUnitType unit) {
+    public BaseUnitBuilder<RRRegistrate> baseUnit(String name, BaseUnitType unit) {
         return entry(name, callback ->
                 new BaseUnitBuilder<>(this, this, name, callback, unit)
         );
@@ -104,5 +115,49 @@ public class RRRegistrate extends GTRegistrate {
 
     public void registerOreVeins() {
         this.oreVeins.forEach(pair -> GTOres.create(pair.getA(), pair.getB()));
+    }
+
+    public void setLangPrefix(String prefix) {
+        this.currentLangPrefix = prefix;
+    }
+
+    /**
+     * Creates a new lang entry, where the id is prefixed by {@link #setLangPrefix(String)}
+     */
+    public MutableComponent addPrefixedLang(String id, String value) {
+        return addRawLang(this.currentLangPrefix + "." + id, value);
+    }
+
+    /**
+     * Creates a new lang entry
+     * @return a helper for applying some arguments to the translation string template
+     */
+    public Translatable addRawLangTemplate(String key, String value, Function<MutableComponent, MutableComponent> factory) {
+        addRawLang(key, value);
+        return new Translatable(key, factory);
+    }
+
+    public record Translatable(String key, Function<MutableComponent, MutableComponent> factory) {
+        public MutableComponent apply(Object... args) {
+            return factory.apply(Component.translatable(key, args));
+        }
+    }
+
+    public void addBlockTag(TagKey<Block> key, Block... blocks) {
+        this.addDataGenerator(ProviderType.BLOCK_TAGS, prov -> {
+            prov.addTag(key).add(blocks);
+        });
+    }
+
+    public void addFluidTags(NonNullConsumer<RegistrateTagsProvider.IntrinsicImpl<Fluid>> data) {
+        this.addDataGenerator(ProviderType.FLUID_TAGS, data);
+    }
+
+    public void addXei(Consumer<XeiRegistry> registrar) {
+        this.xeiRegistrars.add(registrar);
+    }
+
+    public void registerXei(XeiRegistry registry) {
+        this.xeiRegistrars.forEach(registrar -> registrar.accept(registry));
     }
 }

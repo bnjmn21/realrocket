@@ -32,6 +32,7 @@ java {
 }
 
 def mod_id = properties.mod_id
+def generatedResources = file("src/generated")
 
 architectury {
     platformSetupLoomIde()
@@ -54,15 +55,17 @@ loom {
 
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
-        dataGen {
-            mod(mod_id)
-        }
     }
 
-    runConfigs.named("data").configure {
-        programArg("--existing=" + file("src/main/resources").absolutePath)
-        programArgs("--client", "--server")
+    runs {
+        data {
+            data()
+            programArgs "--all", "--mod", mod_id.toString()
+            programArgs "--output", generatedResources.absolutePath
+            programArgs "--existing", file("src/main/resources").absolutePath
+            programArgs "--existing-mod", "gtceu"
+            programArgs "--client", "--server"
+        }
     }
 
     if (isJetBrainsRuntime()) {
@@ -72,6 +75,12 @@ loom {
                 vmArgs '-XX:HotswapAgent=fatjar'
             }
         }
+    }
+}
+
+sourceSets {
+    main {
+        resources.srcDir generatedResources
     }
 }
 
@@ -85,6 +94,13 @@ configurations {
 
 repositories {
     mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 
     maven {
         name = 'GTCEu Maven'
@@ -128,12 +144,6 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven { url = "https://maven.shedaniel.me/" } // Cloth Config, REI
-    maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    } // Curse Forge File
     maven {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
@@ -234,6 +244,7 @@ processResources {
             "forge_version"    : forge.versions.forgeShortVersion.get().split("\\.")[0], // only specify major version of forge
             "minecraft_version": libs.versions.minecraft.get(),
             "gtceu_version"    : forge.versions.gtceu.get(),
+            "emi_version"      : forge.versions.emi.get(),
             "mod_name"         : mod_name,
     ]
     inputs.properties(properties)
@@ -260,13 +271,6 @@ components.java {
 }
 
 publishing {
-    publications {
-        mavenForge(MavenPublication) {
-            artifactId = archivesBaseName
-            from components.java
-        }
-    }
-
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
         // Add repositories to publish to here.
