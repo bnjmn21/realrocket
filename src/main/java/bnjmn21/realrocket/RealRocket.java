@@ -3,6 +3,7 @@ package bnjmn21.realrocket;
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.common.content.Moon;
 import bnjmn21.realrocket.common.content.RocketFuels;
+import bnjmn21.realrocket.common.content.RocketParts;
 import bnjmn21.realrocket.common.data.*;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
@@ -38,6 +39,7 @@ public class RealRocket {
         RRLang.init();
         RRTags.init();
         RocketFuels.init();
+        RocketParts.init();
         Moon.init();
 
         RRRegistries.REGISTRATE.registerRegistrate();
