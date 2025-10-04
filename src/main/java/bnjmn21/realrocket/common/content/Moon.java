@@ -13,6 +13,7 @@ import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -63,6 +64,8 @@ public class Moon {
     public static RuleTest[] MOON_ORE_RULES = new RuleTest[]{new TagMatchTest(MOON_ORE_REPLACEABLES)};
 
     static {
+        REGISTRATE.dimensionMarker(ResourceKey.create(Registries.DIMENSION, RealRocket.id("moon")), 1);
+
         REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, tags -> {
             tags.addTag(MOON_ORE_REPLACEABLES).add(MOON_STONE.normal.get());
         });

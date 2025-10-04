@@ -2,6 +2,7 @@ package bnjmn21.realrocket;
 
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.api.rocket.ThrustRecipeCapability;
+import bnjmn21.realrocket.common.data.RRSoundEntries;
 import com.gregtechceu.gtceu.api.addon.GTAddon;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
 import com.gregtechceu.gtceu.api.registry.GTRegistries;
@@ -44,6 +45,11 @@ public class RealRocketGTAddon implements IGTAddon {
     @Override
     public void addRecipes(Consumer<FinishedRecipe> consumer) {
         RRRegistries.REGISTRATE.registerRecipes(consumer);
+    }
+
+    @Override
+    public void registerSounds() {
+        RRSoundEntries.init();
     }
 
     @Override

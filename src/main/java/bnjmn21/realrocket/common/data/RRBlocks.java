@@ -1,15 +1,13 @@
 package bnjmn21.realrocket.common.data;
 
 import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.common.block.BoosterNozzleBlock;
-import bnjmn21.realrocket.common.block.BoosterTankBlock;
-import bnjmn21.realrocket.common.block.EngineBlock;
-import bnjmn21.realrocket.common.block.TankBlock;
+import bnjmn21.realrocket.common.block.*;
 import bnjmn21.realrocket.common.content.Models;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
@@ -42,6 +40,22 @@ public class RRBlocks {
             .blockstate(Models::randomRotated)
             .tag(BlockTags.MINEABLE_WITH_PICKAXE, RRTags.LAUNCHPAD_SUPPORT)
             .simpleItem()
+            .register();
+
+    public static final BlockEntry<RocketDesigner> ROCKET_DESIGNER = REGISTRATE.block("rocket_designer", RocketDesigner::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .lang("Rocket Designer")
+            .properties(p -> p.noOcclusion())
+            .blockstate((ctx, prov) -> {
+                prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(RealRocket.id("block/rocket_designer")));
+            })
+            .tag(BlockTags.MINEABLE_WITH_PICKAXE, RRTags.MINEABLE_WRENCH)
+            .simpleItem()
+            .register();
+
+    public static final BlockEntityEntry<RocketDesignerEntity> ROCKET_DESIGNER_BE = REGISTRATE.<RocketDesignerEntity>blockEntity(
+            "rocket_designer", (type, pos, state) -> new RocketDesignerEntity(type, pos, state))
+            .validBlock(ROCKET_DESIGNER)
             .register();
 
     static {

@@ -1,9 +1,11 @@
 package bnjmn21.realrocket.api;
 
 import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.celestial_body.CelestialBodyType;
-import bnjmn21.realrocket.api.units.BaseUnitBuilder;
+import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypeCodec;
+import bnjmn21.realrocket.api.rocket.Engine;
+import bnjmn21.realrocket.api.units.BaseUnit;
 import bnjmn21.realrocket.api.units.BaseUnitType;
+import bnjmn21.realrocket.common.data.RRDimensionMarkers;
 import bnjmn21.realrocket.integration.xei.XeiRegistry;
 import bnjmn21.realrocket.util.Lazy;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
@@ -11,17 +13,19 @@ import com.gregtechceu.gtceu.api.data.worldgen.GTOreDefinition;
 import com.gregtechceu.gtceu.api.data.worldgen.IWorldGenLayer;
 import com.gregtechceu.gtceu.api.data.worldgen.SimpleWorldGenLayer;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
+import com.gregtechceu.gtceu.common.data.GTDimensionMarkers;
 import com.gregtechceu.gtceu.common.data.GTOres;
-import com.mojang.serialization.Codec;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
-import com.tterrag.registrate.util.entry.RegistryEntry;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
@@ -47,6 +51,9 @@ public class RRRegistrate extends GTRegistrate {
     ArrayList<Pair<ResourceLocation, Consumer<GTOreDefinition>>> oreVeins = new ArrayList<>();
     String currentLangPrefix = "";
     ArrayList<Consumer<XeiRegistry>> xeiRegistrars = new ArrayList<>();
+    ArrayList<DimMarkerReg> dimMarkers = new ArrayList<>();
+
+    private record DimMarkerReg(ResourceKey<Level> loc, int tier, BlockEntry<Block> block) { }
 
     protected RRRegistrate(String modId) {
         super(modId);
@@ -56,14 +63,16 @@ public class RRRegistrate extends GTRegistrate {
         return new RRRegistrate(modId);
     }
 
-    public BaseUnitBuilder<RRRegistrate> baseUnit(String name, BaseUnitType unit) {
-        return entry(name, callback ->
-                new BaseUnitBuilder<>(this, this, name, callback, unit)
-        );
+    public <T extends BaseUnit<?, ?>> BaseUnitType baseUnit(String name, Function<Double, T> constructor, Class<T> clazz) {
+        return RRRegistries.UNITS.register(RealRocket.id(name), new BaseUnitType(constructor, clazz));
     }
 
-    public RegistryEntry<Codec<? extends CelestialBodyType>> celestialBodyType(String name, Codec<? extends CelestialBodyType> unit) {
-        return simple(name, RRRegistries.CELESTIAL_BODY_TYPES, () -> unit);
+    public void celestialBodyType(String name, CelestialBodyTypeCodec type) {
+        RRRegistries.CELESTIAL_BODY_TYPES.register(RealRocket.id(name), type);
+    }
+
+    public void engine(ResourceKey<? extends Engine> engine) {
+        RRRegistries.ENGINES.register(engine.location(), engine.location());
     }
 
     public void addRecipes(Consumer<Consumer<FinishedRecipe>> recipeAdder) {
@@ -159,5 +168,15 @@ public class RRRegistrate extends GTRegistrate {
 
     public void registerXei(XeiRegistry registry) {
         this.xeiRegistrars.forEach(registrar -> registrar.accept(registry));
+    }
+
+    public void dimensionMarker(ResourceKey<Level> dim, int tier) {
+        this.dimMarkers.add(new DimMarkerReg(dim, tier, RRDimensionMarkers.createMarker(dim.location().getPath())));
+    }
+
+    public void registerDimMarkers() {
+        this.dimMarkers.forEach(marker ->
+            GTDimensionMarkers.createAndRegister(marker.loc.location(), marker.tier, marker.block::asItem, null)
+        );
     }
 }

@@ -2,14 +2,15 @@ package bnjmn21.realrocket;
 
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.common.content.Moon;
-import bnjmn21.realrocket.common.content.RocketFuels;
 import bnjmn21.realrocket.common.content.RocketParts;
 import bnjmn21.realrocket.common.data.*;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
+import com.gregtechceu.gtceu.api.data.DimensionMarker;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
+import com.gregtechceu.gtceu.api.sound.SoundEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -30,15 +31,17 @@ public class RealRocket {
         bus.register(this);
         bus.addGenericListener(MachineDefinition.class, this::registerMachines);
         bus.addGenericListener(GTRecipeType.class, this::registerRecipeTypes);
+        bus.addGenericListener(DimensionMarker.class, this::registerDimMarkers);
+        bus.addGenericListener(SoundEntry.class, this::registerSounds);
     }
 
     public static void init() {
+        RRRegistries.init();
         RRCreativeModeTabs.init();
         RRItems.init();
         RRBlocks.init();
         RRLang.init();
         RRTags.init();
-        RocketFuels.init();
         RocketParts.init();
         Moon.init();
 
@@ -61,6 +64,13 @@ public class RealRocket {
 
     public void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
         RRRecipeTypes.init();
+    }
+
+    public void registerDimMarkers(GTCEuAPI.RegisterEvent<ResourceLocation, DimensionMarker> event) {
+        RRRegistries.REGISTRATE.registerDimMarkers();
+    }
+
+    public void registerSounds(GTCEuAPI.RegisterEvent<ResourceLocation, SoundEntry> event) {
     }
 
     public static ResourceLocation id(String path) {

@@ -1,5 +1,6 @@
 package bnjmn21.realrocket.common.data;
 
+import bnjmn21.realrocket.common.content.RocketFuels;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
@@ -10,7 +11,9 @@ import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 import static bnjmn21.realrocket.common.RRValues.BASE_MATERIAL_HARVEST_LEVEL;
 
 public class RRMaterials {
-    public static void init() {}
+    public static void init() {
+        RocketFuels.init();
+    }
 
     public static void modifyMaterials() {
         GTMaterials.PotassiumFeldspar.setProperty(PropertyKey.ORE, new OreProperty());

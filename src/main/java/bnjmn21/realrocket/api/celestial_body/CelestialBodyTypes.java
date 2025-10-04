@@ -5,25 +5,25 @@ import bnjmn21.realrocket.api.units.quantities.Distance;
 import bnjmn21.realrocket.api.units.quantities.DoseRate;
 import bnjmn21.realrocket.api.units.quantities.Temperature;
 import bnjmn21.realrocket.api.units.quantities.Time;
-import bnjmn21.realrocket.util.serialization.HolderCodec;
+import bnjmn21.realrocket.util.serialization.ByNameCodec;
+import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.tterrag.registrate.util.entry.RegistryEntry;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fml.ModLoader;
 
 import java.util.Optional;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
 public class CelestialBodyTypes {
-    public static final Codec<CelestialBodyType> CODEC = HolderCodec
-            .create(RRRegistries.CELESTIAL_BODY_TYPES)
-            .dispatch(CelestialBodyTypes::cannotBeEncoded, Holder::get);
+    public static final Codec<CelestialBodyType> CODEC = new ByNameCodec<>(RRRegistries.CELESTIAL_BODY_TYPES)
+            .dispatch(CelestialBodyType::codec, CelestialBodyTypeCodec::codec);
     /**
      * A planet that you can visit.
      *
@@ -37,6 +37,7 @@ public class CelestialBodyTypes {
      * @param unshieldableRadiationOnSurface always applies
      * @param shieldableRadiationInOrbit nullified when the player isn't in direct sunlight
      * @param unshieldableRadiationInOrbit always applies
+     * @param marker icon for use in GUIs
      */
     public record Planet(
             Time day,
@@ -48,7 +49,8 @@ public class CelestialBodyTypes {
             DoseRate shieldableRadiationOnSurface,
             DoseRate unshieldableRadiationOnSurface,
             DoseRate shieldableRadiationInOrbit,
-            DoseRate unshieldableRadiationInOrbit
+            DoseRate unshieldableRadiationInOrbit,
+            ResourceLocation marker
     ) implements CelestialBodyType {
         public static final MapCodec<Planet> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Time.CODEC.fieldOf("day").forGetter(Planet::day),
@@ -60,12 +62,13 @@ public class CelestialBodyTypes {
                 DoseRate.CODEC.fieldOf("shieldable_radiation_on_surface").forGetter(Planet::shieldableRadiationOnSurface),
                 DoseRate.CODEC.fieldOf("unshieldable_radiation_on_surface").forGetter(Planet::unshieldableRadiationOnSurface),
                 DoseRate.CODEC.fieldOf("shieldable_radiation_in_orbit").forGetter(Planet::shieldableRadiationInOrbit),
-                DoseRate.CODEC.fieldOf("unshieldable_radiation_in_orbit").forGetter(Planet::unshieldableRadiationInOrbit)
+                DoseRate.CODEC.fieldOf("unshieldable_radiation_in_orbit").forGetter(Planet::unshieldableRadiationInOrbit),
+                ResourceLocation.CODEC.fieldOf("marker").forGetter(Planet::marker)
         ).apply(instance, Planet::new));
-        public static final KeyDispatchDataCodec<Planet> CODEC = KeyDispatchDataCodec.of(MAP_CODEC);
+        public static final CelestialBodyTypeCodec CODEC = new CelestialBodyTypeCodec(KeyDispatchDataCodec.of(MAP_CODEC).codec());
 
         @Override
-        public KeyDispatchDataCodec<? extends CelestialBodyType> codec() {
+        public CelestialBodyTypeCodec codec() {
             return CODEC;
         }
     }
@@ -89,22 +92,27 @@ public class CelestialBodyTypes {
                 Codec.INT.fieldOf("color").forGetter(Star::color),
                 Distance.CODEC.fieldOf("radius").forGetter(Star::radius)
         ).apply(instance, Star::new));
-        public static final KeyDispatchDataCodec<Star> CODEC = KeyDispatchDataCodec.of(MAP_CODEC);
+        public static final CelestialBodyTypeCodec CODEC = new CelestialBodyTypeCodec(KeyDispatchDataCodec.of(MAP_CODEC).codec());
 
         @Override
-        public KeyDispatchDataCodec<? extends CelestialBodyType> codec() {
+        public CelestialBodyTypeCodec codec() {
             return CODEC;
         }
     }
 
-    @SuppressWarnings("unused")
-    public static final RegistryEntry<Codec<? extends CelestialBodyType>>
-        PLANET = REGISTRATE.celestialBodyType("planet", Planet.CODEC.codec()),
-        STAR = REGISTRATE.celestialBodyType("star", Star.CODEC.codec());
+    public static void register() {
+        REGISTRATE.celestialBodyType("planet", Planet.CODEC);
+        REGISTRATE.celestialBodyType("star", Star.CODEC);
+    }
 
     private static <R, A1> R cannotBeEncoded(A1 a1) {
         throw new UnsupportedOperationException("Cannot be encoded");
     }
 
-    public static void init() {}
+    public static void init() {
+        ModLoader.get().postEvent(new GTCEuAPI.RegisterEvent<>(RRRegistries.CELESTIAL_BODY_TYPES, CelestialBodyTypeCodec.class));
+        register();
+
+        RRRegistries.CELESTIAL_BODY_TYPES.freeze();
+    }
 }

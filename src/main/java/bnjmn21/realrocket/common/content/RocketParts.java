@@ -10,11 +10,14 @@ import bnjmn21.realrocket.common.block.EngineBlock;
 import bnjmn21.realrocket.common.block.TankBlock;
 import bnjmn21.realrocket.common.data.RRRecipeTypes;
 import bnjmn21.realrocket.common.data.RRTags;
+import com.gregtechceu.gtceu.api.GTCEuAPI;
 import net.minecraft.ChatFormatting;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.fml.ModLoader;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 import static bnjmn21.realrocket.common.data.RRBlocks.*;
@@ -34,7 +37,6 @@ public class RocketParts {
                 .tag(BlockTags.MINEABLE_WITH_PICKAXE, RRTags.MINEABLE_WRENCH, RRTags.ROCKET_MOTOR)
                 .simpleItem()
                 .register();
-        REGISTRATE.simple(RRRegistries.ENGINES, () -> BASIC_ROCKET_MOTOR::get);
 
         BASIC_FUEL_TANK = REGISTRATE.block("basic_fuel_tank", TankBlock.factory(DyeColor.LIGHT_GRAY,
                         new TankContainmentInfo(FuelType.OXIDIZER, 4000),
@@ -66,5 +68,9 @@ public class RocketParts {
                 .tag(BlockTags.MINEABLE_WITH_PICKAXE, RRTags.MINEABLE_WRENCH)
                 .simpleItem()
                 .register();
+
+        ModLoader.get().postEvent(new GTCEuAPI.RegisterEvent<>(RRRegistries.ENGINES, ResourceLocation.class));
+        REGISTRATE.engine(BASIC_ROCKET_MOTOR.getKey());
+        RRRegistries.ENGINES.freeze();
     }
 }

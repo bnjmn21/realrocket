@@ -2,13 +2,11 @@ package bnjmn21.realrocket.api.units;
 
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.api.units.quantities.Time;
-import bnjmn21.realrocket.util.serialization.HolderCodec;
+import bnjmn21.realrocket.util.serialization.ByNameCodec;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.tterrag.registrate.util.entry.RegistryEntry;
-import net.minecraft.core.Holder;
 
 import java.util.function.Function;
 
@@ -49,18 +47,18 @@ abstract public class BaseUnit<Self extends BaseUnit<Self, Base>, Base extends S
 
     public static <T extends BaseUnit<T, Base>, Base extends T> Codec<T> createCodec(
             Class<T> unit,
-            RegistryEntry<BaseUnitType> baseUnit
+            BaseUnitType baseUnit
     ) {
         return new UnitCodec<>(unit, baseUnit);
     }
 
     record UnitCodec<E extends BaseUnit<E, Base>, Base extends E>(Class<E> unit,
-                                                                  RegistryEntry<BaseUnitType> baseUnit) implements Codec<E> {
+                                                                  BaseUnitType baseUnit) implements Codec<E> {
         @Override
             public <T> DataResult<Pair<E, T>> decode(DynamicOps<T> ops, T input) {
                 return UnitValue.CODEC.decode(ops, input).flatMap(unitValueResult -> {
                     UnitValue unitValue = unitValueResult.getFirst();
-                    return unitValue.type.get().tryConstruct(unitValue.value, this.unit)
+                    return unitValue.type.tryConstruct(unitValue.value, this.unit)
                             .map(res -> DataResult.success(
                                     Pair.of(res, unitValueResult.getSecond()),
                                     Lifecycle.stable()))
@@ -72,23 +70,18 @@ abstract public class BaseUnit<Self extends BaseUnit<Self, Base>, Base extends S
 
             @Override
             public <T> DataResult<T> encode(E input, DynamicOps<T> ops, T prefix) {
-                Holder<BaseUnitType> baseUnitHolder = baseUnit.getHolder().orElseThrow();
-                if (baseUnitHolder instanceof Holder.Reference<BaseUnitType> ref) {
-                    return UnitValue.CODEC.encode(new UnitValue(input.toBase().value, ref), ops, prefix);
-                } else {
-                    throw new RuntimeException("Expected a Holder.Reference (this shouldn't happen)");
-                }
+                return UnitValue.CODEC.encode(new UnitValue(input.toBase().value, this.baseUnit), ops, prefix);
             }
         }
 
-    record UnitValue(double value, Holder.Reference<BaseUnitType> type) {
+    record UnitValue(double value, BaseUnitType type) {
         static final MapCodec<UnitValue> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) ->
                 instance.group(
                         Codec.DOUBLE.fieldOf("value").orElse(1.0).forGetter(UnitValue::value),
-                        HolderCodec.create(RRRegistries.UNITS).fieldOf("type").forGetter(UnitValue::type)
+                        new ByNameCodec<>(RRRegistries.UNITS).fieldOf("type").forGetter(UnitValue::type)
                 ).apply(instance, UnitValue::new));
 
-        static final Codec<UnitValue> CODEC = Codec.either(HolderCodec.create(RRRegistries.UNITS), MAP_CODEC.codec())
+        static final Codec<UnitValue> CODEC = Codec.either(new ByNameCodec<>(RRRegistries.UNITS), MAP_CODEC.codec())
                 .xmap(
                         either -> either.map(
                                 v -> new UnitValue(1.0, v),

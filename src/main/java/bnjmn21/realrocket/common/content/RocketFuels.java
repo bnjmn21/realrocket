@@ -18,14 +18,14 @@ import static com.gregtechceu.gtceu.api.GTValues.*;
 
 public class RocketFuels {
     public static void init() {
-         Kerosene = new Material.Builder(id("kerosene"))
+        Kerosene = new Material.Builder(id("kerosene"))
                 .liquid(new FluidBuilder().customStill()).flags(MaterialFlags.FLAMMABLE, MaterialFlags.EXPLOSIVE)
                 .buildAndRegister();
-        REGISTRATE.addLang("material", Kerosene.getResourceLocation(), "Kerosene");
+        RP1 = new Material.Builder(id("rp1"))
+                .liquid(new FluidBuilder().customStill()).flags(MaterialFlags.FLAMMABLE, MaterialFlags.EXPLOSIVE)
+                .buildAndRegister();
 
-         RP1 = new Material.Builder(id("rp1"))
-                 .liquid(new FluidBuilder().customStill()).flags(MaterialFlags.FLAMMABLE, MaterialFlags.EXPLOSIVE)
-                 .buildAndRegister();
+        REGISTRATE.addLang("material", Kerosene.getResourceLocation(), "Kerosene");
         REGISTRATE.addLang("material", RP1.getResourceLocation(), "RP-1");
 
         REGISTRATE.addRecipes(prov -> {
