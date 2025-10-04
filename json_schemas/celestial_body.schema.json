@@ -30,16 +30,16 @@
               "description": "temperature at daytime",
               "$ref": "temperature.schema.json"
             },
-            "shieldable_radiation_on_surface": {
-              "description": "nullified when the player isn't in direct sunlight",
+            "terrestrial_radiation": {
+              "description": "radiation on the surface",
               "$ref": "dose_rate.schema.json"
             },
-            "unshieldable_radiation_on_surface": {
-              "description": "always applies",
+            "cosmic_radiation": {
+              "description": "radiation in space",
               "$ref": "dose_rate.schema.json"
             },
-            "shieldable_radiation_in_orbit": {
-              "description": "nullified when the player isn't in direct sunlight",
+            "cosmic_radiation_on_surface": {
+              "description": "additional radiation, scales with skylight, that means no radiation at night or in caves",
               "$ref": "dose_rate.schema.json"
             },
             "unshieldable_radiation_in_orbit": {
@@ -60,8 +60,8 @@
             }
           },
           "required": [
-            "type", "min_temperature", "max_temperature", "shieldable_radiation_on_surface", "day", "radius", "marker",
-            "unshieldable_radiation_on_surface", "shieldable_radiation_in_orbit", "unshieldable_radiation_in_orbit"
+            "type", "min_temperature", "max_temperature", "terrestrial_radiation", "day", "radius", "marker",
+            "cosmic_radiation", "cosmic_radiation_on_surface"
           ]
         },
         {

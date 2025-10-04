@@ -9,25 +9,20 @@
     "level": "minecraft:overworld",
     "radius": { "type": "realrocket:kilometer", "value": 6360 },
     "marker": "gtceu:overworld_marker",
-    "shieldable_radiation_on_surface": {
+    "terrestrial_radiation": {
+      "type": "realrocket:millisievert",
+      "value": 2,
+      "per": "realrocket:year"
+    },
+    "cosmic_radiation_on_surface": {
       "type": "realrocket:millisievert",
       "value": 0.4,
       "per": "realrocket:year"
     },
-    "unshieldable_radiation_on_surface": {
+    "cosmic_radiation": {
       "type": "realrocket:millisievert",
-      "value": 2,
-      "per": "realrocket:year"
-    },
-    "shieldable_radiation_in_orbit": {
-      "type": "realrocket:millisievert",
-      "value": 2,
+      "value": 6,
       "per": "realrocket:day"
-    },
-    "unshieldable_radiation_in_orbit": {
-      "type": "realrocket:millisievert",
-      "value": 0.25,
-      "per": "realrocket:hour"
     }
   },
   "orbit": {

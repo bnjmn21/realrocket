@@ -33,10 +33,9 @@ public class CelestialBodyTypes {
      * @param atmosphere how breathable the atmosphere is, {@code Optional.Empty} means there is no atmosphere
      * @param minTemperature temperature at midnight
      * @param maxTemperature temperature at daytime
-     * @param shieldableRadiationOnSurface nullified when the player isn't in direct sunlight
-     * @param unshieldableRadiationOnSurface always applies
-     * @param shieldableRadiationInOrbit nullified when the player isn't in direct sunlight
-     * @param unshieldableRadiationInOrbit always applies
+     * @param terrestrialRadiation radiation on the surface
+     * @param cosmicRadiation radiation in space
+     * @param cosmicRadiationOnSurface additional radiation, scales with skylight, that means no radiation at night or in caves
      * @param marker icon for use in GUIs
      */
     public record Planet(
@@ -46,10 +45,9 @@ public class CelestialBodyTypes {
             Optional<Breathability> atmosphere,
             Temperature minTemperature,
             Temperature maxTemperature,
-            DoseRate shieldableRadiationOnSurface,
-            DoseRate unshieldableRadiationOnSurface,
-            DoseRate shieldableRadiationInOrbit,
-            DoseRate unshieldableRadiationInOrbit,
+            DoseRate terrestrialRadiation,
+            DoseRate cosmicRadiation,
+            DoseRate cosmicRadiationOnSurface,
             ResourceLocation marker
     ) implements CelestialBodyType {
         public static final MapCodec<Planet> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -59,10 +57,9 @@ public class CelestialBodyTypes {
                 Breathability.CODEC.optionalFieldOf("atmosphere").forGetter(Planet::atmosphere),
                 Temperature.CODEC.fieldOf("min_temperature").forGetter(Planet::minTemperature),
                 Temperature.CODEC.fieldOf("max_temperature").forGetter(Planet::maxTemperature),
-                DoseRate.CODEC.fieldOf("shieldable_radiation_on_surface").forGetter(Planet::shieldableRadiationOnSurface),
-                DoseRate.CODEC.fieldOf("unshieldable_radiation_on_surface").forGetter(Planet::unshieldableRadiationOnSurface),
-                DoseRate.CODEC.fieldOf("shieldable_radiation_in_orbit").forGetter(Planet::shieldableRadiationInOrbit),
-                DoseRate.CODEC.fieldOf("unshieldable_radiation_in_orbit").forGetter(Planet::unshieldableRadiationInOrbit),
+                DoseRate.CODEC.fieldOf("terrestrial_radiation").forGetter(Planet::terrestrialRadiation),
+                DoseRate.CODEC.fieldOf("cosmic_radiation").forGetter(Planet::cosmicRadiation),
+                DoseRate.CODEC.fieldOf("cosmic_radiation_on_surface").forGetter(Planet::cosmicRadiationOnSurface),
                 ResourceLocation.CODEC.fieldOf("marker").forGetter(Planet::marker)
         ).apply(instance, Planet::new));
         public static final CelestialBodyTypeCodec CODEC = new CelestialBodyTypeCodec(KeyDispatchDataCodec.of(MAP_CODEC).codec());
