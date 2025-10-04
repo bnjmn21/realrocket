@@ -105,10 +105,6 @@ public class CelestialBodyTypes {
         REGISTRATE.celestialBodyType("star", Star.CODEC);
     }
 
-    private static <R, A1> R cannotBeEncoded(A1 a1) {
-        throw new UnsupportedOperationException("Cannot be encoded");
-    }
-
     public static void init() {
         ModLoader.get().postEvent(new GTCEuAPI.RegisterEvent<>(RRRegistries.CELESTIAL_BODY_TYPES, CelestialBodyTypeCodec.class));
         register();
