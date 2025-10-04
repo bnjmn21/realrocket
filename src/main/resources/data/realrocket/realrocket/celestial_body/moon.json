@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/celestial_body.schema.json",
+  "body": {
+    "type": "realrocket:planet",
+    "atmosphere": "unbreathable",
+    "day": { "type": "realrocket:day", "value": 30 },
+    "level": "realrocket:moon",
+    "marker": "realrocket:moon_marker",
+    "radius": { "type": "realrocket:kilometer", "value": 1737 },
+    "min_temperature": { "type": "realrocket:celsius", "value": -173 },
+    "max_temperature": { "type": "realrocket:celsius", "value": 127 },
+    "terrestrial_radiation": {
+      "type": "realrocket:millisievert",
+      "value": 0,
+      "per": "realrocket:year"
+    },
+    "cosmic_radiation_on_surface": {
+      "type": "realrocket:millisievert",
+      "value": 60,
+      "per": "realrocket:year"
+    },
+    "cosmic_radiation": {
+      "type": "realrocket:millisievert",
+      "value": 6,
+      "per": "realrocket:day"
+    }
+  },
+  "orbit": {
+    "parent": "realrocket:earth",
+    "min_radius": { "type": "realrocket:kilometer", "value": 384400 },
+    "max_radius": { "type": "realrocket:kilometer", "value": 384400 },
+    "year": { "type": "realrocket:day", "value": 30 }
+  }
+}
