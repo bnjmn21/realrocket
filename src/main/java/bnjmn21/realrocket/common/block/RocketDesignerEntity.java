@@ -48,8 +48,11 @@ public class RocketDesignerEntity extends BlockEntity implements IAsyncAutoSyncB
 
     static final MutableComponent FROM = REGISTRATE.addPrefixedLang("from", "From: ");
     static final MutableComponent TO = REGISTRATE.addPrefixedLang("to", "To: ");
+    static final RRRegistrate.Translatable PLANET_TIER = REGISTRATE.addPrefixedLangTemplate("planet_tier", " (Planet Tier: %s)", c -> c.withStyle(ChatFormatting.GRAY));
     static final RRRegistrate.Translatable ROCKET_TIER = REGISTRATE.addPrefixedLangTemplate("rocket_tier", "Rocket Tier: %s", c -> c);
+    static final MutableComponent TIER_DEBUFF = REGISTRATE.addPrefixedLang("tier_debuff", "Due to needing to travel through %s's atmosphere, the required rocket tier is increased by 1");
     static final MutableComponent SELECT_DIFF_DESTINATION = REGISTRATE.addPrefixedLang("select_diff_destination", "Select different destination").withStyle(ChatFormatting.RED);
+    static final MutableComponent REQUIRED_ROCKET = REGISTRATE.addPrefixedLang("required_rocket", "Required rocket:");
 
     @Override
     public ModularUI createUI(Player player) {
@@ -86,13 +89,28 @@ public class RocketDesignerEntity extends BlockEntity implements IAsyncAutoSyncB
     static void rerenderResultGui(Level level, WidgetGroup resultGui, VirtualLevelKey from, VirtualLevelKey to) {
         resultGui.clearAllWidgets();
         GuiBuilder ui = new GuiBuilder(resultGui);
-        int tier = RocketLogic.requiredRocketTier(level, from, new FlightTarget.VirtualLevel(to));
+        FlightTarget target = new FlightTarget.VirtualLevel(to);
+        int tier = RocketLogic.requiredRocketTier(level, from, target);
         if (tier == 0) {
             ui.label(SELECT_DIFF_DESTINATION);
             return;
         }
+        if (RocketLogic.hasTierDebuff(level, from)) {
+            ui.hStack(stack -> {
+                ui.label(ROCKET_TIER.apply(tier));
+                ui.label(PLANET_TIER.apply(from.name()));
+            }).appendHoverTooltips(TIER_DEBUFF);
+        } else {
+            ui.label(ROCKET_TIER.apply(tier));
+        }
 
         ui.label(ROCKET_TIER.apply(tier));
+        ui.pad();
+        ui.hStack(stack -> {
+            ui.label(REQUIRED_ROCKET);
+            ui.pad();
+            ui.phantomSlot();
+        });
     }
 
     static void levelSelector(GuiBuilder ui, Player player, VirtualLevelKey selected, Consumer<VirtualLevelKey> update) {

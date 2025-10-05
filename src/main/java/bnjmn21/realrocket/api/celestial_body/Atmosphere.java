@@ -5,7 +5,12 @@ import bnjmn21.realrocket.util.serialization.GetName;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 
-public enum Breathability implements GetName {
+public enum Atmosphere implements GetName {
+    /**
+     * None
+     */
+    None("none"),
+
     /**
      * Not breathable
      */
@@ -24,9 +29,9 @@ public enum Breathability implements GetName {
     @Getter
     final String name;
 
-    Breathability(String name) {
+    Atmosphere(String name) {
         this.name = name;
     }
 
-    public static final Codec<Breathability> CODEC = new EnumCodec<>(Breathability.class);
+    public static final Codec<Atmosphere> CODEC = new EnumCodec<>(Atmosphere.class);
 }

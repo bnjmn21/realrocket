@@ -26,7 +26,7 @@
     },
     "tier": 1,
     "always_discovered": true,
-    "tier_debuff": true
+    "gravity": 1.0
   },
   "orbit": {
     "parent": "realrocket:sun",

@@ -92,15 +92,16 @@ public class VirtualLevels {
     }
 
     private static boolean INVALIDATE_LEVELS = true;
-    private static Map<VirtualLevelKey, CelestialBody> LEVELS;
-    public static Map<VirtualLevelKey, CelestialBody> levels(Level level) {
+    private static Map<VirtualLevelKey, VirtualLevel> LEVELS;
+    public static Map<VirtualLevelKey, VirtualLevel> levels(Level level) {
         if (LEVELS != null && !INVALIDATE_LEVELS) {
             return LEVELS;
         }
 
         INVALIDATE_LEVELS = false;
         Map<VirtualLevelKey.Planet, CelestialBody> planets = planetLevels(level);
-        LEVELS = new HashMap<>(planets);
+        LEVELS = new HashMap<>();
+        planets.forEach((lvl, body) -> LEVELS.put(lvl, new VirtualLevel.Planet(body, lvl)));
         return LEVELS;
     }
 }

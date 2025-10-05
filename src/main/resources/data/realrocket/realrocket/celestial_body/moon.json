@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/bnjmn21/realrocket/refs/heads/main/json_schemas/celestial_body.schema.json",
   "body": {
     "type": "realrocket:planet",
-    "atmosphere": "unbreathable",
+    "atmosphere": "none",
     "day": { "type": "realrocket:day", "value": 30 },
     "level": "realrocket:moon",
     "marker": "realrocket:moon_marker",
@@ -25,7 +25,8 @@
       "per": "realrocket:day"
     },
     "tier": 1,
-    "always_discovered": true
+    "always_discovered": true,
+    "gravity": 0.3
   },
   "orbit": {
     "parent": "realrocket:earth",

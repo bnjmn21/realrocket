@@ -1,9 +1,13 @@
 package bnjmn21.realrocket.api.units.quantities;
 
 import bnjmn21.realrocket.api.units.BaseUnit;
+import bnjmn21.realrocket.api.units.Units;
+import com.mojang.serialization.Codec;
 
 @SuppressWarnings("unused")
 public abstract class Mass extends BaseUnit<Mass, Mass.Kilogram> {
+    public static final Codec<Mass> CODEC = BaseUnit.createCodec(Mass.class, Units.KILOGRAM);
+
     public Mass(double value) {
         super(value);
     }

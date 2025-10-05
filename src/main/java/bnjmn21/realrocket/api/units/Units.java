@@ -1,10 +1,7 @@
 package bnjmn21.realrocket.api.units;
 
 import bnjmn21.realrocket.api.RRRegistries;
-import bnjmn21.realrocket.api.units.quantities.Distance;
-import bnjmn21.realrocket.api.units.quantities.Dose;
-import bnjmn21.realrocket.api.units.quantities.Temperature;
-import bnjmn21.realrocket.api.units.quantities.Time;
+import bnjmn21.realrocket.api.units.quantities.*;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import net.minecraftforge.fml.ModLoader;
 
@@ -16,6 +13,8 @@ public class Units {
     public static BaseUnitType METER;
     public static BaseUnitType KELVIN;
     public static BaseUnitType SIEVERT;
+    public static BaseUnitType KILOGRAM;
+    public static BaseUnitType NEWTON;
 
     public static void register() {
         SECOND = REGISTRATE.baseUnit("second", Time.Second::new, Time.Second.class);
@@ -37,6 +36,12 @@ public class Units {
         SIEVERT = REGISTRATE.baseUnit("sievert", Dose.Sievert::new, Dose.Sievert.class);
         REGISTRATE.baseUnit("millisievert", Dose.Millisievert::new, Dose.Millisievert.class);
         REGISTRATE.baseUnit("microsievert", Dose.Microsievert::new, Dose.Microsievert.class);
+
+        KILOGRAM = REGISTRATE.baseUnit("kilogram", Mass.Kilogram::new, Mass.Kilogram.class);
+        REGISTRATE.baseUnit("tonne", Mass.Tonne::new, Mass.Tonne.class);
+
+        NEWTON = REGISTRATE.baseUnit("newton", Force.Newton::new, Force.Newton.class);
+        REGISTRATE.baseUnit("kilonewton", Force.Kilonewton::new, Force.Kilonewton.class);
     }
 
     public static void init() {

@@ -31,7 +31,7 @@ public class CelestialBodyTypes {
      * @param day how long one rotation around its axis takes
      * @param radius determines how large it looks from other planets
      * @param level the dimension
-     * @param atmosphere how breathable the atmosphere is, {@code Optional.Empty} means there is no atmosphere
+     * @param atmosphere atmosphere description
      * @param minTemperature temperature at midnight
      * @param maxTemperature temperature at daytime
      * @param terrestrialRadiation radiation on the surface
@@ -40,13 +40,13 @@ public class CelestialBodyTypes {
      * @param marker icon for use in GUIs
      * @param tier the planet tier
      * @param alwaysDiscovered whether the planet is always discovered or requires research
-     * @param tierDebuff whether the atmosphere of this planet is so dense that increases the rocket tier required to launch from there
+     * @param gravity relative to earth
      */
     public record Planet(
             Time day,
             Distance radius,
             ResourceKey<Level> level,
-            Optional<Breathability> atmosphere,
+            Atmosphere atmosphere,
             Temperature minTemperature,
             Temperature maxTemperature,
             DoseRate terrestrialRadiation,
@@ -55,13 +55,13 @@ public class CelestialBodyTypes {
             ResourceLocation marker,
             int tier,
             boolean alwaysDiscovered,
-            boolean tierDebuff
+            float gravity
     ) implements CelestialBodyType {
         public static final MapCodec<Planet> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Time.CODEC.fieldOf("day").forGetter(Planet::day),
                 Distance.CODEC.fieldOf("radius").forGetter(Planet::radius),
                 ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter(Planet::level),
-                Breathability.CODEC.optionalFieldOf("atmosphere").forGetter(Planet::atmosphere),
+                Atmosphere.CODEC.fieldOf("atmosphere").forGetter(Planet::atmosphere),
                 Temperature.CODEC.fieldOf("min_temperature").forGetter(Planet::minTemperature),
                 Temperature.CODEC.fieldOf("max_temperature").forGetter(Planet::maxTemperature),
                 DoseRate.CODEC.fieldOf("terrestrial_radiation").forGetter(Planet::terrestrialRadiation),
@@ -70,7 +70,7 @@ public class CelestialBodyTypes {
                 ResourceLocation.CODEC.fieldOf("marker").forGetter(Planet::marker),
                 Codec.INT.fieldOf("tier").forGetter(Planet::tier),
                 Codec.BOOL.optionalFieldOf("always_discovered", false).forGetter(Planet::alwaysDiscovered),
-                Codec.BOOL.optionalFieldOf("tier_debuff", false).forGetter(Planet::tierDebuff)
+                Codec.FLOAT.fieldOf("gravity").forGetter(Planet::gravity)
         ).apply(instance, Planet::new));
         public static final CelestialBodyTypeCodec CODEC = new CelestialBodyTypeCodec(KeyDispatchDataCodec.of(MAP_CODEC).codec());
 
@@ -92,6 +92,15 @@ public class CelestialBodyTypes {
         @Override
         public int tier() {
             return this.tier;
+        }
+
+        @Override
+        public float gravityOf(VirtualLevelKey level) {
+            return this.gravity;
+        }
+
+        public boolean tierDebuff() {
+            return this.atmosphere != Atmosphere.None;
         }
     }
 
@@ -133,7 +142,12 @@ public class CelestialBodyTypes {
 
         @Override
         public int tier() {
-            return 0;
+            throw new RuntimeException("Not a planet");
+        }
+
+        @Override
+        public float gravityOf(VirtualLevelKey level) {
+            throw new RuntimeException("Not a planet");
         }
     }
 

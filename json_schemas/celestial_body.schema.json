@@ -19,8 +19,8 @@
               "type": "string"
             },
             "atmosphere": {
-              "description": "how breathable the atmosphere is, unset means there is no atmosphere.",
-              "enum": ["unbreathable", "filterable", "breathable"]
+              "description": "atmosphere description",
+              "enum": ["none", "unbreathable", "filterable", "breathable"]
             },
             "min_temperature": {
               "description": "temperature at midnight",
@@ -66,16 +66,11 @@
               "description": "whether the planet is always discovered or requires research",
               "type": "boolean",
               "default": false
-            },
-            "tier_debuff": {
-              "description": "whether the atmosphere of this planet is so dense that increases the rocket tier required to launch from there",
-              "type": "boolean",
-              "default": false
             }
           },
           "required": [
             "type", "min_temperature", "max_temperature", "terrestrial_radiation", "day", "radius", "marker",
-            "cosmic_radiation", "cosmic_radiation_on_surface", "tier"
+            "cosmic_radiation", "cosmic_radiation_on_surface", "tier", "atmosphere"
           ]
         },
         {

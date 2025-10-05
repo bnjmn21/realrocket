@@ -11,4 +11,5 @@ public interface CelestialBodyType {
     Stream<ResourceKey<Level>> levels();
     Optional<Boolean> isDiscovered();
     int tier();
+    float gravityOf(VirtualLevelKey level);
 }

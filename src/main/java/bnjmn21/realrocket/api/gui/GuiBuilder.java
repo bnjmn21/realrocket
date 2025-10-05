@@ -20,7 +20,7 @@ import java.util.function.Consumer;
  */
 @SuppressWarnings("UnusedReturnValue")
 public class GuiBuilder {
-    WidgetGroup inner;
+    public WidgetGroup inner;
 
     public GuiBuilder(WidgetGroup inner) {
         this.inner = inner;
@@ -87,6 +87,14 @@ public class GuiBuilder {
         wgt.setButtonBackground(ColorPattern.GRAY.rectTexture());
         wgt.setCandidates(candidates);
         wgt.setValue(selected);
+        return this.add(wgt);
+    }
+
+    public PhantomSlotWidget phantomSlot() {
+        PhantomSlotWidget wgt = new PhantomSlotWidget();
+        wgt.setCanPutItems(false);
+        wgt.setCanTakeItems(false);
+        wgt.setClearSlotOnRightClick(false);
         return this.add(wgt);
     }
 

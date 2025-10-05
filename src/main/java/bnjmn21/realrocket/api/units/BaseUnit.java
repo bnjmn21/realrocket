@@ -21,28 +21,42 @@ abstract public class BaseUnit<Self extends BaseUnit<Self, Base>, Base extends S
         this.value = value;
     }
 
+    @Override
     public Self add(Self rhs) {
         Base base = this.toBase();
         base.value += rhs.toBase().value;
         return base;
     }
 
+    @Override
     public Self sub(Self rhs) {
         Base base = this.toBase();
         base.value -= rhs.toBase().value;
         return base;
     }
 
+    @Override
     public Self mul(double rhs) {
         Base base = this.toBase();
         base.value *= rhs;
         return base;
     }
 
+    @Override
     public Self div(double rhs) {
         Base base = this.toBase();
         base.value /= rhs;
         return base;
+    }
+
+    @Override
+    public double div(Self rhs) {
+        return this.toBase().value / rhs.toBase().value;
+    }
+
+    @Override
+    public double getValue() {
+        return value;
     }
 
     public static <T extends BaseUnit<T, Base>, Base extends T> Codec<T> createCodec(
