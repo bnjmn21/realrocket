@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.ModLoader;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
@@ -37,6 +38,9 @@ public class CelestialBodyTypes {
      * @param cosmicRadiation radiation in space
      * @param cosmicRadiationOnSurface additional radiation, scales with skylight, that means no radiation at night or in caves
      * @param marker icon for use in GUIs
+     * @param tier the planet tier
+     * @param alwaysDiscovered whether the planet is always discovered or requires research
+     * @param tierDebuff whether the atmosphere of this planet is so dense that increases the rocket tier required to launch from there
      */
     public record Planet(
             Time day,
@@ -48,7 +52,10 @@ public class CelestialBodyTypes {
             DoseRate terrestrialRadiation,
             DoseRate cosmicRadiation,
             DoseRate cosmicRadiationOnSurface,
-            ResourceLocation marker
+            ResourceLocation marker,
+            int tier,
+            boolean alwaysDiscovered,
+            boolean tierDebuff
     ) implements CelestialBodyType {
         public static final MapCodec<Planet> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Time.CODEC.fieldOf("day").forGetter(Planet::day),
@@ -60,13 +67,31 @@ public class CelestialBodyTypes {
                 DoseRate.CODEC.fieldOf("terrestrial_radiation").forGetter(Planet::terrestrialRadiation),
                 DoseRate.CODEC.fieldOf("cosmic_radiation").forGetter(Planet::cosmicRadiation),
                 DoseRate.CODEC.fieldOf("cosmic_radiation_on_surface").forGetter(Planet::cosmicRadiationOnSurface),
-                ResourceLocation.CODEC.fieldOf("marker").forGetter(Planet::marker)
+                ResourceLocation.CODEC.fieldOf("marker").forGetter(Planet::marker),
+                Codec.INT.fieldOf("tier").forGetter(Planet::tier),
+                Codec.BOOL.optionalFieldOf("always_discovered", false).forGetter(Planet::alwaysDiscovered),
+                Codec.BOOL.optionalFieldOf("tier_debuff", false).forGetter(Planet::tierDebuff)
         ).apply(instance, Planet::new));
         public static final CelestialBodyTypeCodec CODEC = new CelestialBodyTypeCodec(KeyDispatchDataCodec.of(MAP_CODEC).codec());
 
         @Override
         public CelestialBodyTypeCodec codec() {
             return CODEC;
+        }
+
+        @Override
+        public Stream<ResourceKey<Level>> levels() {
+            return Stream.of(this.level);
+        }
+
+        @Override
+        public Optional<Boolean> isDiscovered() {
+            return Optional.of(this.alwaysDiscovered());
+        }
+
+        @Override
+        public int tier() {
+            return this.tier;
         }
     }
 
@@ -94,6 +119,21 @@ public class CelestialBodyTypes {
         @Override
         public CelestialBodyTypeCodec codec() {
             return CODEC;
+        }
+
+        @Override
+        public Stream<ResourceKey<Level>> levels() {
+            return Stream.empty();
+        }
+
+        @Override
+        public Optional<Boolean> isDiscovered() {
+            return Optional.empty();
+        }
+
+        @Override
+        public int tier() {
+            return 0;
         }
     }
 

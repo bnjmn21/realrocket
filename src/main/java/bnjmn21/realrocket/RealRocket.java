@@ -1,6 +1,8 @@
 package bnjmn21.realrocket;
 
 import bnjmn21.realrocket.api.RRRegistries;
+import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
+import bnjmn21.realrocket.common.block.RocketDesignerEntity;
 import bnjmn21.realrocket.common.content.Moon;
 import bnjmn21.realrocket.common.content.RocketParts;
 import bnjmn21.realrocket.common.data.*;
@@ -12,6 +14,8 @@ import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -33,6 +37,7 @@ public class RealRocket {
         bus.addGenericListener(GTRecipeType.class, this::registerRecipeTypes);
         bus.addGenericListener(DimensionMarker.class, this::registerDimMarkers);
         bus.addGenericListener(SoundEntry.class, this::registerSounds);
+        MinecraftForge.EVENT_BUS.addListener(this::addReloadListeners);
     }
 
     public static void init() {
@@ -42,6 +47,7 @@ public class RealRocket {
         RRBlocks.init();
         RRLang.init();
         RRTags.init();
+        RocketDesignerEntity.init();
         RocketParts.init();
         Moon.init();
 
@@ -56,6 +62,10 @@ public class RealRocket {
     @SubscribeEvent
     public void modifyMaterials(PostMaterialEvent event) {
         RRMaterials.modifyMaterials();
+    }
+
+    public void addReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(new VirtualLevels.CollectLevels());
     }
 
     public void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {

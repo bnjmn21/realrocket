@@ -146,6 +146,11 @@ public class RRRegistrate extends GTRegistrate {
         return new Translatable(key, factory);
     }
 
+    public Translatable addPrefixedLangTemplate(String key, String value, Function<MutableComponent, MutableComponent> factory) {
+        addPrefixedLang(key, value);
+        return new Translatable(this.currentLangPrefix + "." + key, factory);
+    }
+
     public record Translatable(String key, Function<MutableComponent, MutableComponent> factory) {
         public MutableComponent apply(Object... args) {
             return factory.apply(Component.translatable(key, args));

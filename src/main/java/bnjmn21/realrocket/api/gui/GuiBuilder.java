@@ -84,6 +84,7 @@ public class GuiBuilder {
     public SelectorWidget select(int width, List<String> candidates, String selected) {
         SelectorWidget wgt = new SelectorWidget();
         wgt.setSizeWidth(width);
+        wgt.setButtonBackground(ColorPattern.GRAY.rectTexture());
         wgt.setCandidates(candidates);
         wgt.setValue(selected);
         return this.add(wgt);

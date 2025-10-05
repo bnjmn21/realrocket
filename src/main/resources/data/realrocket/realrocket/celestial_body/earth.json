@@ -23,7 +23,10 @@
       "type": "realrocket:millisievert",
       "value": 6,
       "per": "realrocket:day"
-    }
+    },
+    "tier": 1,
+    "always_discovered": true,
+    "tier_debuff": true
   },
   "orbit": {
     "parent": "realrocket:sun",

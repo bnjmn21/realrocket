@@ -1,10 +1,10 @@
 package bnjmn21.realrocket.common.block;
 
 import bnjmn21.realrocket.api.rocket.Engine;
+import bnjmn21.realrocket.api.rocket.RocketLogic;
 import bnjmn21.realrocket.common.data.RRLang;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
@@ -18,23 +18,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class EngineBlock extends Block implements Engine {
-    public static final ChatFormatting[] TIER_COLORS = new ChatFormatting[] {
-            ChatFormatting.GRAY,
-            ChatFormatting.DARK_PURPLE,
-            ChatFormatting.DARK_BLUE,
-            ChatFormatting.LIGHT_PURPLE,
-            ChatFormatting.RED,
-            ChatFormatting.DARK_AQUA,
-            ChatFormatting.DARK_RED,
-            ChatFormatting.GREEN,
-            ChatFormatting.DARK_GREEN,
-            ChatFormatting.YELLOW,
-            ChatFormatting.DARK_BLUE,
-            ChatFormatting.GOLD,
-            ChatFormatting.AQUA,
-    };
-
-
     final int tier;
     final Supplier<GTRecipeType> recipeType;
     final @Nullable MutableComponent lore;
@@ -55,7 +38,7 @@ public class EngineBlock extends Block implements Engine {
         if (this.lore != null) {
             tooltip.add(this.lore);
         }
-        tooltip.add(RRLang.TOOLTIP_TIER.apply(String.valueOf(this.tier)).withStyle(TIER_COLORS[this.tier]));
+        tooltip.add(RRLang.TOOLTIP_TIER.apply(String.valueOf(this.tier)).withStyle(RocketLogic.TIER_COLORS[this.tier]));
     }
 
     @Override

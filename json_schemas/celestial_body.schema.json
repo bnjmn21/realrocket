@@ -57,11 +57,25 @@
             "marker": {
               "description": "icon for use in GUIs (a resource location)",
               "type": "string"
+            },
+            "tier": {
+              "description": "the planet tier",
+              "type": "number"
+            },
+            "always_discovered": {
+              "description": "whether the planet is always discovered or requires research",
+              "type": "boolean",
+              "default": false
+            },
+            "tier_debuff": {
+              "description": "whether the atmosphere of this planet is so dense that increases the rocket tier required to launch from there",
+              "type": "boolean",
+              "default": false
             }
           },
           "required": [
             "type", "min_temperature", "max_temperature", "terrestrial_radiation", "day", "radius", "marker",
-            "cosmic_radiation", "cosmic_radiation_on_surface"
+            "cosmic_radiation", "cosmic_radiation_on_surface", "tier"
           ]
         },
         {
