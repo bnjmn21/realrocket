@@ -1,6 +1,6 @@
 # Realistic Rocketry
 
-A fork (kinda) of Gregicality Rocketry that is the way I want it.
+An addon for GregTech all about space exploration.
 
 ## Inspiration
 
