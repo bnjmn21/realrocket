@@ -3,8 +3,7 @@ package bnjmn21.realrocket.api;
 import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypeCodec;
 import bnjmn21.realrocket.api.rocket.Engine;
-import bnjmn21.realrocket.api.units.BaseUnit;
-import bnjmn21.realrocket.api.units.BaseUnitType;
+import bnjmn21.realrocket.api.units.Unit;
 import bnjmn21.realrocket.common.data.RRDimensionMarkers;
 import bnjmn21.realrocket.integration.xei.XeiRegistry;
 import bnjmn21.realrocket.util.Lazy;
@@ -63,8 +62,11 @@ public class RRRegistrate extends GTRegistrate {
         return new RRRegistrate(modId);
     }
 
-    public <T extends BaseUnit<?, ?>> BaseUnitType baseUnit(String name, Function<Double, T> constructor, Class<T> clazz) {
-        return RRRegistries.UNITS.register(RealRocket.id(name), new BaseUnitType(constructor, clazz));
+//    public <T extends BaseUnit<?, ?>> BaseUnitType baseUnit(String name, Function<Double, T> constructor, Class<T> clazz) {
+//        return RRRegistries.UNITS.register(RealRocket.id(name), new BaseUnitType(constructor, clazz));
+//    }
+    public void unit(ResourceLocation id, Unit<?> unit) {
+        RRRegistries.UNITS.register(id, unit);
     }
 
     public void celestialBodyType(String name, CelestialBodyTypeCodec type) {

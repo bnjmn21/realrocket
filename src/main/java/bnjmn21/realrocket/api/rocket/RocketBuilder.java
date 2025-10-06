@@ -1,6 +1,6 @@
 package bnjmn21.realrocket.api.rocket;
 
-import bnjmn21.realrocket.api.units.quantities.Mass;
+import bnjmn21.realrocket.api.units.Mass;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;

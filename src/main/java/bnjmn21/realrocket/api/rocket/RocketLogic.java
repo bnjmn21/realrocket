@@ -3,8 +3,7 @@ package bnjmn21.realrocket.api.rocket;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypes;
 import bnjmn21.realrocket.api.celestial_body.VirtualLevelKey;
 import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
-import bnjmn21.realrocket.api.units.quantities.Acceleration;
-import bnjmn21.realrocket.api.units.quantities.Distance;
+import bnjmn21.realrocket.api.units.Acceleration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -48,7 +47,7 @@ public class RocketLogic {
         return false;
     }
 
-    static final Acceleration DEFAULT_ENTITY_GRAVITY = Acceleration.perTickSq(new Distance.Meter(LivingEntity.DEFAULT_BASE_GRAVITY));
+    static final Acceleration DEFAULT_ENTITY_GRAVITY = Acceleration.MetersPerTickSq.of(LivingEntity.DEFAULT_BASE_GRAVITY);
     static final Acceleration EARTH_GRAVITY = DEFAULT_ENTITY_GRAVITY;
     static final Acceleration MIN_TAKEOFF_ACCELERATION = DEFAULT_ENTITY_GRAVITY.div(3);
     static final Acceleration MIN_LANDING_DECELERATION = DEFAULT_ENTITY_GRAVITY.div(3);

@@ -3,7 +3,7 @@ package bnjmn21.realrocket.common.block;
 import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.rocket.BlockMass;
 import bnjmn21.realrocket.api.rocket.Booster;
-import bnjmn21.realrocket.api.units.quantities.Mass;
+import bnjmn21.realrocket.api.units.Mass;
 import bnjmn21.realrocket.common.data.RRLang;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
@@ -41,7 +41,7 @@ public class BoosterNozzleBlock extends Block implements Booster, BlockMass {
 
     @Override
     public Mass getMass() {
-        return new Mass.Tonne(1);
+        return Mass.Tonne.of(1);
     }
 
     public static void blockModel(DataGenContext<Block, ? extends Block> ctx, RegistrateBlockstateProvider prov) {

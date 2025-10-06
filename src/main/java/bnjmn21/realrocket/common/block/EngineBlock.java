@@ -3,7 +3,7 @@ package bnjmn21.realrocket.common.block;
 import bnjmn21.realrocket.api.rocket.BlockMass;
 import bnjmn21.realrocket.api.rocket.Engine;
 import bnjmn21.realrocket.api.rocket.RocketLogic;
-import bnjmn21.realrocket.api.units.quantities.Mass;
+import bnjmn21.realrocket.api.units.Mass;
 import bnjmn21.realrocket.common.data.RRLang;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
@@ -45,7 +45,7 @@ public class EngineBlock extends Block implements Engine, BlockMass {
 
     @Override
     public Mass getMass() {
-        return new Mass.Tonne(1);
+        return Mass.Tonne.of(1);
     }
 
     @Override

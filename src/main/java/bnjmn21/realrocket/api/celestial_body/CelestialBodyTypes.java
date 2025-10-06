@@ -1,10 +1,10 @@
 package bnjmn21.realrocket.api.celestial_body;
 
 import bnjmn21.realrocket.api.RRRegistries;
-import bnjmn21.realrocket.api.units.quantities.Distance;
-import bnjmn21.realrocket.api.units.quantities.DoseRate;
-import bnjmn21.realrocket.api.units.quantities.Temperature;
-import bnjmn21.realrocket.api.units.quantities.Time;
+import bnjmn21.realrocket.api.units.Distance;
+import bnjmn21.realrocket.api.units.DoseRate;
+import bnjmn21.realrocket.api.units.Temperature;
+import bnjmn21.realrocket.api.units.Time;
 import bnjmn21.realrocket.util.serialization.ByNameCodec;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.mojang.serialization.Codec;

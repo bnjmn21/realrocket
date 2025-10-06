@@ -1,7 +1,7 @@
 package bnjmn21.realrocket.api.celestial_body;
 
-import bnjmn21.realrocket.api.units.quantities.Distance;
-import bnjmn21.realrocket.api.units.quantities.Time;
+import bnjmn21.realrocket.api.units.Distance;
+import bnjmn21.realrocket.api.units.Time;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;

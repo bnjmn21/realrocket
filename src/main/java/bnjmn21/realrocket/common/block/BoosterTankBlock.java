@@ -1,7 +1,7 @@
 package bnjmn21.realrocket.common.block;
 
 import bnjmn21.realrocket.api.rocket.BlockMass;
-import bnjmn21.realrocket.api.units.quantities.Mass;
+import bnjmn21.realrocket.api.units.Mass;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -41,7 +41,7 @@ public class BoosterTankBlock extends Block implements BlockMass {
 
     @Override
     public Mass getMass() {
-        return new Mass.Tonne(1);
+        return Mass.Tonne.of(1);
     }
 
     @Override

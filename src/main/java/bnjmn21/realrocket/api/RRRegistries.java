@@ -4,7 +4,7 @@ import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.celestial_body.CelestialBody;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypeCodec;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypes;
-import bnjmn21.realrocket.api.units.BaseUnitType;
+import bnjmn21.realrocket.api.units.Unit;
 import bnjmn21.realrocket.api.units.Units;
 import com.gregtechceu.gtceu.api.registry.GTRegistry;
 import net.minecraft.core.Registry;
@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class RRRegistries {
     public static final RRRegistrate REGISTRATE = RRRegistrate.create(RealRocket.MOD_ID);
-    public static final GTRegistry.RL<BaseUnitType> UNITS = new GTRegistry.RL<>(RealRocket.id("unit"));
+    public static final GTRegistry.RL<Unit<?>> UNITS = new GTRegistry.RL<>(RealRocket.id("unit"));
     public static final GTRegistry.RL<CelestialBodyTypeCodec> CELESTIAL_BODY_TYPES = new GTRegistry.RL<>(RealRocket.id("celestial_body_type"));
     public static final GTRegistry.RL<ResourceLocation> ENGINES = new GTRegistry.RL<>(RealRocket.id("engine"));
 
