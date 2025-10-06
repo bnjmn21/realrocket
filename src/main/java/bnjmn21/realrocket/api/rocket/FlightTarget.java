@@ -14,7 +14,7 @@ public interface FlightTarget {
     record VirtualLevel(VirtualLevelKey level) implements FlightTarget {
         @Override
         public int tier(Level level) {
-            return VirtualLevels.levels(level).get(this.level).body().tier();
+            return VirtualLevels.levels(level).get(this.level).tier();
         }
     }
     record NewSpaceStation(ResourceKey<CelestialBody> around) implements FlightTarget {

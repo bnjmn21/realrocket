@@ -62,6 +62,10 @@ public class GuiBuilder {
         return this.add(wgt);
     }
 
+    public ButtonWidget button(Component text) {
+        return button(text.toString());
+    }
+
     public ButtonWidget button(String text) {
         ButtonWidget wgt = new ButtonWidget();
         TextTexture label = new TextTexture(text);

@@ -1,7 +1,9 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.api.rocket.BlockMass;
 import bnjmn21.realrocket.api.rocket.Engine;
 import bnjmn21.realrocket.api.rocket.RocketLogic;
+import bnjmn21.realrocket.api.units.quantities.Mass;
 import bnjmn21.realrocket.common.data.RRLang;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
@@ -17,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class EngineBlock extends Block implements Engine {
+public class EngineBlock extends Block implements Engine, BlockMass {
     final int tier;
     final Supplier<GTRecipeType> recipeType;
     final @Nullable MutableComponent lore;
@@ -39,6 +41,11 @@ public class EngineBlock extends Block implements Engine {
             tooltip.add(this.lore);
         }
         tooltip.add(RRLang.TOOLTIP_TIER.apply(String.valueOf(this.tier)).withStyle(RocketLogic.TIER_COLORS[this.tier]));
+    }
+
+    @Override
+    public Mass getMass() {
+        return new Mass.Tonne(1);
     }
 
     @Override

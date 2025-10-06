@@ -18,6 +18,10 @@ public class Acceleration extends DivUnit<Velocity, Time, Acceleration> {
         return new Acceleration(new Velocity(a, new Time.Second(1)), new Time.Second(1));
     }
 
+    public static Acceleration perTickSq(Distance a) {
+        return new Acceleration(new Velocity(a, new Time.Second(0.05)), new Time.Second(0.05));
+    }
+
     @Override
     public Acceleration toBase() {
         return new Acceleration(this.getValue());

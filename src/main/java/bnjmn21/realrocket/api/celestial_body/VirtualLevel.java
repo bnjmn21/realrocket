@@ -2,11 +2,17 @@ package bnjmn21.realrocket.api.celestial_body;
 
 public interface VirtualLevel {
     float gravity();
+    int tier();
 
     record Planet(CelestialBody planet, VirtualLevelKey level) implements VirtualLevel {
         @Override
         public float gravity() {
             return this.planet.body().gravityOf(level);
+        }
+
+        @Override
+        public int tier() {
+            return this.planet.body().tier();
         }
     }
 
@@ -14,6 +20,11 @@ public interface VirtualLevel {
         @Override
         public float gravity() {
             return 0;
+        }
+
+        @Override
+        public int tier() {
+            return this.parent.body().tier();
         }
     }
 }

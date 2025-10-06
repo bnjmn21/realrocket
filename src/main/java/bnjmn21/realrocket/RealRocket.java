@@ -2,6 +2,7 @@ package bnjmn21.realrocket;
 
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
+import bnjmn21.realrocket.api.gui.EntityUIFactory;
 import bnjmn21.realrocket.common.block.RocketDesignerEntity;
 import bnjmn21.realrocket.common.content.Moon;
 import bnjmn21.realrocket.common.content.RocketParts;
@@ -13,6 +14,7 @@ import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
+import com.lowdragmc.lowdraglib.gui.factory.UIFactory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -50,6 +52,9 @@ public class RealRocket {
         RocketDesignerEntity.init();
         RocketParts.init();
         Moon.init();
+        RREntityDataSerializers.init();
+        RREntities.init();
+        UIFactory.register(EntityUIFactory.INSTANCE);
 
         RRRegistries.REGISTRATE.registerRegistrate();
     }

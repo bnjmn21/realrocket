@@ -6,6 +6,7 @@ import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
 import bnjmn21.realrocket.api.units.quantities.Acceleration;
 import bnjmn21.realrocket.api.units.quantities.Distance;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 public class RocketLogic {
@@ -47,9 +48,10 @@ public class RocketLogic {
         return false;
     }
 
-    static final Acceleration EARTH_GRAVITY = Acceleration.perSecondSq(new Distance.Meter(10));
-    static final Acceleration MIN_TAKEOFF_ACCELERATION = Acceleration.perSecondSq(new Distance.Meter(1));
-    static final Acceleration LANDING_DECELERATION = Acceleration.perSecondSq(new Distance.Meter(2));
+    static final Acceleration DEFAULT_ENTITY_GRAVITY = Acceleration.perTickSq(new Distance.Meter(LivingEntity.DEFAULT_BASE_GRAVITY));
+    static final Acceleration EARTH_GRAVITY = DEFAULT_ENTITY_GRAVITY;
+    static final Acceleration MIN_TAKEOFF_ACCELERATION = DEFAULT_ENTITY_GRAVITY.div(3);
+    static final Acceleration MIN_LANDING_DECELERATION = DEFAULT_ENTITY_GRAVITY.div(3);
 
     public static Acceleration liftoffAccelerationRequired(Level level, VirtualLevelKey from) {
         Acceleration gravity = EARTH_GRAVITY.mul(VirtualLevels.levels(level).get(from).gravity());
@@ -58,6 +60,6 @@ public class RocketLogic {
 
     public static Acceleration landingAccelerationRequired(Level level, VirtualLevelKey to) {
         Acceleration gravity = EARTH_GRAVITY.mul(VirtualLevels.levels(level).get(to).gravity());
-        return gravity.add(LANDING_DECELERATION);
+        return gravity.add(MIN_LANDING_DECELERATION);
     }
 }

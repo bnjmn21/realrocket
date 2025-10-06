@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.api.rocket.BlockMass;
+import bnjmn21.realrocket.api.units.quantities.Mass;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -16,7 +18,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BoosterTankBlock extends Block {
+public class BoosterTankBlock extends Block implements BlockMass {
     static BooleanProperty AFT = BooleanProperty.create("aft");
     static BooleanProperty NOSE = BooleanProperty.create("nose");
     static BooleanProperty CONNECT_NORTH = BooleanProperty.create("connect_north");
@@ -35,6 +37,11 @@ public class BoosterTankBlock extends Block {
                 .setValue(CONNECT_SOUTH, false)
                 .setValue(CONNECT_WEST, false)
         );
+    }
+
+    @Override
+    public Mass getMass() {
+        return new Mass.Tonne(1);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package bnjmn21.realrocket.common.block;
 
 import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.rocket.BlockMass;
 import bnjmn21.realrocket.api.rocket.Booster;
+import bnjmn21.realrocket.api.units.quantities.Mass;
 import bnjmn21.realrocket.common.data.RRLang;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
@@ -23,7 +25,7 @@ import java.util.List;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
-public class BoosterNozzleBlock extends Block implements Booster {
+public class BoosterNozzleBlock extends Block implements Booster, BlockMass {
     static VoxelShape AABB = Block.box(1, 0, 1, 15, 16, 15);
 
     static final MutableComponent TOOLTIP =
@@ -35,6 +37,11 @@ public class BoosterNozzleBlock extends Block implements Booster {
 
     public BoosterNozzleBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public Mass getMass() {
+        return new Mass.Tonne(1);
     }
 
     public static void blockModel(DataGenContext<Block, ? extends Block> ctx, RegistrateBlockstateProvider prov) {
