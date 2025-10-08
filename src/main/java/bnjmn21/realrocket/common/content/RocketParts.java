@@ -3,13 +3,12 @@ package bnjmn21.realrocket.common.content;
 import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.api.rocket.FuelType;
+import bnjmn21.realrocket.api.rocket.Seat;
 import bnjmn21.realrocket.api.rocket.TankContainmentInfo;
-import bnjmn21.realrocket.common.block.BoosterNozzleBlock;
-import bnjmn21.realrocket.common.block.BoosterTankBlock;
-import bnjmn21.realrocket.common.block.EngineBlock;
-import bnjmn21.realrocket.common.block.TankBlock;
+import bnjmn21.realrocket.common.block.*;
 import bnjmn21.realrocket.common.data.RRRecipeTypes;
 import bnjmn21.realrocket.common.data.RRTags;
+import bnjmn21.realrocket.common.entity.SeatEntity;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +16,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fml.ModLoader;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
@@ -69,8 +69,19 @@ public class RocketParts {
                 .simpleItem()
                 .register();
 
+        SEAT = REGISTRATE.block("seat", SeatBlock::new)
+                .initialProperties(() -> Blocks.GRAY_WOOL)
+                .lang("Seat")
+                .blockstate(Models::simpleBlockWithExistingModel)
+                .tag(RRTags.MINEABLE_WRENCH)
+                .simpleItem()
+                .register();
+
         ModLoader.get().postEvent(new GTCEuAPI.RegisterEvent<>(RRRegistries.ENGINES, ResourceLocation.class));
         REGISTRATE.engine(BASIC_ROCKET_MOTOR.getKey());
         RRRegistries.ENGINES.freeze();
+
+        ModLoader.get().postEvent(new GTCEuAPI.RegisterEvent<>(RRRegistries.SEATS, Seat.class));
+        RRRegistries.SEATS.register(SEAT.getId(), new Seat(new Vec3(0, SeatEntity.RIDE_HEIGHT, 0)));
     }
 }

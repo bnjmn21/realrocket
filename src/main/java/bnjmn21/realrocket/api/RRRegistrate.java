@@ -62,9 +62,6 @@ public class RRRegistrate extends GTRegistrate {
         return new RRRegistrate(modId);
     }
 
-//    public <T extends BaseUnit<?, ?>> BaseUnitType baseUnit(String name, Function<Double, T> constructor, Class<T> clazz) {
-//        return RRRegistries.UNITS.register(RealRocket.id(name), new BaseUnitType(constructor, clazz));
-//    }
     public void unit(ResourceLocation id, Unit<?> unit) {
         RRRegistries.UNITS.register(id, unit);
     }

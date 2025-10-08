@@ -32,7 +32,7 @@ public class Unit<T extends Quantity<T>> {
         return this.constructor.apply(this.toBase.applyAsDouble(value));
     }
 
-    public double from(T value) {
+    public double get(T value) {
         return this.fromBase.applyAsDouble(value.getValue());
     }
 
@@ -73,9 +73,6 @@ public class Unit<T extends Quantity<T>> {
         public <T> DataResult<Pair<E, T>> decode(DynamicOps<T> ops, T input) {
             return UnitValue.CODEC.decode(ops, input).flatMap(unitValueResult -> {
                 UnitValue unitValue = unitValueResult.getFirst();
-                if (unitValue.type.constructor != this.constructor) {
-                    return DataResult.error(() -> "Incorrect unit", Lifecycle.stable());
-                }
                 //noinspection unchecked
                 return DataResult.success(Pair.of((E) unitValue.type.of(unitValue.value), unitValueResult.getSecond()), Lifecycle.stable());
             });

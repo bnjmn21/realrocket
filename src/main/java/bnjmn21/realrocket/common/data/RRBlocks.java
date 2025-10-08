@@ -58,14 +58,6 @@ public class RRBlocks {
             .validBlock(ROCKET_DESIGNER)
             .register();
 
-    public static final BlockEntry<SeatBlock> SEAT = REGISTRATE.block("seat", SeatBlock::new)
-            .initialProperties(() -> Blocks.GRAY_WOOL)
-            .lang("Seat")
-            .blockstate(Models::simpleBlockWithExistingModel)
-            .tag(RRTags.MINEABLE_WRENCH)
-            .simpleItem()
-            .register();
-
     static {
         REGISTRATE.addRecipes(cons -> {
             GTRecipeTypes.ASSEMBLER_RECIPES.recipeBuilder(RealRocket.id("steel_grating"))
@@ -90,6 +82,7 @@ public class RRBlocks {
     public static BlockEntry<TankBlock> BASIC_FUEL_TANK;
     public static BlockEntry<BoosterTankBlock> BOOSTER_TANK;
     public static BlockEntry<BoosterNozzleBlock> BOOSTER_NOZZLE;
+    public static BlockEntry<SeatBlock> SEAT;
 
     public static void init() {
 

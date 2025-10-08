@@ -27,6 +27,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
+    public static double RIDE_HEIGHT = 0.5;
 
     public SeatEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -49,8 +50,8 @@ public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
     protected void positionRider(Entity pEntity, Entity.MoveFunction pCallback) {
         if (!this.hasPassenger(pEntity))
             return;
-        double d0 = this.getY() + this.getPassengersRidingOffset() + pEntity.getMyRidingOffset();
-        pCallback.accept(pEntity, this.getX(), d0 - 0.25, this.getZ());
+        double d0 = this.getY() + pEntity.getMyRidingOffset();
+        pCallback.accept(pEntity, this.getX(), d0 + RIDE_HEIGHT, this.getZ());
     }
 
     @Override

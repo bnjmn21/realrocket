@@ -4,6 +4,7 @@ import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.celestial_body.CelestialBody;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypeCodec;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypes;
+import bnjmn21.realrocket.api.rocket.Seat;
 import bnjmn21.realrocket.api.units.Unit;
 import bnjmn21.realrocket.api.units.Units;
 import com.gregtechceu.gtceu.api.registry.GTRegistry;
@@ -16,6 +17,7 @@ public class RRRegistries {
     public static final GTRegistry.RL<Unit<?>> UNITS = new GTRegistry.RL<>(RealRocket.id("unit"));
     public static final GTRegistry.RL<CelestialBodyTypeCodec> CELESTIAL_BODY_TYPES = new GTRegistry.RL<>(RealRocket.id("celestial_body_type"));
     public static final GTRegistry.RL<ResourceLocation> ENGINES = new GTRegistry.RL<>(RealRocket.id("engine"));
+    public static final GTRegistry.RL<Seat> SEATS = new GTRegistry.RL<>(RealRocket.id("seat"));
 
     public static final ResourceKey<Registry<CelestialBody>> CELESTIAL_BODIES = REGISTRATE.makeDatapackRegistry("celestial_body", CelestialBody.CODEC, CelestialBody.CODEC);
 
@@ -23,6 +25,8 @@ public class RRRegistries {
         UNITS.unfreeze();
         CELESTIAL_BODY_TYPES.unfreeze();
         ENGINES.unfreeze();
+        SEATS.unfreeze();
+
         Units.init();
         CelestialBodyTypes.init();
     }
