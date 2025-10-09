@@ -1,10 +1,11 @@
 package bnjmn21.realrocket.common.data;
 
-import net.minecraft.world.entity.MobCategory;
-
 import bnjmn21.realrocket.client.entity_renderer.RocketEntityRenderer;
 import bnjmn21.realrocket.common.entity.RocketEntity;
 import bnjmn21.realrocket.common.entity.SeatEntity;
+
+import net.minecraft.world.entity.MobCategory;
+
 import com.tterrag.registrate.util.entry.EntityEntry;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;

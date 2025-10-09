@@ -1,14 +1,14 @@
 package bnjmn21.realrocket.api.rocket;
 
+import bnjmn21.realrocket.api.units.Mass;
+import bnjmn21.realrocket.common.data.RRLang;
+
 import net.minecraft.FieldsAreNonnullByDefault;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-
-import bnjmn21.realrocket.api.units.Mass;
-import bnjmn21.realrocket.common.data.RRLang;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class RocketBuilder {
     BlockPos.MutableBlockPos aabbEnd = new BlockPos.MutableBlockPos(0, 0, 0);
     @Nullable
     FlightComputer flightComputer;
-    ArrayList<Vec3> seats;
+    ArrayList<Vec3> seats = new ArrayList<>();
 
     RocketBuilder() {}
 

@@ -1,5 +1,13 @@
 package bnjmn21.realrocket;
 
+import bnjmn21.realrocket.api.RRRegistries;
+import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
+import bnjmn21.realrocket.api.gui.EntityUIFactory;
+import bnjmn21.realrocket.common.block.RocketDesignerEntity;
+import bnjmn21.realrocket.common.content.Moon;
+import bnjmn21.realrocket.common.content.RocketParts;
+import bnjmn21.realrocket.common.data.*;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.DimensionMarker;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
@@ -17,13 +25,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import bnjmn21.realrocket.api.RRRegistries;
-import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
-import bnjmn21.realrocket.api.gui.EntityUIFactory;
-import bnjmn21.realrocket.common.block.RocketDesignerEntity;
-import bnjmn21.realrocket.common.content.Moon;
-import bnjmn21.realrocket.common.content.RocketParts;
-import bnjmn21.realrocket.common.data.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

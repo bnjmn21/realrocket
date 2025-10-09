@@ -1,5 +1,11 @@
 package bnjmn21.realrocket.api.sets;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.RRRegistrate;
+import bnjmn21.realrocket.common.content.LootTables;
+import bnjmn21.realrocket.common.content.Models;
+import bnjmn21.realrocket.util.StonecuttingRecipeHelper;
+
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.StoneTypeEntry;
@@ -18,11 +24,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.RRRegistrate;
-import bnjmn21.realrocket.common.content.LootTables;
-import bnjmn21.realrocket.common.content.Models;
-import bnjmn21.realrocket.util.StonecuttingRecipeHelper;
 import com.tterrag.registrate.providers.*;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;

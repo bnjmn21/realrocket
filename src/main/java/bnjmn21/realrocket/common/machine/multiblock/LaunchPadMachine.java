@@ -1,5 +1,9 @@
 package bnjmn21.realrocket.common.machine.multiblock;
 
+import bnjmn21.realrocket.common.data.RRBlocks;
+import bnjmn21.realrocket.common.data.RRTags;
+import bnjmn21.realrocket.util.PatternBuilder;
+
 import com.gregtechceu.gtceu.api.block.IMachineBlock;
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
@@ -26,9 +30,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import bnjmn21.realrocket.common.data.RRBlocks;
-import bnjmn21.realrocket.common.data.RRTags;
-import bnjmn21.realrocket.util.PatternBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

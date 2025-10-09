@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.api.gui;
 
+import bnjmn21.realrocket.RealRocket;
+
 import com.lowdragmc.lowdraglib.gui.factory.UIFactory;
 import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
@@ -11,8 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import bnjmn21.realrocket.RealRocket;
 
 public class EntityUIFactory extends UIFactory<Entity> {
 

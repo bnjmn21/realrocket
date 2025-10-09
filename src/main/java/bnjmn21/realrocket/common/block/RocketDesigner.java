@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.common.data.RRBlocks;
+
 import com.lowdragmc.lowdraglib.syncdata.blockentity.IAutoPersistBlockEntity;
 
 import net.minecraft.core.BlockPos;
@@ -22,7 +24,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
-import bnjmn21.realrocket.common.data.RRBlocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

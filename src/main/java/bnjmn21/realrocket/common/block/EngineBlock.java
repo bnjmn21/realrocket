@@ -1,5 +1,11 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.api.rocket.BlockMass;
+import bnjmn21.realrocket.api.rocket.Engine;
+import bnjmn21.realrocket.api.rocket.RocketLogic;
+import bnjmn21.realrocket.api.units.Mass;
+import bnjmn21.realrocket.common.data.RRLang;
+
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 
 import net.minecraft.network.chat.Component;
@@ -9,11 +15,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 
-import bnjmn21.realrocket.api.rocket.BlockMass;
-import bnjmn21.realrocket.api.rocket.Engine;
-import bnjmn21.realrocket.api.rocket.RocketLogic;
-import bnjmn21.realrocket.api.units.Mass;
-import bnjmn21.realrocket.common.data.RRLang;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

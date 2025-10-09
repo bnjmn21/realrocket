@@ -1,8 +1,8 @@
 package bnjmn21.realrocket.api.rocket;
 
-import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
-
 import bnjmn21.realrocket.common.block.EngineBlock;
+
+import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 
 /**
  * An engine / rocket motor.

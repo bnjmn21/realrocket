@@ -1,15 +1,16 @@
 package bnjmn21.realrocket.integration.emi;
 
+import bnjmn21.realrocket.common.data.RRBlocks;
+import bnjmn21.realrocket.common.data.RRRecipeTypes;
+import bnjmn21.realrocket.integration.xei.XeiPlugin;
+import bnjmn21.realrocket.integration.xei.XeiRegistry;
+
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.integration.emi.recipe.GTRecipeEMICategory;
 
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 
-import bnjmn21.realrocket.common.data.RRBlocks;
-import bnjmn21.realrocket.common.data.RRRecipeTypes;
-import bnjmn21.realrocket.integration.xei.XeiPlugin;
-import bnjmn21.realrocket.integration.xei.XeiRegistry;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;

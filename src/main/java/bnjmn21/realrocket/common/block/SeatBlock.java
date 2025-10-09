@@ -1,5 +1,8 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.common.entity.SeatEntity;
+import bnjmn21.realrocket.util.ProperWaterloggedBlock;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,9 +29,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.FakePlayer;
-
-import bnjmn21.realrocket.common.entity.SeatEntity;
-import bnjmn21.realrocket.util.ProperWaterloggedBlock;
 
 import java.util.List;
 

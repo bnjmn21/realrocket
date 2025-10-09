@@ -1,5 +1,9 @@
 package bnjmn21.realrocket.common.data;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.common.block.*;
+import bnjmn21.realrocket.common.content.Models;
+
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
@@ -10,9 +14,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.common.block.*;
-import bnjmn21.realrocket.common.content.Models;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 

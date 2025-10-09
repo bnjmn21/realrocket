@@ -1,5 +1,12 @@
 package bnjmn21.realrocket.common.content;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.sets.DustLayerBlockSet;
+import bnjmn21.realrocket.api.sets.PlanetStoneBlockSet;
+import bnjmn21.realrocket.common.data.RRCreativeModeTabs;
+import bnjmn21.realrocket.common.data.RRMaterials;
+import bnjmn21.realrocket.util.Lazy;
+
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.data.worldgen.GTLayerPattern;
 import com.gregtechceu.gtceu.api.data.worldgen.IWorldGenLayer;
@@ -15,12 +22,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.MapColor;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.sets.DustLayerBlockSet;
-import bnjmn21.realrocket.api.sets.PlanetStoneBlockSet;
-import bnjmn21.realrocket.common.data.RRCreativeModeTabs;
-import bnjmn21.realrocket.common.data.RRMaterials;
-import bnjmn21.realrocket.util.Lazy;
 import com.tterrag.registrate.providers.ProviderType;
 
 import java.util.Set;

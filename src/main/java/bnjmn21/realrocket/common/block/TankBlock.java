@@ -1,5 +1,10 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.RRRegistrate;
+import bnjmn21.realrocket.api.rocket.Tank;
+import bnjmn21.realrocket.api.rocket.TankContainmentInfo;
+
 import com.lowdragmc.lowdraglib.client.model.custommodel.ICTMPredicate;
 import com.lowdragmc.lowdraglib.utils.FacadeBlockAndTintGetter;
 
@@ -17,10 +22,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.RRRegistrate;
-import bnjmn21.realrocket.api.rocket.Tank;
-import bnjmn21.realrocket.api.rocket.TankContainmentInfo;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.nullness.NonNullFunction;

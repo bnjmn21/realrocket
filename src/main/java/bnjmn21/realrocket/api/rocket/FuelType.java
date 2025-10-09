@@ -1,11 +1,11 @@
 package bnjmn21.realrocket.api.rocket;
 
+import bnjmn21.realrocket.common.data.RRTags;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
-
-import bnjmn21.realrocket.common.data.RRTags;
 
 /**
  * A fuel type, for example {@link FuelType#OXIDIZER}.

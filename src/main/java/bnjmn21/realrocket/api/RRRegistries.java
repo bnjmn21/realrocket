@@ -1,11 +1,5 @@
 package bnjmn21.realrocket.api;
 
-import com.gregtechceu.gtceu.api.registry.GTRegistry;
-
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-
 import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.celestial_body.CelestialBody;
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypeCodec;
@@ -13,6 +7,12 @@ import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypes;
 import bnjmn21.realrocket.api.rocket.Seat;
 import bnjmn21.realrocket.api.units.Unit;
 import bnjmn21.realrocket.api.units.Units;
+
+import com.gregtechceu.gtceu.api.registry.GTRegistry;
+
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 
 public class RRRegistries {
 

@@ -1,11 +1,12 @@
 package bnjmn21.realrocket.mixin;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.common.worldgen.RandomCraters;
+
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunctions;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.common.worldgen.RandomCraters;
 import com.mojang.serialization.Codec;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

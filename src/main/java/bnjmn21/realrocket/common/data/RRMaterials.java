@@ -1,11 +1,11 @@
 package bnjmn21.realrocket.common.data;
 
+import bnjmn21.realrocket.common.content.RocketFuels;
+
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
-
-import bnjmn21.realrocket.common.content.RocketFuels;
 
 import static bnjmn21.realrocket.RealRocket.id;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;

@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.common.data;
 
+import bnjmn21.realrocket.RealRocket;
+
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 
@@ -9,8 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-
-import bnjmn21.realrocket.RealRocket;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 

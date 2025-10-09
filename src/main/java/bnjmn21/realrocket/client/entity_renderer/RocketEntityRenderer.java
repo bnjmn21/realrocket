@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.client.entity_renderer;
 
+import bnjmn21.realrocket.common.entity.RocketEntity;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -11,7 +13,6 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 
-import bnjmn21.realrocket.common.entity.RocketEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import javax.annotation.ParametersAreNonnullByDefault;

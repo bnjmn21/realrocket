@@ -1,11 +1,12 @@
 package bnjmn21.realrocket.common.data;
 
+import bnjmn21.realrocket.RealRocket;
+
 import com.gregtechceu.gtceu.common.data.GTCreativeModeTabs;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 
-import bnjmn21.realrocket.RealRocket;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;

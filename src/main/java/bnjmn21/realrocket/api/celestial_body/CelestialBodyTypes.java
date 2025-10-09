@@ -1,5 +1,12 @@
 package bnjmn21.realrocket.api.celestial_body;
 
+import bnjmn21.realrocket.api.RRRegistries;
+import bnjmn21.realrocket.api.units.Distance;
+import bnjmn21.realrocket.api.units.DoseRate;
+import bnjmn21.realrocket.api.units.Temperature;
+import bnjmn21.realrocket.api.units.Time;
+import bnjmn21.realrocket.util.serialization.ByNameCodec;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 
 import net.minecraft.core.registries.Registries;
@@ -9,12 +16,6 @@ import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.ModLoader;
 
-import bnjmn21.realrocket.api.RRRegistries;
-import bnjmn21.realrocket.api.units.Distance;
-import bnjmn21.realrocket.api.units.DoseRate;
-import bnjmn21.realrocket.api.units.Temperature;
-import bnjmn21.realrocket.api.units.Time;
-import bnjmn21.realrocket.util.serialization.ByNameCodec;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

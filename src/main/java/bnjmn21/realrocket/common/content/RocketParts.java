@@ -1,5 +1,15 @@
 package bnjmn21.realrocket.common.content;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.RRRegistries;
+import bnjmn21.realrocket.api.rocket.FuelType;
+import bnjmn21.realrocket.api.rocket.Seat;
+import bnjmn21.realrocket.api.rocket.TankContainmentInfo;
+import bnjmn21.realrocket.common.block.*;
+import bnjmn21.realrocket.common.data.RRRecipeTypes;
+import bnjmn21.realrocket.common.data.RRTags;
+import bnjmn21.realrocket.common.entity.SeatEntity;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 
 import net.minecraft.ChatFormatting;
@@ -10,16 +20,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fml.ModLoader;
-
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.RRRegistries;
-import bnjmn21.realrocket.api.rocket.FuelType;
-import bnjmn21.realrocket.api.rocket.Seat;
-import bnjmn21.realrocket.api.rocket.TankContainmentInfo;
-import bnjmn21.realrocket.common.block.*;
-import bnjmn21.realrocket.common.data.RRRecipeTypes;
-import bnjmn21.realrocket.common.data.RRTags;
-import bnjmn21.realrocket.common.entity.SeatEntity;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 import static bnjmn21.realrocket.common.data.RRBlocks.*;

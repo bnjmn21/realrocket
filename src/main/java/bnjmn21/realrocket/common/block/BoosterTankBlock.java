@@ -1,5 +1,8 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.api.rocket.BlockMass;
+import bnjmn21.realrocket.api.units.Mass;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -14,8 +17,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import bnjmn21.realrocket.api.rocket.BlockMass;
-import bnjmn21.realrocket.api.units.Mass;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

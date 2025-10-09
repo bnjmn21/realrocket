@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.api.celestial_body;
 
+import bnjmn21.realrocket.api.RRRegistries;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -12,7 +14,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-import bnjmn21.realrocket.api.RRRegistries;
 import com.mojang.datafixers.util.Pair;
 import org.jetbrains.annotations.NotNull;
 

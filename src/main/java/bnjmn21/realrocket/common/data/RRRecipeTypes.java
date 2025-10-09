@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.common.data;
 
+import bnjmn21.realrocket.data.recipe.generated.PrinterRecipes;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
@@ -13,8 +15,6 @@ import com.lowdragmc.lowdraglib.gui.texture.ProgressTexture;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeType;
-
-import bnjmn21.realrocket.data.recipe.generated.PrinterRecipes;
 
 import static bnjmn21.realrocket.RealRocket.id;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;

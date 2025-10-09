@@ -1,5 +1,9 @@
 package bnjmn21.realrocket.api.sets;
 
+import bnjmn21.realrocket.api.RRRegistrate;
+import bnjmn21.realrocket.common.content.LootTables;
+import bnjmn21.realrocket.common.content.Models;
+
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
@@ -8,9 +12,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.material.MapColor;
 
-import bnjmn21.realrocket.api.RRRegistrate;
-import bnjmn21.realrocket.common.content.LootTables;
-import bnjmn21.realrocket.common.content.Models;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
 import java.util.function.Supplier;

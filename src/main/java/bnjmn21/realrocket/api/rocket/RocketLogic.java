@@ -1,13 +1,13 @@
 package bnjmn21.realrocket.api.rocket;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
-
 import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypes;
 import bnjmn21.realrocket.api.celestial_body.VirtualLevelKey;
 import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
 import bnjmn21.realrocket.api.units.Acceleration;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public class RocketLogic {
 

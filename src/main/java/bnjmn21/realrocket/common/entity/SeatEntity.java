@@ -1,5 +1,8 @@
 package bnjmn21.realrocket.common.entity;
 
+import bnjmn21.realrocket.common.block.SeatBlock;
+import bnjmn21.realrocket.common.data.RREntities;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -19,9 +22,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
-
-import bnjmn21.realrocket.common.block.SeatBlock;
-import bnjmn21.realrocket.common.data.RREntities;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

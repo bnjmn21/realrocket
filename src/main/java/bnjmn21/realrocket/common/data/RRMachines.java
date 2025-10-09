@@ -1,5 +1,10 @@
 package bnjmn21.realrocket.common.data;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.common.RRValues;
+import bnjmn21.realrocket.common.machine.multiblock.LaunchPadMachine;
+import bnjmn21.realrocket.util.PatternBuilder;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
@@ -7,11 +12,6 @@ import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.pattern.MultiblockShapeInfo;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader;
-
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.common.RRValues;
-import bnjmn21.realrocket.common.machine.multiblock.LaunchPadMachine;
-import bnjmn21.realrocket.util.PatternBuilder;
 
 import java.util.ArrayList;
 

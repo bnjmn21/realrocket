@@ -1,5 +1,11 @@
 package bnjmn21.realrocket.common.block;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.rocket.BlockMass;
+import bnjmn21.realrocket.api.rocket.Booster;
+import bnjmn21.realrocket.api.units.Mass;
+import bnjmn21.realrocket.common.data.RRLang;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -12,11 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.rocket.BlockMass;
-import bnjmn21.realrocket.api.rocket.Booster;
-import bnjmn21.realrocket.api.units.Mass;
-import bnjmn21.realrocket.common.data.RRLang;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import org.jetbrains.annotations.NotNull;

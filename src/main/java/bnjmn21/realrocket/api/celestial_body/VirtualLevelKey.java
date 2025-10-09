@@ -1,13 +1,13 @@
 package bnjmn21.realrocket.api.celestial_body;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.common.data.RRLang;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
-
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.common.data.RRLang;
 
 import java.util.Objects;
 

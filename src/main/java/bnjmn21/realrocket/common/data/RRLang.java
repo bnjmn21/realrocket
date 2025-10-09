@@ -1,10 +1,10 @@
 package bnjmn21.realrocket.common.data;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.MutableComponent;
-
 import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.RRRegistrate;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 import static net.minecraft.world.level.Level.OVERWORLD;
