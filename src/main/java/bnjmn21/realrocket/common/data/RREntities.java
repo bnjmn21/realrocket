@@ -17,6 +17,7 @@ public class RREntities {
                     .sized(0.25f, 0.35f)
             )
             .renderer(() -> SeatEntity.Render::new)
+            .lang("Seat")
             .register();
 
     public static EntityEntry<RocketEntity> ROCKET = REGISTRATE.entity("rocket", RocketEntity::new, MobCategory.MISC)
@@ -26,6 +27,7 @@ public class RREntities {
                     .setShouldReceiveVelocityUpdates(true)
                     .sized(1, 1))
             .renderer(() -> RocketEntityRenderer::new)
+            .lang("Rocket")
             .register();
 
     public static void init() {}

@@ -27,7 +27,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
-    public static double RIDE_HEIGHT = 0.5;
+    public static double RIDE_HEIGHT = 5.0 / 16.0;
 
     public SeatEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -51,7 +51,7 @@ public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
         if (!this.hasPassenger(pEntity))
             return;
         double d0 = this.getY() + pEntity.getMyRidingOffset();
-        pCallback.accept(pEntity, this.getX(), d0 + RIDE_HEIGHT, this.getZ());
+        pCallback.accept(pEntity, this.getX(), d0 + RIDE_HEIGHT - 0.25, this.getZ());
     }
 
     @Override
@@ -84,7 +84,7 @@ public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
 
     @Override
     public Vec3 getDismountLocationForPassenger(LivingEntity pLivingEntity) {
-        return super.getDismountLocationForPassenger(pLivingEntity).add(0, 5.0 / 16.0, 0);
+        return super.getDismountLocationForPassenger(pLivingEntity).add(0, RIDE_HEIGHT, 0);
     }
 
     @Override

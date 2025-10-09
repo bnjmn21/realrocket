@@ -25,8 +25,5 @@ public class RRLang {
     public static void init() {
         REGISTRATE.addLang(LEVEL_LANG, OVERWORLD.location(), "Earth");
         REGISTRATE.addLang(LEVEL_LANG, RealRocket.id("moon"), "Moon");
-
-        REGISTRATE.addLang("entity", RREntities.SEAT.getId(), "Seat");
-        REGISTRATE.addLang("entity", RREntities.ROCKET.getId(), "Rocket");
     }
 }
