@@ -14,6 +14,7 @@ import net.minecraft.world.level.material.Fluids;
  * <strike>Stolen</strike> generously donated by the Create mod team
  */
 public interface ProperWaterloggedBlock extends SimpleWaterloggedBlock {
+
     BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     default FluidState fluidState(BlockState state) {
@@ -39,5 +40,4 @@ public interface ProperWaterloggedBlock extends SimpleWaterloggedBlock {
             return placementState;
         return placementState.setValue(BlockStateProperties.WATERLOGGED, ifluidstate.getType() == Fluids.WATER);
     }
-
 }

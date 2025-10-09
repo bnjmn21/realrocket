@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import lombok.Getter;
 
 public enum Atmosphere implements GetName {
+
     /**
      * None
      */

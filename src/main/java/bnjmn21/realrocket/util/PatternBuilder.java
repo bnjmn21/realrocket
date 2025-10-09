@@ -2,6 +2,7 @@ package bnjmn21.realrocket.util;
 
 import com.gregtechceu.gtceu.api.block.IMachineBlock;
 import com.gregtechceu.gtceu.api.pattern.*;
+
 import net.minecraft.core.Direction;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -9,15 +10,18 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Consumer;
 
-@SuppressWarnings({"UnusedReturnValue", "unused"})
+@SuppressWarnings({ "UnusedReturnValue", "unused" })
 public interface PatternBuilder {
+
     PatternBuilder aisle(String... aisle);
+
     default PatternBuilder repeatedAisle(int repetitions, String... aisle) {
         for (int i = 0; i < repetitions; i++) {
             aisle(aisle);
         }
         return this;
     }
+
     PatternBuilder where(char symbol, TraceabilityPredicate blockMatcher, BlockState shapeInfo);
 
     default PatternBuilder where(char symbol, TraceabilityPredicate blockMatcher, Block shapeInfo) {
@@ -40,8 +44,10 @@ public interface PatternBuilder {
         return this;
     }
 
-    default PatternBuilder where(String symbol, TraceabilityPredicate blockMatcher, IMachineBlock block, Direction facing) {
-        where(symbol, blockMatcher, block.self().defaultBlockState().setValue(block.getRotationState().property, facing));
+    default PatternBuilder where(String symbol, TraceabilityPredicate blockMatcher, IMachineBlock block,
+                                 Direction facing) {
+        where(symbol, blockMatcher,
+                block.self().defaultBlockState().setValue(block.getRotationState().property, facing));
         return this;
     }
 
@@ -51,6 +57,7 @@ public interface PatternBuilder {
     }
 
     class BlockPatternBuilder implements PatternBuilder {
+
         FactoryBlockPattern inner;
 
         private BlockPatternBuilder(FactoryBlockPattern inner) {
@@ -77,6 +84,7 @@ public interface PatternBuilder {
     }
 
     class ShapeInfoBuilder implements PatternBuilder {
+
         MultiblockShapeInfo.ShapeInfoBuilder inner;
 
         public ShapeInfoBuilder(MultiblockShapeInfo.ShapeInfoBuilder inner) {

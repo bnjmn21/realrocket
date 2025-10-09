@@ -1,7 +1,5 @@
 package bnjmn21.realrocket.api.rocket;
 
-import bnjmn21.realrocket.api.units.Mass;
-import bnjmn21.realrocket.common.data.RRLang;
 import net.minecraft.FieldsAreNonnullByDefault;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -9,23 +7,30 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import bnjmn21.realrocket.api.units.Mass;
+import bnjmn21.realrocket.common.data.RRLang;
+
+import java.util.ArrayList;
+
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
 
 @MethodsReturnNonnullByDefault
 @FieldsAreNonnullByDefault
 @ParametersAreNonnullByDefault
 public class RocketBuilder {
+
     ArrayList<PositionedBlockState> blocks = new ArrayList<>();
     Mass mass = Mass.Kilogram.of(0);
     Vec3 cg = Vec3.ZERO;
     int engines = 0;
     Vec3 ct = Vec3.ZERO;
-    @Nullable Engine engineType;
+    @Nullable
+    Engine engineType;
     BlockPos.MutableBlockPos aabbStart = new BlockPos.MutableBlockPos(0, 0, 0);
     BlockPos.MutableBlockPos aabbEnd = new BlockPos.MutableBlockPos(0, 0, 0);
-    @Nullable FlightComputer flightComputer;
+    @Nullable
+    FlightComputer flightComputer;
     ArrayList<Vec3> seats;
 
     RocketBuilder() {}
@@ -105,6 +110,7 @@ public class RocketBuilder {
     }
 
     public static class AddError extends RuntimeException {
+
         public final Component translation;
 
         public AddError(Component message) {

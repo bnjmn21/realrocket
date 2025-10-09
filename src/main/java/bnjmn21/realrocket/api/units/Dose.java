@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 
 @SuppressWarnings("unused")
 public class Dose extends Quantity<Dose> {
+
     public static final Runnable INIT = Unit.mkInit(Dose.class);
     public static final Unit<Dose> Sievert = Unit.base(Dose::new, "sievert"),
             Millisievert = Unit.factor(1e-3, Dose::new, "millisievert"),

@@ -1,8 +1,5 @@
 package bnjmn21.realrocket.common.machine.multiblock;
 
-import bnjmn21.realrocket.common.data.RRBlocks;
-import bnjmn21.realrocket.common.data.RRTags;
-import bnjmn21.realrocket.util.PatternBuilder;
 import com.gregtechceu.gtceu.api.block.IMachineBlock;
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
@@ -15,8 +12,10 @@ import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +25,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
+import bnjmn21.realrocket.common.data.RRBlocks;
+import bnjmn21.realrocket.common.data.RRTags;
+import bnjmn21.realrocket.util.PatternBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -35,6 +38,7 @@ import java.util.Objects;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
 public class LaunchPadMachine extends MultiblockControllerMachine implements IDisplayUIMachine {
+
     public static final MutableComponent INVALID_STRUCTURE_TIP, MODE, MODE_BUILD, MODE_LAUNCH;
     static {
         REGISTRATE.setLangPrefix("realrocket.multiblock.launch_pad");
@@ -49,7 +53,8 @@ public class LaunchPadMachine extends MultiblockControllerMachine implements IDi
                 .withStyle(ChatFormatting.ITALIC);
     }
 
-    protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(LaunchPadMachine.class, MultiblockControllerMachine.MANAGED_FIELD_HOLDER);
+    protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(LaunchPadMachine.class,
+            MultiblockControllerMachine.MANAGED_FIELD_HOLDER);
 
     public static final int MIN_SIZE = 3;
     public static final int MAX_SIZE = 15;
@@ -70,7 +75,6 @@ public class LaunchPadMachine extends MultiblockControllerMachine implements IDi
         super(holder);
     }
 
-
     @Override
     public void addDisplayText(List<Component> textList) {
         if (!this.isFormed) {
@@ -89,9 +93,9 @@ public class LaunchPadMachine extends MultiblockControllerMachine implements IDi
             case Launch -> textList.add(Component.empty().append(MODE).append(": ").append(MODE_LAUNCH));
         }
 
-//        textList.add(ComponentPanelWidget.withButton(
-//                REGISTRATE.addPrefixedLang("build", "")
-//                        .withStyle(ChatFormatting.GREEN), "build_rocket"));
+        // textList.add(ComponentPanelWidget.withButton(
+        // REGISTRATE.addPrefixedLang("build", "")
+        // .withStyle(ChatFormatting.GREEN), "build_rocket"));
     }
 
     /**
@@ -174,7 +178,6 @@ public class LaunchPadMachine extends MultiblockControllerMachine implements IDi
         return block.is(Objects.requireNonNull(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.StainlessSteel)));
     }
 
-
     @Override
     public BlockPattern getPattern() {
         if (!updateStructureDimensions() || halfXSize == 0 || ySize == 0 || height == 0) {
@@ -185,7 +188,8 @@ public class LaunchPadMachine extends MultiblockControllerMachine implements IDi
             this.height = MIN_HEIGHT;
         }
 
-        return PatternBuilder.BlockPatternBuilder.create(builder -> pattern(this.halfXSize, this.ySize, this.height, getDefinition().get(), builder));
+        return PatternBuilder.BlockPatternBuilder
+                .create(builder -> pattern(this.halfXSize, this.ySize, this.height, getDefinition().get(), builder));
     }
 
     public static void pattern(int halfXSize, int ySize, int height, IMachineBlock ctrlBlock, PatternBuilder builder) {
@@ -228,7 +232,8 @@ public class LaunchPadMachine extends MultiblockControllerMachine implements IDi
                 .where(concrete, Predicates.blockTag(RRTags.LAUNCHPAD_SUPPORT), RRBlocks.REINFORCED_CONCRETE.get())
                 .where(controller, Predicates.controller(Predicates.blocks(ctrlBlock)), ctrlBlock, Direction.SOUTH)
                 .where(buildSurface, RRBlocks.STEEL_GRATING.get())
-                .where(waterInput, Predicates.abilities(PartAbility.IMPORT_FLUIDS_1X), GTMachines.FLUID_IMPORT_HATCH[0].get(), Direction.NORTH)
+                .where(waterInput, Predicates.abilities(PartAbility.IMPORT_FLUIDS_1X),
+                        GTMachines.FLUID_IMPORT_HATCH[0].get(), Direction.NORTH)
                 .where(pipeBlock, GTBlocks.CASING_STEEL_PIPE.get())
                 .where(tower, ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.StainlessSteel));
     }

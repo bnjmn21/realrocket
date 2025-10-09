@@ -1,4 +1,3 @@
 package bnjmn21.realrocket;
 
-public class RealRocketClient {
-}
+public class RealRocketClient {}

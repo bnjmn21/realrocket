@@ -4,7 +4,9 @@ import com.mojang.serialization.Codec;
 
 @SuppressWarnings("unused")
 public class Acceleration extends Quantity<Acceleration> {
-    public static final Codec<Acceleration> CODEC = Unit.createDivCodec(Acceleration::new, Velocity.CODEC, Velocity.MetersPerSecond, Time.CODEC, Time.Second);
+
+    public static final Codec<Acceleration> CODEC = Unit.createDivCodec(Acceleration::new, Velocity.CODEC,
+            Velocity.MetersPerSecond, Time.CODEC, Time.Second);
     public static final Unit<Acceleration> MetersPerSecondSq = Unit.base(Acceleration::new, "meters_per_second_sq"),
             MetersPerTickSq = Unit.factor(1.0 / 20 / 20, Acceleration::new, "meters_per_tick_sq");
 

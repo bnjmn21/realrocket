@@ -9,6 +9,7 @@ import java.util.function.Supplier;
  * A {@link Supplier} that caches the values after the first time it is executed.
  */
 public class Lazy<T> implements Supplier<T> {
+
     public Either<Supplier<T>, T> value;
 
     public Lazy(Supplier<T> supplier) {
@@ -23,7 +24,7 @@ public class Lazy<T> implements Supplier<T> {
             this.value = Either.right(value);
             return value;
         } else {
-            //noinspection OptionalGetWithoutIsPresent
+            // noinspection OptionalGetWithoutIsPresent
             return this.value.right().get();
         }
     }

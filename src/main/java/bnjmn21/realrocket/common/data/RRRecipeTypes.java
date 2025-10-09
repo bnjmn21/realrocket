@@ -1,6 +1,5 @@
 package bnjmn21.realrocket.common.data;
 
-import bnjmn21.realrocket.data.recipe.generated.PrinterRecipes;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
@@ -9,14 +8,19 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipeSerializer;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.registry.GTRegistries;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
+
 import com.lowdragmc.lowdraglib.gui.texture.ProgressTexture;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeType;
+
+import bnjmn21.realrocket.data.recipe.generated.PrinterRecipes;
 
 import static bnjmn21.realrocket.RealRocket.id;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
 public class RRRecipeTypes {
+
     public static final GTRecipeType BASIC_ROCKET_MOTOR = register("basic_rocket_motor", GTRecipeTypes.MULTIBLOCK)
             .setMaxIOSize(0, 0, 2, 0)
             .setEUIO(IO.NONE)

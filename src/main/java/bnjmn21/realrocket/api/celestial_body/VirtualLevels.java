@@ -1,7 +1,5 @@
 package bnjmn21.realrocket.api.celestial_body;
 
-import bnjmn21.realrocket.api.RRRegistries;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -13,9 +11,11 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+
+import bnjmn21.realrocket.api.RRRegistries;
+import com.mojang.datafixers.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,7 +25,10 @@ import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 public class VirtualLevels {
+
     public static Registry<CelestialBody> getCbRegistry(Level level) {
         RegistryAccess regs = level.registryAccess();
         return regs.registry(RRRegistries.CELESTIAL_BODIES).orElseThrow();
@@ -47,7 +50,8 @@ public class VirtualLevels {
     }
 
     public static Optional<VirtualLevelKey> getLevelAt(Level level, BlockPos pos) {
-        return planetLevels(level).keySet().stream().filter(lvl -> lvl.isIn(level.dimension(), pos)).findAny().map(p -> p);
+        return planetLevels(level).keySet().stream().filter(lvl -> lvl.isIn(level.dimension(), pos)).findAny()
+                .map(p -> p);
     }
 
     public static Optional<VirtualLevelKey> getLevelAt(Player player) {
@@ -60,15 +64,18 @@ public class VirtualLevels {
 
     @ParametersAreNonnullByDefault
     public static class CollectLevels implements PreparableReloadListener {
+
         @Override
         public @NotNull CompletableFuture<Void> reload(
-                PreparationBarrier preparationBarrier, ResourceManager resourceManager,
-                ProfilerFiller preparationsProfiler, ProfilerFiller reloadProfiler,
-                Executor backgroundExecutor, Executor gameExecutor) {
+                                                       PreparationBarrier preparationBarrier,
+                                                       ResourceManager resourceManager,
+                                                       ProfilerFiller preparationsProfiler,
+                                                       ProfilerFiller reloadProfiler,
+                                                       Executor backgroundExecutor, Executor gameExecutor) {
             INVALIDATE_PLANET_LEVELS = true;
             INVALIDATE_LEVELS = true;
             return CompletableFuture.runAsync(() -> {
-                //noinspection DataFlowIssue
+                // noinspection DataFlowIssue
                 preparationBarrier.wait(null);
             }, backgroundExecutor);
         }
@@ -76,6 +83,7 @@ public class VirtualLevels {
 
     private static boolean INVALIDATE_PLANET_LEVELS = true;
     private static Map<VirtualLevelKey.Planet, CelestialBody> PLANET_LEVELS;
+
     public static Map<VirtualLevelKey.Planet, CelestialBody> planetLevels(Level level) {
         if (PLANET_LEVELS != null && !INVALIDATE_PLANET_LEVELS) {
             return PLANET_LEVELS;
@@ -93,6 +101,7 @@ public class VirtualLevels {
 
     private static boolean INVALIDATE_LEVELS = true;
     private static Map<VirtualLevelKey, VirtualLevel> LEVELS;
+
     public static Map<VirtualLevelKey, VirtualLevel> levels(Level level) {
         if (LEVELS != null && !INVALIDATE_LEVELS) {
             return LEVELS;

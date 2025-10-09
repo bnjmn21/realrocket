@@ -3,6 +3,7 @@ package bnjmn21.realrocket.api.units;
 import lombok.Getter;
 
 public abstract class Quantity<Self extends Quantity<Self>> {
+
     @Getter
     double value;
 

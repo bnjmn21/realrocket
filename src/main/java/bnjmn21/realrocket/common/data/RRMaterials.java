@@ -1,16 +1,18 @@
 package bnjmn21.realrocket.common.data;
 
-import bnjmn21.realrocket.common.content.RocketFuels;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+
+import bnjmn21.realrocket.common.content.RocketFuels;
 
 import static bnjmn21.realrocket.RealRocket.id;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 import static bnjmn21.realrocket.common.RRValues.BASE_MATERIAL_HARVEST_LEVEL;
 
 public class RRMaterials {
+
     public static void init() {
         RocketFuels.init();
     }
@@ -19,7 +21,7 @@ public class RRMaterials {
         GTMaterials.PotassiumFeldspar.setProperty(PropertyKey.ORE, new OreProperty());
     }
 
-    //#region moon
+    // #region moon
     public static final Material Pyroxene = new Material.Builder(id("pyroxene"))
             .gem()
             .ore()
@@ -28,8 +30,7 @@ public class RRMaterials {
                     GTMaterials.Magnesium, 1,
                     GTMaterials.Iron, 1,
                     GTMaterials.SiliconDioxide, 2,
-                    GTMaterials.Oxygen, 2
-            )
+                    GTMaterials.Oxygen, 2)
             .register();
 
     public static final Material Anorthite = new Material.Builder(id("anorthite"))
@@ -40,8 +41,7 @@ public class RRMaterials {
                     GTMaterials.Calcium, 1,
                     GTMaterials.Aluminium, 2,
                     GTMaterials.Silicon, 2,
-                    GTMaterials.Oxygen, 8
-            )
+                    GTMaterials.Oxygen, 8)
             .buildAndRegister();
 
     public static final Material MoonDust = new Material.Builder(id("moon"))
@@ -62,8 +62,7 @@ public class RRMaterials {
                     GTMaterials.Titanium, 2,
                     GTMaterials.Hydrogen, 4,
                     GTMaterials.Helium, 2,
-                    GTMaterials.Tritium, 1
-            )
+                    GTMaterials.Tritium, 1)
             .buildAndRegister();
 
     static {
@@ -73,11 +72,11 @@ public class RRMaterials {
         REGISTRATE.addLang("material", RRMaterials.ElementalMoonDust.getResourceLocation(), "Elemental Moon");
         REGISTRATE.addLang("material", RRMaterials.Anorthite.getResourceLocation(), "Anorthite");
     }
-    //#endregion
+    // #endregion
 
-    //#region rocket fuels
+    // #region rocket fuels
     public static Material Kerosene;
 
     public static Material RP1;
-    //#endregion
+    // #endregion
 }

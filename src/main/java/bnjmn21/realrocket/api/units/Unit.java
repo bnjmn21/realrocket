@@ -1,5 +1,7 @@
 package bnjmn21.realrocket.api.units;
 
+import net.minecraft.resources.ResourceLocation;
+
 import bnjmn21.realrocket.RealRocket;
 import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.util.serialization.ByNameCodec;
@@ -7,7 +9,6 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -16,6 +17,7 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.Function;
 
 public class Unit<T extends Quantity<T>> {
+
     DoubleUnaryOperator fromBase;
     DoubleUnaryOperator toBase;
     DoubleFunction<T> constructor;
@@ -64,17 +66,19 @@ public class Unit<T extends Quantity<T>> {
         return mkInit(clazz, RealRocket.MOD_ID);
     }
 
-    public static<E extends Quantity<E>> Codec<E> createCodec(DoubleFunction<E> constructor, Unit<E> baseUnit) {
+    public static <E extends Quantity<E>> Codec<E> createCodec(DoubleFunction<E> constructor, Unit<E> baseUnit) {
         return new UnitCodec<>(constructor, baseUnit);
     }
 
     record UnitCodec<E extends Quantity<E>>(DoubleFunction<E> constructor, Unit<E> baseUnit) implements Codec<E> {
+
         @Override
         public <T> DataResult<Pair<E, T>> decode(DynamicOps<T> ops, T input) {
             return UnitValue.CODEC.decode(ops, input).flatMap(unitValueResult -> {
                 UnitValue unitValue = unitValueResult.getFirst();
-                //noinspection unchecked
-                return DataResult.success(Pair.of((E) unitValue.type.of(unitValue.value), unitValueResult.getSecond()), Lifecycle.stable());
+                // noinspection unchecked
+                return DataResult.success(Pair.of((E) unitValue.type.of(unitValue.value), unitValueResult.getSecond()),
+                        Lifecycle.stable());
             });
         }
 
@@ -85,28 +89,28 @@ public class Unit<T extends Quantity<T>> {
     }
 
     record UnitValue(double value, Unit<?> type) {
-        static final MapCodec<UnitValue> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) ->
-                instance.group(
-                        Codec.DOUBLE.fieldOf("value").orElse(1.0).forGetter(UnitValue::value),
-                        new ByNameCodec<>(RRRegistries.UNITS).fieldOf("type").forGetter(UnitValue::type)
-                ).apply(instance, UnitValue::new));
+
+        static final MapCodec<UnitValue> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+                Codec.DOUBLE.fieldOf("value").orElse(1.0).forGetter(UnitValue::value),
+                new ByNameCodec<>(RRRegistries.UNITS).fieldOf("type").forGetter(UnitValue::type))
+                .apply(instance, UnitValue::new));
 
         static final Codec<UnitValue> CODEC = Codec.either(new ByNameCodec<>(RRRegistries.UNITS), MAP_CODEC.codec())
                 .xmap(
                         either -> either.map(
                                 v -> new UnitValue(1.0, v),
-                                Function.identity()
-                        ),
-                        Either::right
-                );
+                                Function.identity()),
+                        Either::right);
     }
 
     public static <A extends Quantity<A>, B extends Quantity<B>, T extends Quantity<T>> Codec<T> createDivCodec(
-            DoubleFunction<T> constructor, Codec<A> aCodec, Unit<A> aBase, Codec<B> bCodec, Unit<B> bBase
-    ) {
+                                                                                                                DoubleFunction<T> constructor,
+                                                                                                                Codec<A> aCodec,
+                                                                                                                Unit<A> aBase,
+                                                                                                                Codec<B> bCodec,
+                                                                                                                Unit<B> bBase) {
         return Codec.pair(aCodec, bCodec.fieldOf("per").codec()).xmap(
                 pair -> constructor.apply(pair.getFirst().value / pair.getSecond().value),
-                div -> Pair.of(aBase.of(div.value), bBase.of(1))
-        );
+                div -> Pair.of(aBase.of(div.value), bBase.of(1)));
     }
 }

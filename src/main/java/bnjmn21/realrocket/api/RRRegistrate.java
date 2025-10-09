@@ -1,12 +1,5 @@
 package bnjmn21.realrocket.api;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypeCodec;
-import bnjmn21.realrocket.api.rocket.Engine;
-import bnjmn21.realrocket.api.units.Unit;
-import bnjmn21.realrocket.common.data.RRDimensionMarkers;
-import bnjmn21.realrocket.integration.xei.XeiRegistry;
-import bnjmn21.realrocket.util.Lazy;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
 import com.gregtechceu.gtceu.api.data.worldgen.GTOreDefinition;
 import com.gregtechceu.gtceu.api.data.worldgen.IWorldGenLayer;
@@ -14,10 +7,7 @@ import com.gregtechceu.gtceu.api.data.worldgen.SimpleWorldGenLayer;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.common.data.GTDimensionMarkers;
 import com.gregtechceu.gtceu.common.data.GTOres;
-import com.tterrag.registrate.providers.ProviderType;
-import com.tterrag.registrate.providers.RegistrateTagsProvider;
-import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullConsumer;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -27,6 +17,18 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
+
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.celestial_body.CelestialBodyTypeCodec;
+import bnjmn21.realrocket.api.rocket.Engine;
+import bnjmn21.realrocket.api.units.Unit;
+import bnjmn21.realrocket.common.data.RRDimensionMarkers;
+import bnjmn21.realrocket.integration.xei.XeiRegistry;
+import bnjmn21.realrocket.util.Lazy;
+import com.tterrag.registrate.providers.ProviderType;
+import com.tterrag.registrate.providers.RegistrateTagsProvider;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import org.jetbrains.annotations.NotNull;
 import oshi.util.tuples.Pair;
 
@@ -44,6 +46,7 @@ import java.util.function.Supplier;
  * This requires some extra code to work with {@link IGTAddon}s, which is handled here.
  */
 public class RRRegistrate extends GTRegistrate {
+
     ArrayList<Consumer<Consumer<FinishedRecipe>>> recipeAdders = new ArrayList<>();
     ArrayList<Runnable> tagPrefixRegistrars = new ArrayList<>();
     ArrayList<Lazy<IWorldGenLayer>> worldGenLayers = new ArrayList<>();
@@ -52,7 +55,7 @@ public class RRRegistrate extends GTRegistrate {
     ArrayList<Consumer<XeiRegistry>> xeiRegistrars = new ArrayList<>();
     ArrayList<DimMarkerReg> dimMarkers = new ArrayList<>();
 
-    private record DimMarkerReg(ResourceKey<Level> loc, int tier, BlockEntry<Block> block) { }
+    private record DimMarkerReg(ResourceKey<Level> loc, int tier, BlockEntry<Block> block) {}
 
     protected RRRegistrate(String modId) {
         super(modId);
@@ -88,7 +91,8 @@ public class RRRegistrate extends GTRegistrate {
         return lazy;
     }
 
-    public Lazy<IWorldGenLayer> addSimpleWorldGenLayer(String name, IWorldGenLayer.RuleTestSupplier target, Set<ResourceLocation> levels) {
+    public Lazy<IWorldGenLayer> addSimpleWorldGenLayer(String name, IWorldGenLayer.RuleTestSupplier target,
+                                                       Set<ResourceLocation> levels) {
         return addWorldGenLayer(() -> new SimpleWorldGenLayer(name, target, levels));
     }
 
@@ -138,19 +142,23 @@ public class RRRegistrate extends GTRegistrate {
 
     /**
      * Creates a new lang entry
+     * 
      * @return a helper for applying some arguments to the translation string template
      */
-    public Translatable addRawLangTemplate(String key, String value, Function<MutableComponent, MutableComponent> factory) {
+    public Translatable addRawLangTemplate(String key, String value,
+                                           Function<MutableComponent, MutableComponent> factory) {
         addRawLang(key, value);
         return new Translatable(key, factory);
     }
 
-    public Translatable addPrefixedLangTemplate(String key, String value, Function<MutableComponent, MutableComponent> factory) {
+    public Translatable addPrefixedLangTemplate(String key, String value,
+                                                Function<MutableComponent, MutableComponent> factory) {
         addPrefixedLang(key, value);
         return new Translatable(this.currentLangPrefix + "." + key, factory);
     }
 
     public record Translatable(String key, Function<MutableComponent, MutableComponent> factory) {
+
         public MutableComponent apply(Object... args) {
             return factory.apply(Component.translatable(key, args));
         }
@@ -179,8 +187,7 @@ public class RRRegistrate extends GTRegistrate {
     }
 
     public void registerDimMarkers() {
-        this.dimMarkers.forEach(marker ->
-            GTDimensionMarkers.createAndRegister(marker.loc.location(), marker.tier, marker.block::asItem, null)
-        );
+        this.dimMarkers.forEach(marker -> GTDimensionMarkers.createAndRegister(marker.loc.location(), marker.tier,
+                marker.block::asItem, null));
     }
 }

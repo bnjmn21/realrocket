@@ -3,6 +3,7 @@ package bnjmn21.realrocket.common;
 import static com.gregtechceu.gtceu.api.GTValues.*;
 
 public class RRValues {
+
     public static final int BASE_MATERIAL_HARVEST_LEVEL = 2;
     /**
      * The base voltage tier. Defaults to EV

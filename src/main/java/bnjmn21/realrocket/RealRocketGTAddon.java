@@ -1,27 +1,28 @@
 package bnjmn21.realrocket;
 
-import bnjmn21.realrocket.api.RRRegistries;
-import bnjmn21.realrocket.api.rocket.ThrustRecipeCapability;
-import bnjmn21.realrocket.common.data.RRSoundEntries;
 import com.gregtechceu.gtceu.api.addon.GTAddon;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
 import com.gregtechceu.gtceu.api.registry.GTRegistries;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
+
 import net.minecraft.data.recipes.FinishedRecipe;
+
+import bnjmn21.realrocket.api.RRRegistries;
+import bnjmn21.realrocket.api.rocket.ThrustRecipeCapability;
+import bnjmn21.realrocket.common.data.RRSoundEntries;
 
 import java.util.function.Consumer;
 
 @GTAddon
 public class RealRocketGTAddon implements IGTAddon {
+
     @Override
     public GTRegistrate getRegistrate() {
         return RRRegistries.REGISTRATE;
     }
 
     @Override
-    public void initializeAddon() {
-
-    }
+    public void initializeAddon() {}
 
     @Override
     public String addonModId() {

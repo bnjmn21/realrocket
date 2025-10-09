@@ -1,9 +1,5 @@
 package bnjmn21.realrocket.common.data;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.common.RRValues;
-import bnjmn21.realrocket.common.machine.multiblock.LaunchPadMachine;
-import bnjmn21.realrocket.util.PatternBuilder;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
@@ -11,6 +7,11 @@ import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.pattern.MultiblockShapeInfo;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader;
+
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.common.RRValues;
+import bnjmn21.realrocket.common.machine.multiblock.LaunchPadMachine;
+import bnjmn21.realrocket.util.PatternBuilder;
 
 import java.util.ArrayList;
 
@@ -33,23 +34,18 @@ public class RRMachines {
             .shapeInfos(def -> {
                 ArrayList<MultiblockShapeInfo> shapeInfo = new ArrayList<>();
                 shapeInfo.add(PatternBuilder.ShapeInfoBuilder.create(
-                        builder -> LaunchPadMachine.pattern(1, 3, 5, def.get(), builder)
-                ));
+                        builder -> LaunchPadMachine.pattern(1, 3, 5, def.get(), builder)));
                 shapeInfo.add(PatternBuilder.ShapeInfoBuilder.create(
-                        builder -> LaunchPadMachine.pattern(2, 5, 8, def.get(), builder)
-                ));
+                        builder -> LaunchPadMachine.pattern(2, 5, 8, def.get(), builder)));
                 shapeInfo.add(PatternBuilder.ShapeInfoBuilder.create(
-                        builder -> LaunchPadMachine.pattern(3, 7, 11, def.get(), builder)
-                ));
+                        builder -> LaunchPadMachine.pattern(3, 7, 11, def.get(), builder)));
                 shapeInfo.add(PatternBuilder.ShapeInfoBuilder.create(
-                        builder -> LaunchPadMachine.pattern(4, 9, 15, def.get(), builder)
-                ));
+                        builder -> LaunchPadMachine.pattern(4, 9, 15, def.get(), builder)));
                 return shapeInfo;
             })
             .workableCasingModel(
                     RealRocket.id("block/reinforced_concrete"),
-                    GTCEu.id("block/multiblock/assembly_line")
-            )
+                    GTCEu.id("block/multiblock/assembly_line"))
             .register();
 
     public static final MachineDefinition[] PRINTER = registerSimpleMachines(REGISTRATE, "printer",

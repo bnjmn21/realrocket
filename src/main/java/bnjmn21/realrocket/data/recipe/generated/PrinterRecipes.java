@@ -1,12 +1,12 @@
 package bnjmn21.realrocket.data.recipe.generated;
 
-
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.ToolProperty;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
@@ -19,6 +19,7 @@ import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlag
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 
 public class PrinterRecipes {
+
     public static void run(Consumer<FinishedRecipe> provider, Material material) {
         processParts(provider, material);
         ToolProperty property = material.getProperty(PropertyKey.TOOL);

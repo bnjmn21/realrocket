@@ -1,7 +1,5 @@
 package bnjmn21.realrocket.common.block;
 
-import bnjmn21.realrocket.common.entity.SeatEntity;
-import bnjmn21.realrocket.util.ProperWaterloggedBlock;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,9 +27,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.FakePlayer;
 
+import bnjmn21.realrocket.common.entity.SeatEntity;
+import bnjmn21.realrocket.util.ProperWaterloggedBlock;
+
+import java.util.List;
+
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
 
 /**
  * adapted from the Create mod
@@ -39,6 +41,7 @@ import java.util.List;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class SeatBlock extends Block implements ProperWaterloggedBlock {
+
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 5, 16);
 
     public SeatBlock(Properties properties) {
@@ -150,5 +153,4 @@ public class SeatBlock extends Block implements ProperWaterloggedBlock {
     public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
         return false;
     }
-
 }

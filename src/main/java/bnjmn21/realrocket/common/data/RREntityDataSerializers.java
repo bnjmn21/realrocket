@@ -1,20 +1,24 @@
 package bnjmn21.realrocket.common.data;
 
-import bnjmn21.realrocket.api.rocket.PositionedBlockState;
-import bnjmn21.realrocket.common.entity.RocketEntity;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import bnjmn21.realrocket.api.rocket.PositionedBlockState;
+import bnjmn21.realrocket.common.entity.RocketEntity;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class RREntityDataSerializers {
+
     public static final EntityDataSerializer<PositionedBlockState> POSITIONED_BLOCK_STATE = new EntityDataSerializer<>() {
+
         @Override
         public void write(FriendlyByteBuf buffer, PositionedBlockState value) {
             value.write(buffer);
@@ -32,6 +36,7 @@ public class RREntityDataSerializers {
     };
 
     public static final EntityDataSerializer<List<PositionedBlockState>> POSITIONED_BLOCK_STATE_LIST = new EntityDataSerializer<>() {
+
         @Override
         public void write(FriendlyByteBuf buffer, List<PositionedBlockState> value) {
             buffer.writeCollection(value, POSITIONED_BLOCK_STATE::write);
@@ -49,6 +54,7 @@ public class RREntityDataSerializers {
     };
 
     public static final EntityDataSerializer<RocketEntity.FlightPhase> FLIGHT_PHASE = new EntityDataSerializer<>() {
+
         @Override
         public void write(FriendlyByteBuf buffer, RocketEntity.FlightPhase value) {
             buffer.writeEnum(value);

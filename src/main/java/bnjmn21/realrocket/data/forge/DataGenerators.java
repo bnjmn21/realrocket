@@ -1,12 +1,14 @@
 package bnjmn21.realrocket.data.forge;
 
-import bnjmn21.realrocket.RealRocket;
 import com.gregtechceu.gtceu.api.registry.registrate.SoundEntryBuilder;
+
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import bnjmn21.realrocket.RealRocket;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {

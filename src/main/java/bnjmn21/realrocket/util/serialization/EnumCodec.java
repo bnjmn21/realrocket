@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnumCodec<E extends Enum<E> & GetName> implements Codec<E> {
+
     Map<String, E> values;
 
     public EnumCodec(Class<E> type) {
@@ -24,7 +25,8 @@ public class EnumCodec<E extends Enum<E> & GetName> implements Codec<E> {
         return Codec.STRING.decode(ops, input).flatMap(strResult -> {
             E value = this.values.get(strResult.getFirst());
             if (value == null) {
-                return DataResult.error(() -> "\"" + strResult.getFirst() + "\" is not a valid value", Lifecycle.stable());
+                return DataResult.error(() -> "\"" + strResult.getFirst() + "\" is not a valid value",
+                        Lifecycle.stable());
             }
 
             return DataResult.success(Pair.of(value, strResult.getSecond()), Lifecycle.stable());

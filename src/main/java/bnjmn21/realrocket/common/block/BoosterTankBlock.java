@@ -1,7 +1,5 @@
 package bnjmn21.realrocket.common.block;
 
-import bnjmn21.realrocket.api.rocket.BlockMass;
-import bnjmn21.realrocket.api.units.Mass;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -15,10 +13,14 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import bnjmn21.realrocket.api.rocket.BlockMass;
+import bnjmn21.realrocket.api.units.Mass;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BoosterTankBlock extends Block implements BlockMass {
+
     static BooleanProperty AFT = BooleanProperty.create("aft");
     static BooleanProperty NOSE = BooleanProperty.create("nose");
     static BooleanProperty CONNECT_NORTH = BooleanProperty.create("connect_north");
@@ -35,8 +37,7 @@ public class BoosterTankBlock extends Block implements BlockMass {
                 .setValue(CONNECT_NORTH, false)
                 .setValue(CONNECT_EAST, false)
                 .setValue(CONNECT_SOUTH, false)
-                .setValue(CONNECT_WEST, false)
-        );
+                .setValue(CONNECT_WEST, false));
     }
 
     @Override
@@ -54,8 +55,10 @@ public class BoosterTankBlock extends Block implements BlockMass {
     @SuppressWarnings("deprecation")
     @Override
     public @NotNull BlockState updateShape(
-            @NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState,
-            @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
+                                           @NotNull BlockState state, @NotNull Direction direction,
+                                           @NotNull BlockState neighborState,
+                                           @NotNull LevelAccessor level, @NotNull BlockPos pos,
+                                           @NotNull BlockPos neighborPos) {
         return this.getBlockState(level, pos);
     }
 
@@ -74,7 +77,8 @@ public class BoosterTankBlock extends Block implements BlockMass {
 
     @SuppressWarnings("deprecation")
     @Override
-    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos,
+                                        @NotNull CollisionContext context) {
         return AABB;
     }
 

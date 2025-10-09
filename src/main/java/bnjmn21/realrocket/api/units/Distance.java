@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 
 @SuppressWarnings("unused")
 public class Distance extends Quantity<Distance> {
+
     public static final Runnable INIT = Unit.mkInit(Distance.class);
     public static final Unit<Distance> Meter = Unit.base(Distance::new, "meter"),
             Kilometer = Unit.factor(1e3, Distance::new, "kilometer"),

@@ -1,15 +1,12 @@
 package bnjmn21.realrocket.common.worldgen;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderOwner;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.DensityFunction;
-import net.minecraft.world.level.levelgen.Noises;
-import net.minecraft.world.level.levelgen.synth.NormalNoise;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -21,33 +18,33 @@ import org.jetbrains.annotations.NotNull;
  * Minimum: {@code -sqrt(maxRadius) * depthFactor}<br>
  * Maximum: {@code 0}
  *
- * @param minRadius minimum radius of the craters
- * @param maxRadius maximum radius of the craters
- * @param distance average distance between craters
+ * @param minRadius   minimum radius of the craters
+ * @param maxRadius   maximum radius of the craters
+ * @param distance    average distance between craters
  * @param depthFactor additional factor
- * @param noise the noise used for determining crater position and radius
+ * @param noise       the noise used for determining crater position and radius
  */
 public record RandomCraters(
-        double minRadius,
-        double maxRadius,
-        int distance,
-        double depthFactor,
-        NoiseHolder noise
-) implements DensityFunction {
-    private static final MapCodec<RandomCraters> DATA_CODEC =
-            RecordCodecBuilder.mapCodec((instance) -> instance
-                    .group(
-                            Codec.DOUBLE.fieldOf("min_radius")
-                                    .forGetter(RandomCraters::minRadius),
-                            Codec.DOUBLE.fieldOf("max_radius")
-                                    .forGetter(RandomCraters::maxRadius),
-                            Codec.INT.fieldOf("distance")
-                                    .forGetter(RandomCraters::distance),
-                            Codec.DOUBLE.fieldOf("depth_factor")
-                                    .forGetter(RandomCraters::depthFactor),
-                            NoiseHolder.CODEC.fieldOf("noise")
-                                    .forGetter(RandomCraters::noise)
-                    ).apply(instance, RandomCraters::new));
+                            double minRadius,
+                            double maxRadius,
+                            int distance,
+                            double depthFactor,
+                            NoiseHolder noise)
+        implements DensityFunction {
+
+    private static final MapCodec<RandomCraters> DATA_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
+            .group(
+                    Codec.DOUBLE.fieldOf("min_radius")
+                            .forGetter(RandomCraters::minRadius),
+                    Codec.DOUBLE.fieldOf("max_radius")
+                            .forGetter(RandomCraters::maxRadius),
+                    Codec.INT.fieldOf("distance")
+                            .forGetter(RandomCraters::distance),
+                    Codec.DOUBLE.fieldOf("depth_factor")
+                            .forGetter(RandomCraters::depthFactor),
+                    NoiseHolder.CODEC.fieldOf("noise")
+                            .forGetter(RandomCraters::noise))
+            .apply(instance, RandomCraters::new));
     public static final KeyDispatchDataCodec<RandomCraters> CODEC = KeyDispatchDataCodec.of(DATA_CODEC);
 
     private double craterXOffset(double craterX, double craterZ) {
@@ -67,7 +64,8 @@ public record RandomCraters(
         final double randomizedCraterX = craterX + (craterXOffset(craterX, craterZ) * halfDistance);
         final double randomizedCraterZ = craterZ + (craterZOffset(craterX, craterZ) * halfDistance);
         final double distSq = Mth.lengthSquared(posX - randomizedCraterX, posZ - randomizedCraterZ);
-        final double radius = Math.pow(craterRadius(craterX, craterZ), 2) * (this.maxRadius - this.minRadius) + this.minRadius;
+        final double radius = Math.pow(craterRadius(craterX, craterZ), 2) * (this.maxRadius - this.minRadius) +
+                this.minRadius;
         return Math.min(distSq * (1.0 / Math.pow(radius, 2)) - 1.0, 0) * Math.sqrt(radius);
     }
 
@@ -99,8 +97,7 @@ public record RandomCraters(
                 this.maxRadius,
                 this.distance,
                 this.depthFactor,
-                visitor.visitNoise(this.noise)
-        ));
+                visitor.visitNoise(this.noise)));
     }
 
     @Override

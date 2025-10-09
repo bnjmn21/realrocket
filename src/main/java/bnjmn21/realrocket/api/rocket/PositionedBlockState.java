@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.world.level.block.state.BlockState;
 
 public record PositionedBlockState(BlockPos pos, BlockState state) {
+
     public static PositionedBlockState readFromTag(CompoundTag tag) {
         BlockPos pos = NbtUtils.readBlockPos(tag.getCompound("p"));
         @SuppressWarnings("deprecation") // ForgeRegistries has no `asLookup()`

@@ -7,9 +7,14 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface CelestialBodyType {
+
     CelestialBodyTypeCodec codec();
+
     Stream<ResourceKey<Level>> levels();
+
     Optional<Boolean> isDiscovered();
+
     int tier();
+
     float gravityOf(VirtualLevelKey level);
 }

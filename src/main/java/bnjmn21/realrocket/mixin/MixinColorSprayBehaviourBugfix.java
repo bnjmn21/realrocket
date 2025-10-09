@@ -1,11 +1,13 @@
 package bnjmn21.realrocket.mixin;
 
 import com.gregtechceu.gtceu.common.item.ColorSprayBehaviour;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.Overwrite;
  */
 @Mixin(ColorSprayBehaviour.class)
 public class MixinColorSprayBehaviourBugfix {
+
     /**
      * @author bnjmn21
      * @reason temporary until it is fixed in gtceu

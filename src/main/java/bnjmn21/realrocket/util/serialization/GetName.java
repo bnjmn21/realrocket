@@ -3,6 +3,7 @@ package bnjmn21.realrocket.util.serialization;
 import java.util.Arrays;
 
 public interface GetName {
+
     String getName();
 
     static <T extends GetName> T fromName(Class<T> clazz, String value) {
@@ -15,6 +16,7 @@ public interface GetName {
                 .map(GetName::getName)
                 .toArray(String[]::new);
 
-        throw new RuntimeException("Invalid enum variant. Got " + value + ", must be any of " + Arrays.toString(allowedValues));
+        throw new RuntimeException(
+                "Invalid enum variant. Got " + value + ", must be any of " + Arrays.toString(allowedValues));
     }
 }

@@ -1,18 +1,11 @@
 package bnjmn21.realrocket.api.sets;
 
-import bnjmn21.realrocket.RealRocket;
-import bnjmn21.realrocket.api.RRRegistrate;
-import bnjmn21.realrocket.common.content.LootTables;
-import bnjmn21.realrocket.common.content.Models;
-import bnjmn21.realrocket.util.StonecuttingRecipeHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.StoneTypeEntry;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 import com.gregtechceu.gtceu.data.recipe.misc.StoneMachineRecipes;
-import com.tterrag.registrate.providers.*;
-import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -25,6 +18,15 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
 
+import bnjmn21.realrocket.RealRocket;
+import bnjmn21.realrocket.api.RRRegistrate;
+import bnjmn21.realrocket.common.content.LootTables;
+import bnjmn21.realrocket.common.content.Models;
+import bnjmn21.realrocket.util.StonecuttingRecipeHelper;
+import com.tterrag.registrate.providers.*;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
+
 import java.util.function.Consumer;
 
 import static bnjmn21.realrocket.RealRocket.id;
@@ -35,6 +37,7 @@ import static com.gregtechceu.gtceu.api.GTValues.*;
  * Also adds recipes for conversion between the items and GT Ores
  */
 public class PlanetStoneBlockSet {
+
     public final String name;
     public final BlockSetType blockSetType;
 
@@ -142,30 +145,26 @@ public class PlanetStoneBlockSet {
                                 .mapColor(mapColor)
                                 .requiresCorrectToolForDrops()
                                 .strength(3.0F, 3.0F),
-                        RealRocket.id("block/" + name + "_stone")
-                ));
+                        RealRocket.id("block/" + name + "_stone")));
 
         registrate.addRawLang("tagprefix." + name, name_en_us + " %s Ore");
     }
 
     private NonNullBiConsumer<DataGenContext<Block, SlabBlock>, RegistrateBlockstateProvider> slabBlockstate(
-            BlockEntry<Block> base
-    ) {
+                                                                                                             BlockEntry<Block> base) {
         return (ctx, prov) -> {
             ResourceLocation texture = prov.blockTexture(base.get());
             String name = ctx.getId().getPath();
             prov.slabBlock(
-                ctx.getEntry(),
-                prov.models().slab(name, texture, texture, texture),
-                prov.models().slabTop(name + "_top", texture, texture, texture),
-                prov.cubeAll(base.get())
-            );
+                    ctx.getEntry(),
+                    prov.models().slab(name, texture, texture, texture),
+                    prov.models().slabTop(name + "_top", texture, texture, texture),
+                    prov.cubeAll(base.get()));
         };
     }
 
     private NonNullBiConsumer<DataGenContext<Item, BlockItem>, RegistrateItemModelProvider> slabItemModel(
-            BlockEntry<Block> base
-    ) {
+                                                                                                          BlockEntry<Block> base) {
         return (ctx, prov) -> {
             ResourceLocation texture = base.getId().withPrefix("block/");
             String name = ctx.getId().getPath();
@@ -174,46 +173,36 @@ public class PlanetStoneBlockSet {
     }
 
     private NonNullBiConsumer<DataGenContext<Block, StairBlock>, RegistrateBlockstateProvider> stairBlockstate(
-            BlockEntry<Block> base
-    ) {
+                                                                                                               BlockEntry<Block> base) {
         return (ctx, prov) -> prov.stairsBlock(
                 ctx.getEntry(),
-                prov.blockTexture(base.get())
-        );
+                prov.blockTexture(base.get()));
     }
 
     private NonNullBiConsumer<DataGenContext<Block, ButtonBlock>, RegistrateBlockstateProvider> buttonBlockstate(
-            BlockEntry<Block> base
-    ) {
+                                                                                                                 BlockEntry<Block> base) {
         return (ctx, prov) -> prov.buttonBlock(
                 ctx.getEntry(),
-                prov.blockTexture(base.get())
-        );
+                prov.blockTexture(base.get()));
     }
 
     private NonNullBiConsumer<DataGenContext<Item, BlockItem>, RegistrateItemModelProvider> buttonItemModel(
-            BlockEntry<Block> ignoredBase
-    ) {
+                                                                                                            BlockEntry<Block> ignoredBase) {
         return (ctx, prov) -> prov.buttonInventory(
-                ctx.getName(), this.normal.getId().withPrefix("block/")
-        );
+                ctx.getName(), this.normal.getId().withPrefix("block/"));
     }
 
     private NonNullBiConsumer<DataGenContext<Block, WallBlock>, RegistrateBlockstateProvider> wallBlockstate(
-            BlockEntry<Block> base
-    ) {
+                                                                                                             BlockEntry<Block> base) {
         return (ctx, prov) -> prov.wallBlock(
                 ctx.getEntry(),
-                prov.blockTexture(base.get())
-        );
+                prov.blockTexture(base.get()));
     }
 
     private NonNullBiConsumer<DataGenContext<Item, BlockItem>, RegistrateItemModelProvider> wallItemModel(
-            BlockEntry<Block> ignoredBase
-    ) {
+                                                                                                          BlockEntry<Block> ignoredBase) {
         return (ctx, prov) -> prov.wallInventory(
-                ctx.getName(), this.normal.getId().withPrefix("block/")
-        );
+                ctx.getName(), this.normal.getId().withPrefix("block/"));
     }
 
     private void addRecipes(Consumer<FinishedRecipe> consumer) {
@@ -228,20 +217,19 @@ public class PlanetStoneBlockSet {
                         .slab(this.slab.asItem())
                         .stair(this.stair.asItem())
                         .button(this.button.asItem())
-                        .build()
-        );
+                        .build());
         StoneMachineRecipes.registerStoneTypeRecipes(consumer,
                 new StoneTypeEntry.Builder(RealRocket.MOD_ID, this.name + "_cobblestone")
                         .stone(this.cobbled.asItem())
                         .slab(this.cobbledSlab.asItem())
                         .stair(this.cobbledStair.asItem())
                         .wall(this.cobbledWall.asItem())
-                        .build()
-        );
+                        .build());
     }
 
     private void normalCobbledConversionRecipes(Consumer<FinishedRecipe> consumer) {
-        VanillaRecipeHelper.addSmeltingRecipe(consumer, id(this.name + "_cobblestone_smelting"), this.cobbled.asStack(), this.normal.asStack(), 0.0F);
+        VanillaRecipeHelper.addSmeltingRecipe(consumer, id(this.name + "_cobblestone_smelting"), this.cobbled.asStack(),
+                this.normal.asStack(), 0.0F);
         GTRecipeTypes.FORGE_HAMMER_RECIPES.recipeBuilder(id(this.name + "_cobble_forge_hammer"))
                 .inputItems(this.normal.asItem())
                 .outputItems(this.cobbled.asItem())
@@ -271,69 +259,57 @@ public class PlanetStoneBlockSet {
                 consumer,
                 id(this.name + "_stone_slab_stonecutting"),
                 Ingredient.of(this.normal.asItem()),
-                this.slab.asStack(2)
-        );
+                this.slab.asStack(2));
         StonecuttingRecipeHelper.addStonecuttingRecipe(
                 consumer,
                 id(this.name + "_cobblestone_slab_stonecutting"),
                 Ingredient.of(this.cobbled.asItem()),
-                this.cobbledSlab.asStack(2)
-        );
+                this.cobbledSlab.asStack(2));
         StonecuttingRecipeHelper.addStonecuttingRecipe(
                 consumer,
                 id(this.name + "_stone_stair_stonecutting"),
                 Ingredient.of(this.normal.asItem()),
-                this.stair.asStack()
-        );
+                this.stair.asStack());
         StonecuttingRecipeHelper.addStonecuttingRecipe(
                 consumer,
                 id(this.name + "_cobblestone_stair_stonecutting"),
                 Ingredient.of(this.cobbled.asItem()),
-                this.cobbledStair.asStack()
-        );
+                this.cobbledStair.asStack());
         StonecuttingRecipeHelper.addStonecuttingRecipe(
                 consumer,
                 id(this.name + "_cobblestone_wall_stonecutting"),
                 Ingredient.of(this.cobbled.asItem()),
-                this.cobbledWall.asStack()
-        );
+                this.cobbledWall.asStack());
     }
 
     private void craftingRecipes(Consumer<FinishedRecipe> consumer) {
         VanillaRecipeHelper.addShapedRecipe(consumer, id(this.name + "_stone_slab_crafting"),
                 this.slab.asStack(6),
                 "SSS",
-                'S', this.normal.asItem()
-        );
+                'S', this.normal.asItem());
         VanillaRecipeHelper.addShapedRecipe(consumer, id(this.name + "_cobblestone_slab_crafting"),
                 this.cobbledSlab.asStack(6),
                 "SSS",
-                'S', this.cobbled.asItem()
-        );
+                'S', this.cobbled.asItem());
         VanillaRecipeHelper.addShapedRecipe(consumer, id(this.name + "_stone_stair_crafting"),
                 this.stair.asStack(4),
                 "S  ", "SS ", "SSS",
-                'S', this.normal.asItem()
-        );
+                'S', this.normal.asItem());
         VanillaRecipeHelper.addShapedRecipe(consumer, id(this.name + "_cobblestone_stair_crafting"),
                 this.cobbledStair.asStack(4),
                 "S  ", "SS ", "SSS",
-                'S', this.cobbled.asItem()
-        );
+                'S', this.cobbled.asItem());
         VanillaRecipeHelper.addShapedRecipe(consumer, id(this.name + "_cobblestone_stair_crafting"),
                 this.cobbledStair.asStack(4),
                 "S  ", "SS ", "SSS",
-                'S', this.cobbled.asItem()
-        );
+                'S', this.cobbled.asItem());
         VanillaRecipeHelper.addShapedRecipe(consumer, id(this.name + "_cobblestone_wall_crafting"),
                 this.cobbledWall.asStack(6),
                 "SSS", "SSS",
-                'S', this.cobbled.asItem()
-        );
+                'S', this.cobbled.asItem());
         VanillaRecipeHelper.addShapedRecipe(consumer, id(this.name + "_stone_button_crafting"),
                 this.button.asStack(),
                 "S",
-                'S', this.normal.asItem()
-        );
+                'S', this.normal.asItem());
     }
 }

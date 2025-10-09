@@ -1,14 +1,16 @@
 package bnjmn21.realrocket.api.rocket;
 
-import bnjmn21.realrocket.common.data.RRLang;
 import com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
 import com.gregtechceu.gtceu.api.recipe.content.SerializerInteger;
+
 import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+
+import bnjmn21.realrocket.common.data.RRLang;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
  * Thrust in newton
  */
 public class ThrustRecipeCapability extends RecipeCapability<Integer> {
+
     public static ThrustRecipeCapability CAP = new ThrustRecipeCapability();
 
     protected ThrustRecipeCapability() {

@@ -1,21 +1,23 @@
 package bnjmn21.realrocket.common.data;
 
+import net.minecraft.world.entity.MobCategory;
+
 import bnjmn21.realrocket.client.entity_renderer.RocketEntityRenderer;
 import bnjmn21.realrocket.common.entity.RocketEntity;
 import bnjmn21.realrocket.common.entity.SeatEntity;
 import com.tterrag.registrate.util.entry.EntityEntry;
-import net.minecraft.world.entity.MobCategory;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
 public class RREntities {
-    public static EntityEntry<SeatEntity> SEAT = REGISTRATE.<SeatEntity>entity("seat", SeatEntity::new, MobCategory.MISC)
+
+    public static EntityEntry<SeatEntity> SEAT = REGISTRATE
+            .<SeatEntity>entity("seat", SeatEntity::new, MobCategory.MISC)
             .properties(b -> b.setTrackingRange(5)
                     .setUpdateInterval(Integer.MAX_VALUE)
                     .setShouldReceiveVelocityUpdates(false)
                     .fireImmune()
-                    .sized(0.25f, 0.35f)
-            )
+                    .sized(0.25f, 0.35f))
             .renderer(() -> SeatEntity.Render::new)
             .lang("Seat")
             .register();

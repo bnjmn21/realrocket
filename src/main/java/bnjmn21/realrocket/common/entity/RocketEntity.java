@@ -1,11 +1,8 @@
 package bnjmn21.realrocket.common.entity;
 
-import bnjmn21.realrocket.api.gui.EntityUIFactory;
-import bnjmn21.realrocket.api.gui.GuiBuilder;
-import bnjmn21.realrocket.common.data.RREntityDataSerializers;
-import bnjmn21.realrocket.util.serialization.GetName;
 import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -27,16 +24,26 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
 
+import bnjmn21.realrocket.api.gui.EntityUIFactory;
+import bnjmn21.realrocket.api.gui.GuiBuilder;
+import bnjmn21.realrocket.common.data.RREntityDataSerializers;
+import bnjmn21.realrocket.util.serialization.GetName;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class RocketEntity extends Entity implements HasCustomInventoryScreen, IUIHolder, PlayerRideable, IEntityAdditionalSpawnData {
-    public static final EntityDataAccessor<FlightPhase> FLIGHT_PHASE = SynchedEntityData.defineId(RocketEntity.class, RREntityDataSerializers.FLIGHT_PHASE);
-    public static final EntityDataAccessor<BlockPos> AABB_START = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BLOCK_POS);
-    public static final EntityDataAccessor<BlockPos> AABB_END = SynchedEntityData.defineId(RocketEntity.class, EntityDataSerializers.BLOCK_POS);
+public class RocketEntity extends Entity
+                          implements HasCustomInventoryScreen, IUIHolder, PlayerRideable, IEntityAdditionalSpawnData {
+
+    public static final EntityDataAccessor<FlightPhase> FLIGHT_PHASE = SynchedEntityData.defineId(RocketEntity.class,
+            RREntityDataSerializers.FLIGHT_PHASE);
+    public static final EntityDataAccessor<BlockPos> AABB_START = SynchedEntityData.defineId(RocketEntity.class,
+            EntityDataSerializers.BLOCK_POS);
+    public static final EntityDataAccessor<BlockPos> AABB_END = SynchedEntityData.defineId(RocketEntity.class,
+            EntityDataSerializers.BLOCK_POS);
 
     public RocketEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -59,8 +66,7 @@ public class RocketEntity extends Entity implements HasCustomInventoryScreen, IU
         BlockPos end = this.entityData.get(AABB_END);
         return new AABB(
                 pos.x + start.getX(), pos.y + start.getY(), pos.z + start.getZ(),
-                pos.x + end.getX(), pos.y + end.getY(), pos.z + end.getZ()
-        );
+                pos.x + end.getX(), pos.y + end.getY(), pos.z + end.getZ());
     }
 
     @Override
@@ -69,7 +75,6 @@ public class RocketEntity extends Entity implements HasCustomInventoryScreen, IU
         super.refreshDimensions();
         this.setPos(pos);
     }
-
 
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
@@ -82,7 +87,7 @@ public class RocketEntity extends Entity implements HasCustomInventoryScreen, IU
                 return InteractionResult.CONSUME;
             }
 
-//            player.startRiding(this);
+            // player.startRiding(this);
             return result;
         }
 
@@ -112,6 +117,7 @@ public class RocketEntity extends Entity implements HasCustomInventoryScreen, IU
     }
 
     public enum FlightPhase implements GetName {
+
         STOPPED("stopped"),
         LAUNCHING("launching"),
         LANDING("landing");
@@ -173,15 +179,10 @@ public class RocketEntity extends Entity implements HasCustomInventoryScreen, IU
     }
 
     @Override
-    public void writeSpawnData(FriendlyByteBuf arg) {
-
-    }
+    public void writeSpawnData(FriendlyByteBuf arg) {}
 
     @Override
-    public void readSpawnData(FriendlyByteBuf arg) {
-
-    }
-
+    public void readSpawnData(FriendlyByteBuf arg) {}
 
     @Override
     public boolean isInvalid() {

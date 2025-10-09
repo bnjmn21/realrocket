@@ -1,7 +1,5 @@
 package bnjmn21.realrocket.common.entity;
 
-import bnjmn21.realrocket.common.block.SeatBlock;
-import bnjmn21.realrocket.common.data.RREntities;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -22,11 +20,15 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
 
+import bnjmn21.realrocket.common.block.SeatBlock;
+import bnjmn21.realrocket.common.data.RREntities;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
+
     public static double RIDE_HEIGHT = 5.0 / 16.0;
 
     public SeatEntity(EntityType<?> entityType, Level level) {
@@ -115,7 +117,7 @@ public class SeatEntity extends Entity implements IEntityAdditionalSpawnData {
 
         @Override
         public ResourceLocation getTextureLocation(SeatEntity p_110775_1_) {
-            //noinspection DataFlowIssue
+            // noinspection DataFlowIssue
             return null;
         }
     }

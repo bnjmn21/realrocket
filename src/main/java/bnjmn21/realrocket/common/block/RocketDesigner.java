@@ -1,7 +1,7 @@
 package bnjmn21.realrocket.common.block;
 
-import bnjmn21.realrocket.common.data.RRBlocks;
 import com.lowdragmc.lowdraglib.syncdata.blockentity.IAutoPersistBlockEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -21,15 +21,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+
+import bnjmn21.realrocket.common.data.RRBlocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class RocketDesigner extends BaseEntityBlock {
-    static DirectionProperty FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
+
+    static DirectionProperty FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.EAST,
+            Direction.SOUTH, Direction.WEST);
 
     public RocketDesigner(Properties properties) {
         super(properties);
@@ -40,7 +45,6 @@ public class RocketDesigner extends BaseEntityBlock {
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new RocketDesignerEntity(RRBlocks.ROCKET_DESIGNER_BE.get(), pos, state);
     }
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -54,7 +58,7 @@ public class RocketDesigner extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        //noinspection OptionalGetWithoutIsPresent
+        // noinspection OptionalGetWithoutIsPresent
         Direction dir = Arrays.stream(context.getNearestLookingDirections())
                 .filter(d -> d == Direction.NORTH || d == Direction.EAST || d == Direction.SOUTH || d == Direction.WEST)
                 .findFirst().get();
@@ -62,7 +66,8 @@ public class RocketDesigner extends BaseEntityBlock {
     }
 
     @Override
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity player, ItemStack pStack) {
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity player,
+                            ItemStack pStack) {
         if (!pLevel.isClientSide) {
             if (pLevel.getBlockEntity(pPos) instanceof IAutoPersistBlockEntity dropSave) {
                 CompoundTag tag = pStack.getTag();
@@ -75,7 +80,8 @@ public class RocketDesigner extends BaseEntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
+                                          InteractionHand hand, BlockHitResult hit) {
         if (level.getBlockEntity(pos) instanceof RocketDesignerEntity be) {
             be.onPlayerUse(player);
         } else {

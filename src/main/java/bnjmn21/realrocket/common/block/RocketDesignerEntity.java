@@ -1,11 +1,5 @@
 package bnjmn21.realrocket.common.block;
 
-import bnjmn21.realrocket.api.RRRegistrate;
-import bnjmn21.realrocket.api.celestial_body.VirtualLevelKey;
-import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
-import bnjmn21.realrocket.api.gui.GuiBuilder;
-import bnjmn21.realrocket.api.rocket.FlightTarget;
-import bnjmn21.realrocket.api.rocket.RocketLogic;
 import com.lowdragmc.lowdraglib.gui.factory.BlockEntityUIFactory;
 import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
@@ -17,6 +11,7 @@ import com.lowdragmc.lowdraglib.syncdata.blockentity.IAsyncAutoSyncBlockEntity;
 import com.lowdragmc.lowdraglib.syncdata.blockentity.IAutoPersistBlockEntity;
 import com.lowdragmc.lowdraglib.syncdata.field.FieldManagedStorage;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -28,13 +23,22 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import bnjmn21.realrocket.api.RRRegistrate;
+import bnjmn21.realrocket.api.celestial_body.VirtualLevelKey;
+import bnjmn21.realrocket.api.celestial_body.VirtualLevels;
+import bnjmn21.realrocket.api.gui.GuiBuilder;
+import bnjmn21.realrocket.api.rocket.FlightTarget;
+import bnjmn21.realrocket.api.rocket.RocketLogic;
+
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
-public class RocketDesignerEntity extends BlockEntity implements IAsyncAutoSyncBlockEntity, IAutoPersistBlockEntity, IManaged, IUIHolder.BlockEntityUI {
+public class RocketDesignerEntity extends BlockEntity implements IAsyncAutoSyncBlockEntity, IAutoPersistBlockEntity,
+                                  IManaged, IUIHolder.BlockEntityUI {
+
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(RocketDesignerEntity.class);
     private final FieldManagedStorage syncStorage = new FieldManagedStorage(this);
 
@@ -48,10 +52,14 @@ public class RocketDesignerEntity extends BlockEntity implements IAsyncAutoSyncB
 
     static final MutableComponent FROM = REGISTRATE.addPrefixedLang("from", "From: ");
     static final MutableComponent TO = REGISTRATE.addPrefixedLang("to", "To: ");
-    static final RRRegistrate.Translatable PLANET_TIER = REGISTRATE.addPrefixedLangTemplate("planet_tier", " (Planet Tier: %s)", c -> c.withStyle(ChatFormatting.GRAY));
-    static final RRRegistrate.Translatable ROCKET_TIER = REGISTRATE.addPrefixedLangTemplate("rocket_tier", "Rocket Tier: %s", c -> c);
-    static final MutableComponent TIER_DEBUFF = REGISTRATE.addPrefixedLang("tier_debuff", "Due to needing to travel through %s's atmosphere, the required rocket tier is increased by 1");
-    static final MutableComponent SELECT_DIFF_DESTINATION = REGISTRATE.addPrefixedLang("select_diff_destination", "Select different destination").withStyle(ChatFormatting.RED);
+    static final RRRegistrate.Translatable PLANET_TIER = REGISTRATE.addPrefixedLangTemplate("planet_tier",
+            " (Planet Tier: %s)", c -> c.withStyle(ChatFormatting.GRAY));
+    static final RRRegistrate.Translatable ROCKET_TIER = REGISTRATE.addPrefixedLangTemplate("rocket_tier",
+            "Rocket Tier: %s", c -> c);
+    static final MutableComponent TIER_DEBUFF = REGISTRATE.addPrefixedLang("tier_debuff",
+            "Due to needing to travel through %s's atmosphere, the required rocket tier is increased by 1");
+    static final MutableComponent SELECT_DIFF_DESTINATION = REGISTRATE
+            .addPrefixedLang("select_diff_destination", "Select different destination").withStyle(ChatFormatting.RED);
     static final MutableComponent REQUIRED_ROCKET = REGISTRATE.addPrefixedLang("required_rocket", "Required rocket:");
 
     @Override
@@ -113,13 +121,13 @@ public class RocketDesignerEntity extends BlockEntity implements IAsyncAutoSyncB
         });
     }
 
-    static void levelSelector(GuiBuilder ui, Player player, VirtualLevelKey selected, Consumer<VirtualLevelKey> update) {
+    static void levelSelector(GuiBuilder ui, Player player, VirtualLevelKey selected,
+                              Consumer<VirtualLevelKey> update) {
         Set<VirtualLevelKey> discoveredLevels = VirtualLevels.discoveredLevels(player);
         SelectorWidget selectorWidget = ui.select(
                 100,
                 discoveredLevels.stream().map(lvl -> lvl.name().getString()).toList(),
-                selected.name().getString()
-        );
+                selected.name().getString());
         selectorWidget.setOnChanged(newStr -> {
             VirtualLevelKey result = discoveredLevels.stream()
                     .filter(lvl -> lvl.name().getString().equals(newStr))
