@@ -8,11 +8,13 @@ import bnjmn21.realrocket.api.rocket.Seat;
 import bnjmn21.realrocket.api.units.Unit;
 import bnjmn21.realrocket.api.units.Units;
 
+import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.registry.GTRegistry;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.ModLoader;
 
 public class RRRegistries {
 

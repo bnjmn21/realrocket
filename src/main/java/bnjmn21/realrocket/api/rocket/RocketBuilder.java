@@ -1,11 +1,13 @@
 package bnjmn21.realrocket.api.rocket;
 
+import bnjmn21.realrocket.api.RRRegistries;
 import bnjmn21.realrocket.api.units.Mass;
 import bnjmn21.realrocket.common.data.RRLang;
 
 import net.minecraft.FieldsAreNonnullByDefault;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -27,15 +29,18 @@ public class RocketBuilder {
     Vec3 ct = Vec3.ZERO;
     @Nullable
     Engine engineType;
-    BlockPos.MutableBlockPos aabbStart = new BlockPos.MutableBlockPos(0, 0, 0);
-    BlockPos.MutableBlockPos aabbEnd = new BlockPos.MutableBlockPos(0, 0, 0);
+    BlockPos.MutableBlockPos aabbStart = new BlockPos.MutableBlockPos(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+    BlockPos.MutableBlockPos aabbEnd = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
     @Nullable
     FlightComputer flightComputer;
     ArrayList<Vec3> seats = new ArrayList<>();
 
-    RocketBuilder() {}
+    public RocketBuilder() {}
 
     public void addBlock(BlockPos pos, BlockState block) throws AddError {
+        if (block.isAir()) {
+            return;
+        }
         blocks.add(new PositionedBlockState(pos, block));
         updateAabb(pos);
         if (block.getBlock() instanceof BlockMass blockMass) {
@@ -58,18 +63,24 @@ public class RocketBuilder {
                 throw new AddError(RRLang.MULTIPLE_FLIGHT_COMPUTERS);
             }
         }
+        @SuppressWarnings("OptionalGetWithoutIsPresent")
+        Seat seat = RRRegistries.SEATS.get(block.getBlockHolder().unwrapKey().get().location());
+        if (seat != null) {
+            seats.add(new Vec3(pos.getX(), pos.getY(), pos.getZ()).add(seat.sitPos()));
+        }
     }
 
     private void addMass(BlockPos pos, Mass mass) {
-        if (Mass.Kilogram.get(this.mass) == 0) {
+        double blockMass = Mass.Kilogram.get(mass);
+        if (blockMass == 0) {
             this.mass = mass;
             this.cg = pos.getCenter();
         } else {
-            double preMass = Mass.Kilogram.get(mass);
+            double preMass = Mass.Kilogram.get(this.mass);
             this.mass = this.mass.add(mass);
             double postMassInv = 1.0 / Mass.Kilogram.get(this.mass);
             this.cg = this.cg.multiply(preMass, preMass, preMass)
-                    .add(pos.getCenter())
+                    .add(pos.getCenter().multiply(blockMass, blockMass, blockMass))
                     .multiply(postMassInv, postMassInv, postMassInv);
         }
     }

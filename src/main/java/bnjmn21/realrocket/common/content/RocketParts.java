@@ -10,6 +10,7 @@ import bnjmn21.realrocket.common.data.RRRecipeTypes;
 import bnjmn21.realrocket.common.data.RRTags;
 import bnjmn21.realrocket.common.entity.SeatEntity;
 
+import bnjmn21.realrocket.integration.create.CreateIntegration;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 
 import net.minecraft.ChatFormatting;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoader;
 
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
@@ -84,5 +86,9 @@ public class RocketParts {
 
         ModLoader.get().postEvent(new GTCEuAPI.RegisterEvent<>(RRRegistries.SEATS, Seat.class));
         RRRegistries.SEATS.register(SEAT.getId(), new Seat(new Vec3(0, SeatEntity.RIDE_HEIGHT, 0)));
+        if (CreateIntegration.shouldRun()) {
+            CreateIntegration.registerSeats();
+        }
+        RRRegistries.SEATS.freeze();
     }
 }

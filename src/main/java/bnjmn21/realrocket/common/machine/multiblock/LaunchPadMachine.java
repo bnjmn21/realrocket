@@ -1,5 +1,6 @@
 package bnjmn21.realrocket.common.machine.multiblock;
 
+import bnjmn21.realrocket.api.rocket.RocketBuilder;
 import bnjmn21.realrocket.common.data.RRBlocks;
 import bnjmn21.realrocket.common.data.RRTags;
 import bnjmn21.realrocket.util.PatternBuilder;
@@ -21,21 +22,28 @@ import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static bnjmn21.realrocket.RealRocket.LOGGER;
 import static bnjmn21.realrocket.api.RRRegistries.REGISTRATE;
 
 public class LaunchPadMachine extends MultiblockControllerMachine implements IDisplayUIMachine {
@@ -97,6 +105,40 @@ public class LaunchPadMachine extends MultiblockControllerMachine implements IDi
         // textList.add(ComponentPanelWidget.withButton(
         // REGISTRATE.addPrefixedLang("build", "")
         // .withStyle(ChatFormatting.GREEN), "build_rocket"));
+    }
+
+    @Override
+    public InteractionResult tryToOpenUI(Player player, InteractionHand hand, BlockHitResult hit) {
+        RocketBuilder rocket = scanRocket();
+        return IDisplayUIMachine.super.tryToOpenUI(player, hand, hit);
+    }
+
+    public @Nullable RocketBuilder scanRocket() {
+        updateStructureDimensions();
+
+        Direction front = getFrontFacing();
+        Direction back = front.getOpposite();
+        Direction right = front.getClockWise();
+
+        Level level = getLevel();
+        if (level == null) {
+            LOGGER.error("Level was null while scanning rocket");
+            return null;
+        }
+
+        RocketBuilder builder = new RocketBuilder();
+        for (int x = 0; x < (this.halfXSize * 2 + 1); x++) {
+            for (int y = 0; y < this.ySize; y++) {
+                for (int h = 0; h < this.height; h++) {
+                    BlockPos pos = getPos().relative(right, x - this.halfXSize)
+                            .relative(back, y + 1)
+                            .relative(Direction.UP, h + 1);
+                    builder.addBlock(new BlockPos(x, h, y), level.getBlockState(pos));
+                }
+            }
+        }
+
+        return builder;
     }
 
     /**
